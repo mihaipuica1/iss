@@ -12,7 +12,7 @@ create table QUALIFIER
 
 create table Program
 (
-    id smallint primary key,
+    id smallint GENERATED ALWAYS AS IDENTITY primary key,
     interval text,
     abstract_deadline date,
     proposal_deadline date,
@@ -21,7 +21,7 @@ create table Program
 
 create table Location
 (
-    id smallint primary key,
+    id smallint GENERATED ALWAYS AS IDENTITY primary key,
     country text,
     city text,
     weather text
@@ -29,7 +29,7 @@ create table Location
 
 create table Event
 (
-    id smallint primary key,
+    id smallint GENERATED ALWAYS AS IDENTITY primary key,
     program_id smallint references Program(id),
     location_id smallint references Location(id),
     name text
@@ -37,7 +37,7 @@ create table Event
 
 create table Proposal
 (
-    id smallint primary key,
+    id smallint GENERATED ALWAYS AS IDENTITY primary key,
     title text,
     keywords text,
     topics text,
@@ -59,7 +59,7 @@ create table "user"
 
 create table Recommendation
 (
-    id smallint primary key,
+    id smallint GENERATED ALWAYS AS IDENTITY primary key,
     proposal_id smallint references Proposal(id),
     email text,
     comment text
@@ -79,7 +79,7 @@ create table User_Event
 
 create table Section
 (
-    id smallint primary key,
+    id smallint GENERATED ALWAYS AS IDENTITY primary key,
     event_id smallint references Event(id),
     supervisor_id text,
     name text
