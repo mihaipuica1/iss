@@ -1,0 +1,94 @@
+create table QUALIFIER
+(
+  id smallint primary key,
+  qualifier text check(qualifier in ('Strong accept',
+                                     'Accept',
+                                     'Weak accept',
+                                     'Borderline paper',
+                                     'Weak reject',
+                                     'Reject',
+                                     'Strong reject')) unique
+);
+
+create table Program
+(
+    id smallint primary key,
+    interval text,
+    abstract_deadline date,
+    proposal_deadline date,
+    bidding_deadline date
+);
+
+create table Location
+(
+    id smallint primary key,
+    country text,
+    city text,
+    weather text
+);
+
+create table Event
+(
+    id smallint primary key,
+    program_id smallint references Program(id),
+    location_id smallint references Location(id),
+    name text
+);
+
+create table Proposal
+(
+    id smallint primary key,
+    title text,
+    keywords text,
+    topics text,
+    content text
+);
+
+create table Proposal_Qualifier
+(
+    proposal_id smallint references Proposal(id),
+    qualifier_id smallint references QUALIFIER(id)
+);
+
+create table "user"
+(
+    email text primary key,
+    section_id smallint,
+    role text check(role in ('participant', 'speaker', 'program_committee'))
+);
+
+create table Recommendation
+(
+    id smallint primary key,
+    proposal_id smallint references Proposal(id),
+    email text,
+    comment text
+);
+
+create table User_Proposal
+(
+    email text references "user"(email),
+    proposal_id smallint references Proposal(id)
+);
+
+create table User_Event
+(
+    event_id smallint references Event(id),
+    email text references "user"(email)
+);
+
+create table Section
+(
+    id smallint primary key,
+    event_id smallint references Event(id),
+    supervisor_id text,
+    name text
+);
+
+ALTER TABLE "user"
+    add foreign key (section_id) references Section(id)
+        deferrable initially deferred;
+
+ALTER TABLE Section
+    add foreign key (supervisor_id) REFERENCES "user"(email)
+        deferrable initially deferred;
