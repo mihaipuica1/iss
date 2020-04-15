@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -12,8 +14,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "proposal")
-public class PaperEntity {
+@Entity(name = "conference")
+public class ConferenceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +25,15 @@ public class PaperEntity {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "content")
-    private String content;
+    @Column(name = "date")
+    private Date date;
 
-    @OneToMany(mappedBy = "paper")
-    private List<RecommendationEntity> recommendations;
+    @Column(name = "deadline")
+    private Date deadline;
 
+    @Column(name = "callforpapers")
+    private Boolean callForPapers;
+
+    //@OneToMany(mappedBy = "section")
+    //private List<SectionEntity> sections;
 }

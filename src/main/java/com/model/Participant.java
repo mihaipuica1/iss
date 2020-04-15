@@ -5,12 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Proposal {
+public class Participant {
     private int id;
-    private String title;
-    private String content;
+    private String name;
+    private String email;
+    private String userName;
+    private String password;
+    private Boolean isAuthenticated;
+
 }

@@ -1,0 +1,19 @@
+Stefan:
+-participant
+-author
+
+Rares:
+-comiteemember
+-conference
+
+
+de facut:
+setup pt baza de date
+mapper
+repo
+resources
+
+
+pt verificare tabel: http://localhost:8080/api/proposals
+
+swagger: http://localhost:8080/apidoc/#/
