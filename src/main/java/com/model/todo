@@ -1,7 +1,3 @@
-Stefan:
--participant
--author
-
 Rares:
 -comiteemember
 -conference
@@ -17,3 +13,9 @@ resources
 pt verificare tabel: http://localhost:8080/api/proposals
 
 swagger: http://localhost:8080/apidoc/#/
+
+Stefan:-am facut repo si controller pentru autor
+-schema bazei de date nu se potriveste cu clasele
+-ce repouri si controllere ne trebuie mai exact
+-cum se reprezinta relatiile dintre tabele in entities
+-la participant nu cred ca trebuie tabel si repo

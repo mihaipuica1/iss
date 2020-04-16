@@ -1,13 +1,13 @@
 create table QUALIFIER
 (
-  id smallint primary key,
-  qualifier text check(qualifier in ('Strong accept',
-                                     'Accept',
-                                     'Weak accept',
-                                     'Borderline paper',
-                                     'Weak reject',
-                                     'Reject',
-                                     'Strong reject')) unique
+    id smallint primary key,
+    qualifier text check(qualifier in ('Strong accept',
+                                       'Accept',
+                                       'Weak accept',
+                                       'Borderline paper',
+                                       'Weak reject',
+                                       'Reject',
+                                       'Strong reject')) unique
 );
 
 create table Program
@@ -92,3 +92,14 @@ ALTER TABLE "user"
 ALTER TABLE Section
     add foreign key (supervisor_id) REFERENCES "user"(email)
         deferrable initially deferred;
+
+create table Author
+(
+    id smallint GENERATED ALWAYS AS IDENTITY primary key,
+    name text,
+    email text,
+    userName text,
+    password text,
+    isAuthenticated boolean,
+    section text
+);
