@@ -33,7 +33,7 @@ public class JPAConfig {
 
        config.setJdbcUrl("jdbc:postgresql://localhost:5432/test_iss_database");
        config.setUsername("postgres");
-       config.setPassword("parola");
+       config.setPassword("admin");
 
        return new HikariDataSource(config);
    }
