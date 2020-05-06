@@ -1,0 +1,32 @@
+<div class="card my-5">
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit()" #paperForm="ngForm">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" [(ngModel)]="paper.title"
+               class="form-control"
+               id="title"
+               name="title"
+               placeholder="Enter the title"
+               required #title="ngModel">
+      </div>
+      <div *ngIf="title.invalid && title.touched" class="alert alert-danger">Title is required</div>
+      
+      <div class="form-group">
+        <label for="content">Content</label>
+        <input type="text" [(ngModel)]="paper.content"
+               class="form-control"
+               id="content"
+               name="content"
+               placeholder="Content"
+               required #content="ngModel">
+        <div *ngIf="content.invalid && content.touched" class="alert alert-danger">Content is required</div>
+      </div>
+
+
+      <button type="submit" [disabled]="!paperForm.form.valid"
+              class="btn btn-info">Upload</button>
+
+    </form>
+  </div>
+</div>
