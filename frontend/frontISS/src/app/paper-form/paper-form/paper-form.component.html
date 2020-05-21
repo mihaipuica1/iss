@@ -11,7 +11,7 @@
                required #title="ngModel">
       </div>
       <div *ngIf="title.invalid && title.touched" class="alert alert-danger">Title is required</div>
-      
+
       <div class="form-group">
         <label for="content">Content</label>
         <input type="text" [(ngModel)]="paper.content"
@@ -21,8 +21,13 @@
                placeholder="Content"
                required #content="ngModel">
         <div *ngIf="content.invalid && content.touched" class="alert alert-danger">Content is required</div>
+
       </div>
 
+        <input type="file" id="myFile" name="filename">
+     
+        <input type="submit">
+     <hr>
 
       <button type="submit" [disabled]="!paperForm.form.valid"
               class="btn btn-info">Upload</button>
