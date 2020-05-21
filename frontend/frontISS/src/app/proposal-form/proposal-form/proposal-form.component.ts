@@ -10,14 +10,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProposalFormComponent {
 
   proposal: Proposal;
+
   constructor(private route: ActivatedRoute,
               private router: Router,
-             ) {
+  ) {
     this.proposal = new Proposal();
-             }
-  
-  onSubmit(){
-
   }
+
+  onSubmit() {  }
 
 }

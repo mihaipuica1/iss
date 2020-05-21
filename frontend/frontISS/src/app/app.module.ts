@@ -10,20 +10,24 @@ import {HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { PaperFormComponent } from './paper-form/paper-form/paper-form.component';
 import { ProposalFormComponent } from './proposal-form/proposal-form/proposal-form.component';
+import {SpeakerAppRoutingModule} from './app-routing/speaker-app-routing.module';
+import {SpeakerComponent} from './speaker.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     PaperFormComponent,
-    ProposalFormComponent
+    ProposalFormComponent,
+    SpeakerComponent
   ],
   imports: [
     BrowserModule,
     RouterModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    SpeakerAppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
