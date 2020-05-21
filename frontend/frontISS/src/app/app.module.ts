@@ -10,6 +10,8 @@ import {HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { PaperFormComponent } from './paper-form/paper-form/paper-form.component';
 import { ProposalFormComponent } from './proposal-form/proposal-form/proposal-form.component';
+import {AuthorComponent} from './speaker/author.component';
+import {SpeakerRoutingModule} from './speaker/author-routing.module';
 
 
 
@@ -17,7 +19,8 @@ import { ProposalFormComponent } from './proposal-form/proposal-form/proposal-fo
   declarations: [
     AppComponent,
     PaperFormComponent,
-    ProposalFormComponent
+    ProposalFormComponent,
+    AuthorComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,7 @@ import { ProposalFormComponent } from './proposal-form/proposal-form/proposal-fo
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-
+    SpeakerRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
