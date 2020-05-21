@@ -1,14 +1,24 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 
 import {RouterModule, Routes} from '@angular/router';
-import { ProposalFormComponent } from '../proposal-form/proposal-form/proposal-form.component';
-import { PaperFormComponent } from '../paper-form/paper-form/paper-form.component';
+import { ProposalFormComponent } from '../speaker/proposal-form/proposal-form.component';
+import { PaperFormComponent } from '../speaker/paper-form/paper-form.component';
 import {AuthorComponent} from '../speaker/author.component';
 
 
 const routes: Routes = [
-  {path: 'speaker', component: AuthorComponent }
+  {path: 'speaker', component: AuthorComponent , children:[
 
+    {
+      path: 'submitProposal', component: ProposalFormComponent
+    },
+  
+    { 
+      path: 'uploadFullPaper', component: PaperFormComponent 
+    }
+  ]
+
+  }
 ];
 
 @NgModule({
