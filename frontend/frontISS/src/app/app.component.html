@@ -1,15 +1,41 @@
-<div class="nav">
-   <ul class="text-center list-inline py-3">
-            <li class="nav">
-              <a routerLink="/speaker" class="btn btn-info"> Speaker/Author</a>
-
-              <a routerLink="/reviewer" class="btn btn-info"> Reviewer</a>
-              <a routerLink="/conferenceChair" class="btn btn-info"> Conference Chair</a>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card bg-dark my-5">
+        <div class="card-body">
+          <ul class="text-center list-inline py-3">
+            
+            <li class="list-inline-item">
+              <button #myModal data-toggle="modal" data-target="#myModal" class="btn btn-info">Login as a different User</button>
 
             </li>
 
-   </ul>
+            <div #myModal class="modal fade" id="myModal" data-toggle="modal" data-target="#myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <li class="nav">
+                      <a routerLink="/speaker" data-dismiss="modal" class="btn btn-info"> Speaker/Author</a>
+        
+                      <a routerLink="/reviewer" data-dismiss="modal"  class="btn btn-info"> Reviewer</a>
+                      <a routerLink="/conferenceChair" data-dismiss="modal" class="btn btn-info"> Conference Chair</a>
+        
+                    </li>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-      <router-outlet></router-outlet>
-
+          </ul>
+        </div>
+      </div>
+        <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>
