@@ -13,10 +13,10 @@ export class PaperFormComponent {
   constructor(private route: ActivatedRoute,
               private router: Router,
              ) {
-    this.paper = new Paper();
+    this.paper = new Paper('1', 'a', 'a');
              }
-  
-  onSubmit(){
+
+  onSubmit() {
 
   }
 }

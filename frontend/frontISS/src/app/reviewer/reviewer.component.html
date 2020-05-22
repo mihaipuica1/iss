@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card bg-dark my-5">
+        <div class="card-body">
+          <h2 class="card-title text-center text-white py-3">{{ title }}</h2>
+          <h3 style="text-align: center; color: gray">{{title2}}</h3>
+          <table class="table table-bordered table-striped">
+
+            <tr>
+              <th scope="col" style="color: gray;">Id</th>
+              <th scope="col" style="color: gray;">Title</th>
+              <th scope="col" style="color: gray;">Content</th>
+
+            </tr>
+
+            <tbody>
+            <tr *ngFor="let paper of papers">
+              <td>{{ paper.id }}</td>
+              <td>{{ paper.title }}</td>
+              <td>{{paper.content}}</td>
+              <td>
+                <button style="background-color: gray">Accept</button>
+              </td>
+              <td>
+                <button style="background-color: gray">Refuse</button>
+              </td>
+              <td>
+                <div class="dropdown">
+
+                  <select id="qualifier" style="background-color: gray" >
+                    <option value="Strong Accept"> Strong Accept</option>
+                    <option value="Accept">Accept</option>
+                    <option value="Weak Accept">Weak Accept</option>
+                    <option value="Borderline Paper">Borderline Paper</option>
+                    <option value="Weak Reject">Weak Reject</option>
+                    <option value="Reject">Reject</option>
+                    <option value="Strong Reject">Strong Reject</option>
+                  </select>
+
+                </div>
+
+
+              </td>
+
+
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

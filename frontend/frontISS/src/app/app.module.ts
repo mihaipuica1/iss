@@ -11,6 +11,8 @@ import { AppComponent } from './app.component';
 import { PaperFormComponent } from './speaker/paper-form/paper-form.component';
 import { ProposalFormComponent } from './speaker/proposal-form/proposal-form.component';
 import {AuthorComponent} from './speaker/author.component';
+import { ConferenceChairComponent } from './conference-chair/conference-chair.component';
+import { ReviewerComponent } from './reviewer/reviewer.component';
 
 
 
@@ -19,7 +21,9 @@ import {AuthorComponent} from './speaker/author.component';
     AppComponent,
     PaperFormComponent,
     ProposalFormComponent,
-    AuthorComponent
+    AuthorComponent,
+    ConferenceChairComponent,
+    ReviewerComponent
   ],
   imports: [
     BrowserModule,
