@@ -6,9 +6,13 @@ import { PaperFormComponent } from '../speaker/paper-form/paper-form.component';
 import {AuthorComponent} from '../speaker/author.component';
 import {ConferenceChairComponent} from '../conference-chair/conference-chair.component';
 import {ReviewerComponent} from '../reviewer/reviewer.component';
+import { AppComponent } from '../app.component';
 
 
 const routes: Routes = [
+{
+  path:'#', redirectTo:'', pathMatch:'full'
+},
   {path: 'speaker', component: AuthorComponent , children:[
 
     {

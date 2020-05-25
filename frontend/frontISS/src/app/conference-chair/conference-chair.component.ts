@@ -9,6 +9,7 @@ import {PcMember} from '../models/pcmember';
 export class ConferenceChairComponent implements OnInit {
   title: String;
   title2: String;
+  
   pcMembers: PcMember[];
   constructor() {
     this.title = 'Conference Chair';

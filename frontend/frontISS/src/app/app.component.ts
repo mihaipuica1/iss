@@ -7,14 +7,14 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title: string;
-  @ViewChild('myModal') myModal: ElementRef;
+  //@ViewChild('myModal') myModal: ElementRef;
   constructor() {
     this.title = 'Users';
   }
 
   ngOnInit() {
 
-      this.myModal.nativeElement.click();
+      //this.myModal.nativeElement.click();
 
   }
 }
