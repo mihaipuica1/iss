@@ -1,7 +1,5 @@
 package com.entities;
 
-import com.model.Qualifier;
-import com.vladmihalcea.hibernate.type.array.EnumArrayType;
 import com.vladmihalcea.hibernate.type.array.ListArrayType;
 import lombok.*;
 import org.hibernate.annotations.Type;
@@ -18,13 +16,6 @@ import java.util.*;
 @AllArgsConstructor
 @Entity(name = "paper")
 @TypeDefs({
-        @TypeDef(
-                typeClass = EnumArrayType.class,
-                defaultForType = Qualifier[].class,
-                parameters = {
-                        @org.hibernate.annotations.Parameter(name = EnumArrayType.SQL_ARRAY_TYPE, value = "qualifier")
-                }
-        ),
         @TypeDef(
                 name = "list-array",
                 typeClass = ListArrayType.class
@@ -43,11 +34,10 @@ public class PaperEntity {
     @Column(name = "content")
     private String content;
 
-//    @OneToMany(mappedBy = "paper", fetch = FetchType.LAZY)
-//    private List<EvaluationEntity> reviews;
+    @OneToMany(mappedBy = "paper", fetch = FetchType.LAZY)
+    private List<EvaluationEntity> reviews;
 
-    @Column(name = "qualifiers", columnDefinition = "qualifiers")
-    private Qualifier[] qualifiers;
+
 
     @Type(type = "list-array")
     @Column(name = "topics")
@@ -62,13 +52,13 @@ public class PaperEntity {
             joinColumns = {@JoinColumn(name = "paper_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "email", referencedColumnName = "email")})
     @MapKeyJoinColumn(name = "bid_id")
-    private Map<BidEntity, ComiteeMemberEntity> bidders;
+    private Map<BidEntity, CommitteeMemberEntity> bidders;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "section_id")
     private SectionEntity section;
 
-    public Map<BidEntity, ComiteeMemberEntity> getBids() {
+    public Map<BidEntity, CommitteeMemberEntity> getBids() {
         return bidders;
     }
 

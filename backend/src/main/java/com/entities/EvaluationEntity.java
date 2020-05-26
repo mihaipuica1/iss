@@ -29,7 +29,7 @@ public class EvaluationEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("reviewer")
-    private ComiteeMemberEntity reviewer;
+    private CommitteeMemberEntity reviewer;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("paperId")
@@ -44,7 +44,7 @@ public class EvaluationEntity {
     @JoinColumn(name = "recommendation_id")
     private RecommendationEntity recommendation;
 
-    public EvaluationEntity(Qualifier qualifier, ComiteeMemberEntity reviewer, RecommendationEntity recommendation, PaperEntity paper) {
+    public EvaluationEntity(Qualifier qualifier, CommitteeMemberEntity reviewer, RecommendationEntity recommendation, PaperEntity paper) {
         this.qualifier = qualifier;
         this.reviewer = reviewer;
         this.recommendation = recommendation;
