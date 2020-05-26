@@ -55,12 +55,7 @@ public class PaperService {
         return PaperMapper.entityToPaper(entity);
     }
 
-    @Transactional
-    public PaperJson findById(int id) {
 
-        PaperEntity entity = paperRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Paper with id " + id + " not found"));
-        return PaperMapper.entityToPaper(entity);
-    }
 
     @Transactional
     public List<PaperJson> getAll() {
