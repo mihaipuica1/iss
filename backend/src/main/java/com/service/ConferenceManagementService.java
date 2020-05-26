@@ -4,13 +4,15 @@ package com.service;
 import com.entities.EventEntity;
 import com.entities.ProgramEntity;
 import com.entities.SectionEntity;
+import com.input.EventInput;
+import com.input.ProgramInput;
 import com.mapper.EventMapper;
 import com.mapper.LocationMapper;
 import com.mapper.ProgramMapper;
 import com.mapper.SectionMapper;
-import com.model.Event;
-import com.model.Program;
-import com.model.Section;
+import com.model.EventJson;
+import com.model.ProgramJson;
+import com.model.SectionJson;
 import com.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,7 +45,7 @@ public class ConferenceManagementService {
     // ------------------------------  Event management ------------------------------
 
     @Transactional
-    public Event addEvent(Event event) {
+    public EventJson addEvent(EventInput event) {
         EventEntity entity = EventMapper.eventToEntity(event);
         entity.setProgram(ProgramMapper.programToEntity(event.getProgram()));
         entity.setLocation(LocationMapper.locationToEntity(event.getLocation()));
@@ -59,13 +61,13 @@ public class ConferenceManagementService {
     }
 
     @Transactional
-    public Event findEventById(int id) {
+    public EventJson findEventById(int id) {
         EventEntity existingEvent = eventRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Event not found!"));
         return EventMapper.entityToEvent(existingEvent);
     }
 
     @Transactional
-    public Event updateEventProgram(int eventId, Program program) {
+    public EventJson updateEventProgram(int eventId, ProgramInput program) {
         EventEntity existingEvent = eventRepository.findById(eventId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Event not found!"));
         ProgramEntity existingProgram = existingEvent.getProgram();
         ProgramMapper.updateProgram(existingProgram, program);
@@ -76,7 +78,7 @@ public class ConferenceManagementService {
     }
 
     @Transactional
-    public List<Event> getAllEvents() {
+    public List<EventJson> getAllEvents() {
         return eventRepository.findAll().stream().map(EventMapper::entityToEvent).collect(Collectors.toList());
     }
 
@@ -87,7 +89,7 @@ public class ConferenceManagementService {
 
 
     @Transactional
-    public Program changeProposalDeadline(int eventId, String newDate) {
+    public ProgramJson changeProposalDeadline(int eventId, String newDate) {
 
         EventEntity event = eventRepository.findById(eventId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Event not found!"));
         ProgramEntity program = event.getProgram();
@@ -102,7 +104,7 @@ public class ConferenceManagementService {
     // ------------------------------  Section management ------------------------------
 
     @Transactional
-    public Section addSection(int eventId, Section section) {
+    public SectionJson addSection(int eventId, SectionJson section) {
         SectionEntity sectionEntity = SectionMapper.sectionToEntity(section);
         sectionEntity.setEvent(eventRepository.findById(eventId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Event not found!")));
 
@@ -118,7 +120,7 @@ public class ConferenceManagementService {
 
 
     @Transactional
-    public Section assignSupervisor(int sectionId, String email) {
+    public SectionJson assignSupervisor(int sectionId, String email) {
         SectionEntity existingSection = sectionRepository.findById(sectionId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Section with id " + sectionId + " not found!"));
         //existingSection.setSupervisor(userRepository.findById(email).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "User not found!")));
 

@@ -2,14 +2,14 @@ package com.mapper;
 
 import com.entities.CommitteeMemberEntity;
 import com.entities.PaperEntity;
-import com.model.Paper;
+import com.model.PaperJson;
 
 import java.util.stream.Collectors;
 
 
 public class PaperMapper {
 
-    public static PaperEntity paperToEntity(Paper paper) {
+    public static PaperEntity paperToEntity(PaperJson paper) {
 
         return PaperEntity.builder()
                 .title(paper.getTitle())
@@ -19,9 +19,9 @@ public class PaperMapper {
                 .build();
     }
 
-    public static Paper entityToPaper(PaperEntity entity) {
+    public static PaperJson entityToPaper(PaperEntity entity) {
 
-        return Paper.builder()
+        return PaperJson.builder()
                 .id(entity.getId())
                 .title(entity.getTitle())
                 .content(entity.getContent())

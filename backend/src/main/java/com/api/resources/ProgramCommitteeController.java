@@ -24,7 +24,7 @@ public class ProgramCommitteeController {
     @GET
     @Path("/bid/{paperId}/{email}")
     @Produces(MediaType.APPLICATION_JSON)
-    public void bidProposal(@PathParam("paperId") int paperId, @PathParam("email") String email, Status status) {
+    public void bidProposal(@PathParam("paperId") int paperId, @PathParam("email") String email, StatusJson status) {
         userService.bidProposal(paperId, email, status);
     }
 
@@ -32,7 +32,7 @@ public class ProgramCommitteeController {
     @PUT
     @Path("/paper/section/{paperId}/{sectionId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Paper setPaperSection(@PathParam("paperId") int paperId, @PathParam("sectionId") int sectionId) {
+    public PaperJson setPaperSection(@PathParam("paperId") int paperId, @PathParam("sectionId") int sectionId) {
         return pcService.setPaperSection(paperId, sectionId);
     }
 

@@ -1,4 +1,4 @@
-package com.model;
+package com.input;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -17,9 +17,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Program {
-
-    private int id;
+public class ProgramInput {
 
     private String interval;
 

@@ -2,7 +2,7 @@ package com.service;
 
 
 import com.entities.*;
-import com.model.Status;
+import com.model.StatusJson;
 import com.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,7 +42,7 @@ public class UserService {
 
 
     @Transactional
-    public void bidProposal(int proposalId, String email, Status status) {  // -> only if user is not already an author or reviewer of this paper
+    public void bidProposal(int proposalId, String email, StatusJson status) {  // -> only if user is not already an author or reviewer of this paper
         PaperEntity paperEntity = paperRepository.findById(proposalId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Paper with id " + proposalId + " not found!"));
         CommitteeMemberEntity pcMemberEntity = pcMemberRepository.findById(email).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "PC member " + email + " not found"));
 

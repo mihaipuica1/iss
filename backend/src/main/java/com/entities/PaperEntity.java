@@ -47,6 +47,7 @@ public class PaperEntity {
     @Column(name = "keywords")
     private List<String> keywords;
 
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "paper_pcmember",
             joinColumns = {@JoinColumn(name = "paper_id", referencedColumnName = "id")},
@@ -54,9 +55,11 @@ public class PaperEntity {
     @MapKeyJoinColumn(name = "bid_id")
     private Map<BidEntity, CommitteeMemberEntity> bidders;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "section_id")
     private SectionEntity section;
+
 
     public Map<BidEntity, CommitteeMemberEntity> getBids() {
         return bidders;

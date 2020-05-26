@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Paper {
+public class PaperJson {
 
     private int id;
     private String title;

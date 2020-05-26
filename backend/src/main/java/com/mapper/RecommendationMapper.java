@@ -1,18 +1,18 @@
 package com.mapper;
 
 import com.entities.RecommendationEntity;
-import com.model.Recommendation;
+import com.model.RecommendationJson;
 
 public class RecommendationMapper {
 
-    public static RecommendationEntity recommendationToEntity(Recommendation recommendation) {
+    public static RecommendationEntity recommendationToEntity(RecommendationJson recommendation) {
         return RecommendationEntity.builder()
                 .text(recommendation.getText())
                 .build();
     }
 
-    public static Recommendation entityToRecommendation(RecommendationEntity entity) {
-        return Recommendation.builder()
+    public static RecommendationJson entityToRecommendation(RecommendationEntity entity) {
+        return RecommendationJson.builder()
                 .id(entity.getId())
                 .text(entity.getText())
                 .build();

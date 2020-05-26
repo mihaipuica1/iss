@@ -1,11 +1,12 @@
 package com.mapper;
 
 import com.entities.ProgramEntity;
-import com.model.Program;
+import com.input.ProgramInput;
+import com.model.ProgramJson;
 
 public class ProgramMapper {
 
-    public static ProgramEntity programToEntity(Program program){
+    public static ProgramEntity programToEntity(ProgramInput program){
         return ProgramEntity.builder()
                 .date(program.getDate())
                 .interval(program.getInterval())
@@ -15,8 +16,8 @@ public class ProgramMapper {
                 .build();
     }
 
-    public static Program entityToProgram(ProgramEntity entity){
-        return Program.builder()
+    public static ProgramJson entityToProgram(ProgramEntity entity){
+        return ProgramJson.builder()
                 .id(entity.getId())
                 .date(entity.getDate())
                 .interval(entity.getInterval())
@@ -26,7 +27,7 @@ public class ProgramMapper {
                 .build();
     }
 
-    public static ProgramEntity updateProgram(ProgramEntity entity, Program program){
+    public static ProgramEntity updateProgram(ProgramEntity entity, ProgramInput program){
         entity.setDate(program.getDate());
         entity.setInterval(program.getInterval());
         entity.setAbstractDeadline(program.getAbstractDeadline());

@@ -3,7 +3,7 @@ package com.service;
 
 import com.entities.PaperEntity;
 import com.mapper.PaperMapper;
-import com.model.Paper;
+import com.model.PaperJson;
 import com.repository.PaperRepository;
 import com.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,14 +43,14 @@ public class PaperService {
 //    }
 
     @Transactional
-    public Paper findById(int id) {
+    public PaperJson findById(int id) {
 
         PaperEntity entity = paperRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Paper with id " + id + " not found"));
         return PaperMapper.entityToPaper(entity);
     }
 
     @Transactional
-    public List<Paper> getAll() {
+    public List<PaperJson> getAll() {
         return paperRepository.findAll().stream().map(PaperMapper::entityToPaper).collect(Collectors.toList());
     }
 

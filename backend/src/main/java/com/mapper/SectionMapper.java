@@ -1,18 +1,18 @@
 package com.mapper;
 
 import com.entities.SectionEntity;
-import com.model.Section;
+import com.model.SectionJson;
 
 public class SectionMapper {
 
-    public static SectionEntity sectionToEntity(Section section) {
+    public static SectionEntity sectionToEntity(SectionJson section) {
         return SectionEntity.builder()
                 .name(section.getName())
                 .build();
     }
 
-    public static Section entityToSection(SectionEntity entity) {
-        return Section.builder()
+    public static SectionJson entityToSection(SectionEntity entity) {
+        return SectionJson.builder()
                 .id(entity.getId())
                 .name(entity.getName())
                 .eventId(entity.getEvent().getId())

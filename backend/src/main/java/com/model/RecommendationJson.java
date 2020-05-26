@@ -10,12 +10,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Recommendation {
+public class RecommendationJson {
 
     private int id;
     private String text;
 
-    public Recommendation(String text) {
+    public RecommendationJson(String text) {
         this.text = text;
     }
 }

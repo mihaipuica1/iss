@@ -3,7 +3,6 @@ package com.service;
 import com.entities.*;
 //import com.mapper.EvaluationMapper;
 import com.mapper.PaperMapper;
-import com.mapper.RecommendationMapper;
 import com.mapper.UserMapper;
 import com.model.*;
 import com.repository.*;
@@ -44,7 +43,7 @@ public class ProgramCommitteeService {
 
 
     @Transactional
-    public Paper setPaperSection(int paperId, int sectionId) {
+    public PaperJson setPaperSection(int paperId, int sectionId) {
         PaperEntity existingPaper = paperRepository.findById(paperId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Paper with id " + paperId + " not found"));
         existingPaper.setSection(sectionRepository.findById(sectionId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Section with id " + sectionId + " not found.")));
 

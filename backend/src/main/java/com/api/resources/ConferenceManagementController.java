@@ -1,9 +1,12 @@
 package com.api.resources;
 
-import com.model.Event;
-import com.model.Location;
-import com.model.Program;
-import com.model.Section;
+import com.input.EventInput;
+import com.input.LocationInput;
+import com.input.ProgramInput;
+import com.model.EventJson;
+import com.model.LocationJson;
+import com.model.ProgramJson;
+import com.model.SectionJson;
 import com.service.ConferenceManagementService;
 import com.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +31,7 @@ public class ConferenceManagementController {
     @Path("event")
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public Event addEvent( Event event) {
+    public EventJson addEvent(EventInput event) {
 
         return conferenceService.addEvent(event);
     }
@@ -43,7 +46,7 @@ public class ConferenceManagementController {
     @Path("event/{id}")
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public Event findEventById(@PathParam("id") int id) {
+    public EventJson findEventById(@PathParam("id") int id) {
         return conferenceService.findEventById(id);
     }
 
@@ -51,14 +54,14 @@ public class ConferenceManagementController {
     @Path("event/program/{eventId}")
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public Event updateProgram(@PathParam("eventId") int eventId, Program program) {
+    public EventJson updateProgram(@PathParam("eventId") int eventId, ProgramInput program) {
         return conferenceService.updateEventProgram(eventId, program);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("events")
-    public List<Event> getAllEvents() {
+    public List<EventJson> getAllEvents() {
         return conferenceService.getAllEvents();
     }
 
@@ -73,7 +76,7 @@ public class ConferenceManagementController {
     @Path("event/program/postpone/{eventId}")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
-    public Program changeProposalDeadline(@PathParam("eventId") int eventId, String newDate) {
+    public ProgramJson changeProposalDeadline(@PathParam("eventId") int eventId, String newDate) {
         return conferenceService.changeProposalDeadline(eventId, newDate);
     }
 
@@ -84,7 +87,7 @@ public class ConferenceManagementController {
     @Path("event/section/{eventId}")
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public Section addSection(@PathParam("eventId") int eventId, Section section) {
+    public SectionJson addSection(@PathParam("eventId") int eventId, SectionJson section) {
 
         return conferenceService.addSection(eventId, section);
     }
@@ -99,7 +102,7 @@ public class ConferenceManagementController {
     @PUT
     @Path("event/section/supervisor/{sectionId}/{email}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Section assignSupervisor(@PathParam("sectionId") int sectionId, @PathParam("email") String email) {
+    public SectionJson assignSupervisor(@PathParam("sectionId") int sectionId, @PathParam("email") String email) {
         return conferenceService.assignSupervisor(sectionId, email);
     }
 
@@ -109,7 +112,7 @@ public class ConferenceManagementController {
     @Consumes("application/json")
     @Path("event/location/{eventId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Location addLocation(@PathParam("eventId") int eventId, Location location) {
+    public LocationJson addLocation(@PathParam("eventId") int eventId, LocationInput location) {
 
         return locationService.addLocation(eventId, location);
     }

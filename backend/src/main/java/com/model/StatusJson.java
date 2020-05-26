@@ -7,19 +7,19 @@ import lombok.Getter;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @Getter
-public enum Status {
+public enum StatusJson {
     ACCEPT("ACCEPT"),
     REJECT("REJECT");
 
     @JsonProperty("value")
     private String value;
 
-    Status(String value) {
+    StatusJson(String value) {
         this.value = value;
     }
 
     @JsonCreator
-    public static Status fromJson(@JsonProperty("status") String status) {
+    public static StatusJson fromJson(@JsonProperty("status") String status) {
         return valueOf(status);
     }
 }

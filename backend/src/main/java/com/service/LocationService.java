@@ -2,8 +2,9 @@ package com.service;
 
 import com.entities.EventEntity;
 import com.entities.LocationEntity;
+import com.input.LocationInput;
 import com.mapper.LocationMapper;
-import com.model.Location;
+import com.model.LocationJson;
 import com.repository.ConferenceRepository;
 import com.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class LocationService {
         this.locationRepository = locationRepository;
     }
 
-    private Location weather(Location location) {
+    private LocationJson weather(LocationJson location) {
         String REST_URI = "http://api.weatherstack.com/current?access_key=7d6080ab5727f0fe0479c1a898b780ec";
 
         Client client = ClientBuilder.newClient();
@@ -50,10 +51,10 @@ public class LocationService {
     }
 
     @Transactional
-    public Location addLocation(int eventId, Location location) {
+    public LocationJson addLocation(int eventId, LocationInput location) {
         EventEntity event = eventRepository.findById(eventId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Event not found!"));
         LocationEntity locationEntity = LocationMapper.locationToEntity(location);
-        Location result = LocationMapper.entityToLocation(locationRepository.save(locationEntity));
+        LocationJson result = LocationMapper.entityToLocation(locationRepository.save(locationEntity));
         event.setLocation(locationEntity);
         return weather(result);
     }

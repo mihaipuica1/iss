@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Evaluation {
+public class EvaluationJson {
 
     private int id;
     private Qualifier qualifier;
