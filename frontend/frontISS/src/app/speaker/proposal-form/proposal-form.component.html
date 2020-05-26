@@ -43,7 +43,10 @@
                required #content="ngModel">
         <div *ngIf="content.invalid && content.touched" class="alert alert-danger">Content is required</div>
       </div>
+      <input type="file" id="myFile" name="filename">
 
+      <input type="submit">
+      <hr>
 
       <button type="submit" [disabled]="!proposalForm.form.valid"
               class="btn btn-info">Submit</button>

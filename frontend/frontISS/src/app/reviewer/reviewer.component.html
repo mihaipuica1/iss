@@ -4,49 +4,20 @@
       <div class="card bg-dark my-5">
         <div class="card-body">
           <h2 class="card-title text-center text-white py-3">{{ title }}</h2>
-          <h3 style="text-align: center; color: gray">{{title2}}</h3>
-          <table class="table table-bordered table-striped">
+          <ul class="text-center list-inline py-3">
+            <li class="list-inline-item">
 
-            <tr>
-              <th scope="col" style="color: gray;">Id</th>
-              <th scope="col" style="color: gray;">Title</th>
-              <th scope="col" style="color: gray;">Content</th>
+              <a routerLink="giveQualifier" class="btn btn-info"> Give Qualifier</a>
+            </li>
+            <li class="list-inline-item">
 
-            </tr>
+              <a routerLink="bidProposal" class="btn btn-info">Bid Proposal</a>
+            </li>
+            <li class="list-inline-item">
 
-            <tbody>
-            <tr *ngFor="let paper of papers">
-              <td>{{ paper.id }}</td>
-              <td>{{ paper.title }}</td>
-              <td>{{paper.content}}</td>
-              <td>
-                <button style="background-color: gray">Accept</button>
-              </td>
-              <td>
-                <button style="background-color: gray">Refuse</button>
-              </td>
-              <td>
-                <div class="dropdown">
-
-                  <select id="qualifier" style="background-color: gray" >
-                    <option value="Strong Accept"> Strong Accept</option>
-                    <option value="Accept">Accept</option>
-                    <option value="Weak Accept">Weak Accept</option>
-                    <option value="Borderline Paper">Borderline Paper</option>
-                    <option value="Weak Reject">Weak Reject</option>
-                    <option value="Reject">Reject</option>
-                    <option value="Strong Reject">Strong Reject</option>
-                  </select>
-
-                </div>
-
-
-              </td>
-
-
-            </tr>
-            </tbody>
-          </table>
+              <a routerLink="viewOtherProposals" class="btn btn-info">Other Proposals</a>
+            </li>
+          </ul>
         </div>
       </div>
       <router-outlet></router-outlet>
