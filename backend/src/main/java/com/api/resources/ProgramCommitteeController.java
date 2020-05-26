@@ -1,5 +1,6 @@
 package com.api.resources;
 
+import com.input.EvaluationInput;
 import com.model.*;
 import com.service.ProgramCommitteeService;
 import com.service.UserService;
@@ -29,6 +30,16 @@ public class ProgramCommitteeController {
     public JsonResponse bidProposal(@PathParam("paperId") int paperId, @PathParam("email") String email, @PathParam("status") StatusJson status) {
         pcService.bidProposal(paperId, email, status);
         return new JsonResponse().with("response", "OK!");
+    }
+
+
+    @POST
+    @Path("/review")
+    @Consumes("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    public EvaluationJson reviewPaper(EvaluationInput evaluation) {
+         //return pcService.reviewPaper(evaluation);
+        return null;
     }
 
 

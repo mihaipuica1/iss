@@ -1,19 +1,21 @@
 package com.mapper;//package com.mapper;
 //
 //import com.entities.EvaluationEntity;
-//import com.model.Evaluation;
+//import com.input.EvaluationInput;
+//import com.model.EvaluationJson;
 //
 //public class EvaluationMapper {
 //
-//    public static EvaluationEntity evaluationToEntity(Evaluation evaluation) {
+//    public static EvaluationEntity evaluationToEntity(EvaluationInput evaluation) {
 //        return EvaluationEntity.builder()
 //                .qualifier(evaluation.getQualifier())
+//                .recommandation(evaluation.getRecommendation())
+//                .reviewer(evaluation.getReviewer())
 //                .build();
 //    }
 //
-//    public static Evaluation entityToEvaluation(EvaluationEntity entity) {
-//        return Evaluation.builder()
-////                .id(entity.getId())
+//    public static EvaluationJson entityToEvaluation(EvaluationEntity entity) {
+//        return EvaluationJson.builder()
 //                .qualifier(entity.getQualifier())
 //                .recommendation(entity.getRecommendation().getText())
 //                .reviewer(entity.getReviewer().getEmail())
