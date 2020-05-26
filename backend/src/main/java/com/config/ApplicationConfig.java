@@ -17,12 +17,10 @@ public class ApplicationConfig extends ResourceConfig {
 
     public ApplicationConfig() {
         register(PaperController.class);
-        register(SectionController.class);
-        register(ComiteeMemberController.class);
         register(AuthorController.class);
-        register(ConferenceController.class);
-        //register(ParticipantController.class);
-        register(RecommendationController.class);
+        register(ConferenceManagementController.class);
+        register(ProgramCommitteeController.class);
+
         register(JacksonJaxbJsonProvider.class);
 
         register(OpenApiResource.class);

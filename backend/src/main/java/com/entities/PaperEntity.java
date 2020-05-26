@@ -1,18 +1,35 @@
 package com.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import javax.persistence.*;
-import java.util.List;
+import com.model.Qualifier;
+import com.vladmihalcea.hibernate.type.array.EnumArrayType;
+import com.vladmihalcea.hibernate.type.array.ListArrayType;
+import lombok.*;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 
+import javax.persistence.*;
+import java.util.*;
 
 @Builder
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "proposal")
+@Entity(name = "paper")
+@TypeDefs({
+        @TypeDef(
+                typeClass = EnumArrayType.class,
+                defaultForType = Qualifier[].class,
+                parameters = {
+                        @org.hibernate.annotations.Parameter(name = EnumArrayType.SQL_ARRAY_TYPE, value = "qualifier")
+                }
+        ),
+        @TypeDef(
+                name = "list-array",
+                typeClass = ListArrayType.class
+        )
+})
 public class PaperEntity {
 
     @Id
@@ -26,7 +43,49 @@ public class PaperEntity {
     @Column(name = "content")
     private String content;
 
-    @OneToMany(mappedBy = "paper")
-    private List<RecommendationEntity> recommendations;
+//    @OneToMany(mappedBy = "paper", fetch = FetchType.LAZY)
+//    private List<EvaluationEntity> reviews;
 
+    @Column(name = "qualifiers", columnDefinition = "qualifiers")
+    private Qualifier[] qualifiers;
+
+    @Type(type = "list-array")
+    @Column(name = "topics")
+    private List<String> topics;
+
+    @Type(type = "list-array")
+    @Column(name = "keywords")
+    private List<String> keywords;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "paper_pcmember",
+            joinColumns = {@JoinColumn(name = "paper_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "email", referencedColumnName = "email")})
+    @MapKeyJoinColumn(name = "bid_id")
+    private Map<BidEntity, ComiteeMemberEntity> bidders;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "section_id")
+    private SectionEntity section;
+
+    public Map<BidEntity, ComiteeMemberEntity> getBids() {
+        return bidders;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PaperEntity)) return false;
+        PaperEntity that = (PaperEntity) o;
+        return title.equals(that.title) &&
+                content.equals(that.content) &&
+                topics.equals(that.topics) &&
+                keywords.equals(that.keywords);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(title, content, topics, keywords);
+        return result;
+    }
 }

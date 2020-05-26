@@ -1,51 +1,35 @@
 package com.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
+import javax.validation.constraints.Email;
 import java.util.Map;
 
-@Builder
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "comiteemember")
-public class ComiteeMemberEntity {
+@Entity(name = "pc_member")
+@DiscriminatorValue("1")
+public class ComiteeMemberEntity extends UserEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)
-    private int id;
+    @OneToOne(mappedBy = "supervisor")
+    private SectionEntity section;
 
-    @Column(name = "name")
-    private String name;
+    @ManyToMany(mappedBy = "bidders")
+    @MapKeyJoinColumn(name = "bid_id")
+    private Map<BidEntity, PaperEntity> papers;
 
-    @Column(name = "email")
-    private String email;
+//    @OneToMany(mappedBy = "reviewer")
+//    private List<EvaluationEntity> evaluation;
 
-    @Column(name = "username")
-    private String userName;
+    @Override
+    public @Email String getEmail() {
+        return super.getEmail();
+    }
 
-    @Column(name = "password")
-    private String password;
-
-    @Column(name = "isauthenticated")
-    private Boolean isAuthenticated;
-
-    @Column(name = "website")
-    private String webSite;
-
-    //@OneToMany(mappedBy = "paper")
-    //private List<PaperEntity> papersToReview;
-
-    //todo: how?
-    //@OneToMany(mappedBy = "paper")
-    //private Map<PaperEntity, String> reviewedPapers;
-
-    @Column(name = "section")
-    private String section;
+    public ComiteeMemberEntity(@Email String email) {
+        super(email);
+    }
 }

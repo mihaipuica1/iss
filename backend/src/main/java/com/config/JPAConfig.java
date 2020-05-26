@@ -21,22 +21,22 @@ import java.util.concurrent.TimeUnit;
 @EnableJpaRepositories({"com.repository"})
 public class JPAConfig {
 
-   @Bean(name = "hikariDataSource")
-   public HikariDataSource hikariDataSource(){
-       HikariConfig config = new HikariConfig();
-       config.setMinimumIdle(3);
-       config.setMaximumPoolSize(10);
-       config.setConnectionTimeout(3000);
-       config.setIdleTimeout(TimeUnit.SECONDS.toMillis(10));
-       config.setValidationTimeout(TimeUnit.SECONDS.toMillis(2));
-       config.setDriverClassName(org.postgresql.Driver.class.getName());
+    @Bean(name = "hikariDataSource")
+    public HikariDataSource hikariDataSource(){
+        HikariConfig config = new HikariConfig();
+        config.setMinimumIdle(3);
+        config.setMaximumPoolSize(10);
+        config.setConnectionTimeout(3000);
+        config.setIdleTimeout(TimeUnit.SECONDS.toMillis(10));
+        config.setValidationTimeout(TimeUnit.SECONDS.toMillis(2));
+        config.setDriverClassName(org.postgresql.Driver.class.getName());
 
-       config.setJdbcUrl("jdbc:postgresql://localhost:5432/test_iss_database");
-       config.setUsername("postgres");
-       config.setPassword("admin");
+        config.setJdbcUrl("jdbc:postgresql://balarama.db.elephantsql.com:5432/ygjjdobc");
+        config.setUsername("ygjjdobc");
+        config.setPassword("5I2lA5c6Yf-sbEtfgEJ4lJtMYLvdtjTB");
 
-       return new HikariDataSource(config);
-   }
+        return new HikariDataSource(config);
+    }
 
     @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {

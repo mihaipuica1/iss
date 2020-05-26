@@ -1,6 +1,5 @@
 package com.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,12 +9,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Recommendation {
+public class Location {
 
     private int id;
-    private String text;
-
-    public Recommendation(String text) {
-        this.text = text;
-    }
+    private String country;
+    private String city;
+    private String weather;
 }

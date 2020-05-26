@@ -1,27 +1,35 @@
 package com.entities;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Builder
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "recommendation")
-public class RecommendationEntity {
+@NoArgsConstructor
+@Entity(name = "location")
+public class LocationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private int id;
 
-    @Column(name = "text")
-    private String text;
+    @Column(name = "country")
+    private String country;
 
-    @OneToOne(mappedBy = "recommendation")
-    private EvaluationEntity evaluation;
+    @Column(name = "city")
+    private String city;
+
+    @OneToMany(mappedBy = "location", fetch = FetchType.LAZY)
+    private List<EventEntity> events;
+
+
+
 }

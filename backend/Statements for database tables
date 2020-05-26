@@ -1,105 +1,147 @@
-create table QUALIFIER
+DROP TABLE IF EXISTS event CASCADE;
+DROP TABLE IF EXISTS location CASCADE;
+DROP TABLE IF EXISTS program CASCADE ;
+DROP TABLE IF EXISTS section CASCADE ;
+DROP TABLE IF EXISTS paper CASCADE ;
+DROP TABLE IF EXISTS evaluation CASCADE ;
+DROP TABLE IF EXISTS recommendation CASCADE ;
+DROP TABLE IF EXISTS bid CASCADE ;
+DROP TABLE IF EXISTS account CASCADE ;
+DROP TABLE IF EXISTS paper_pcmember CASCADE ;
+DROP TYPE IF EXISTS qualifier;
+
+create table if not exists event
 (
-    id smallint primary key,
-    qualifier text check(qualifier in ('Strong accept',
-                                       'Accept',
-                                       'Weak accept',
-                                       'Borderline paper',
-                                       'Weak reject',
-                                       'Reject',
-                                       'Strong reject')) unique
+	id smallint NOT NULL GENERATED ALWAYS AS IDENTITY primary key,
+	name text,
+	program_id smallint,
+	location_id smallint
 );
 
-create table Program
+create table if not exists program
 (
-    id smallint GENERATED ALWAYS AS IDENTITY primary key,
-    interval text,
-    abstract_deadline date,
-    proposal_deadline date,
-    bidding_deadline date
+	id smallint NOT NULL GENERATED ALWAYS AS IDENTITY primary key,
+	date DATE,
+	interval text,
+	abstract_deadline DATE,
+	proposal_deadline DATE,
+	bidding_deadline DATE
 );
 
-create table Location
+create table if not exists location
 (
-    id smallint GENERATED ALWAYS AS IDENTITY primary key,
-    country text,
-    city text,
-    weather text
+	id smallint NOT NULL GENERATED ALWAYS AS IDENTITY primary key,
+	country text,
+	city text
 );
 
-create table Event
+create table if not exists section
 (
-    id smallint GENERATED ALWAYS AS IDENTITY primary key,
-    program_id smallint references Program(id),
-    location_id smallint references Location(id),
-    name text
+	id smallint NOT NULL GENERATED ALWAYS AS IDENTITY primary key,
+	name text,
+	event_id smallint,
+	supervisor_email text
 );
 
-create table Proposal
+
+create table if not exists paper
 (
-    id smallint GENERATED ALWAYS AS IDENTITY primary key,
-    title text,
-    keywords text,
-    topics text,
-    content text
+	id smallint NOT NULL GENERATED ALWAYS AS IDENTITY primary key,
+	title text,
+	content text,
+	topics text[],
+	keywords text[],
+    section_id smallint
 );
 
-create table Proposal_Qualifier
+create table if not exists evaluation
 (
-    proposal_id smallint references Proposal(id),
-    qualifier_id smallint references QUALIFIER(id)
+    paper_id smallint,
+    recommendation_id smallint,
+    reviewer text,
+    qualifier text
 );
 
-create table "user"
+
+create table if not exists recommendation
 (
-    email text primary key,
-    section_id smallint,
-    role text check(role in ('participant', 'speaker', 'program_committee'))
+	id smallint NOT NULL GENERATED ALWAYS AS IDENTITY primary key,
+	text text
 );
 
-create table Recommendation
+create table if not exists bid
 (
-    id smallint GENERATED ALWAYS AS IDENTITY primary key,
-    proposal_id smallint references Proposal(id),
-    email text,
-    comment text
+	id smallint NOT NULL GENERATED ALWAYS AS IDENTITY primary key,
+	status text
 );
 
-create table User_Proposal
+create table if not exists account
 (
-    email text references "user"(email),
-    proposal_id smallint references Proposal(id)
+	email text NOT NULL primary key,
+	type VARCHAR (10),
+	section_id smallint
 );
 
-create table User_Event
+create table if not exists user_event
 (
-    event_id smallint references Event(id),
-    email text references "user"(email)
+	email text,
+	event_id smallint
 );
 
-create table Section
+
+
+create table if not exists paper_pcmember
 (
-    id smallint GENERATED ALWAYS AS IDENTITY primary key,
-    event_id smallint references Event(id),
-    supervisor_id text,
-    name text
+	paper_id smallint,
+	bid_id smallint,
+        email text
 );
 
-ALTER TABLE "user"
-    add foreign key (section_id) references Section(id)
-        deferrable initially deferred;
+CREATE TYPE  qualifier AS ENUM
+    ('WEAK_REJECT', 'WEAK_ACCEPT', 'STRONG_ACCEPT', 'REJECT', 'BORDERLINE_PAPER', 'ACCEPT', 'STRONG_REJECT');
 
-ALTER TABLE Section
-    add foreign key (supervisor_id) REFERENCES "user"(email)
-        deferrable initially deferred;
+ALTER TABLE paper_pcmember
+ADD FOREIGN KEY (paper_id) REFERENCES paper(id);
 
-create table Author
-(
-    id smallint GENERATED ALWAYS AS IDENTITY primary key,
-    name text,
-    email text,
-    userName text,
-    password text,
-    isAuthenticated boolean,
-    section text
-);
+ALTER TABLE paper_pcmember
+ADD FOREIGN KEY (bid_id) REFERENCES bid(id);
+
+ALTER TABLE paper_pcmember
+ADD FOREIGN KEY (email) REFERENCES account(email);
+
+ALTER TABLE evaluation
+ADD FOREIGN KEY (paper_id) REFERENCES paper(id);
+
+ALTER TABLE evaluation
+ADD FOREIGN KEY (recommendation_id) REFERENCES recommendation(id);
+
+ALTER TABLE evaluation
+ADD FOREIGN KEY (reviewer) REFERENCES account(email);
+
+
+ALTER TABLE event
+ADD FOREIGN KEY (location_id) REFERENCES location(id);
+
+ALTER TABLE event
+ADD FOREIGN KEY (program_id) REFERENCES program(id);
+
+ALTER TABLE section
+ADD FOREIGN KEY (event_id) REFERENCES event(id);
+
+ALTER TABLE section
+ADD FOREIGN KEY (supervisor_email) REFERENCES account(email);
+
+ALTER TABLE section
+ADD CONSTRAINT supervisor_unique UNIQUE(supervisor_email);
+
+ALTER TABLE account
+ADD FOREIGN KEY (section_id) REFERENCES section(id);
+
+ALTER TABLE user_event
+ADD FOREIGN KEY (event_id) REFERENCES event(id);
+
+ALTER TABLE user_event
+ADD FOREIGN KEY (email) REFERENCES account(email);
+
+ALTER TABLE paper
+ADD FOREIGN KEY (section_id) REFERENCES section(id);

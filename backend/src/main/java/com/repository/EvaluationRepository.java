@@ -1,11 +1,10 @@
 package com.repository;
 
-
-import com.entities.EventEntity;
+import com.entities.EvaluationEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface ConferenceRepository extends JpaRepository<EventEntity, Integer> {
+public interface EvaluationRepository extends JpaRepository<EvaluationEntity, Integer> {
 }
