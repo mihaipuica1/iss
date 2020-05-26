@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "pc_member")
-@DiscriminatorValue("1")
+@DiscriminatorValue("pcmember")
 public class CommitteeMemberEntity extends UserEntity {
 
     @OneToOne(mappedBy = "supervisor")

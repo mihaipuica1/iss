@@ -3,6 +3,7 @@ package com.api.resources;
 import com.model.*;
 import com.service.ProgramCommitteeService;
 import com.service.UserService;
+import com.web.json.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
@@ -22,10 +23,12 @@ public class ProgramCommitteeController {
 
 
     @GET
-    @Path("/bid/{paperId}/{email}")
+    @Path("/bid/{paperId}/{email}/{status}")
+    @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public void bidProposal(@PathParam("paperId") int paperId, @PathParam("email") String email, StatusJson status) {
-        userService.bidProposal(paperId, email, status);
+    public JsonResponse bidProposal(@PathParam("paperId") int paperId, @PathParam("email") String email, @PathParam("status") StatusJson status) {
+        pcService.bidProposal(paperId, email, status);
+        return new JsonResponse().with("response", "OK!");
     }
 
 
@@ -35,6 +38,8 @@ public class ProgramCommitteeController {
     public PaperJson setPaperSection(@PathParam("paperId") int paperId, @PathParam("sectionId") int sectionId) {
         return pcService.setPaperSection(paperId, sectionId);
     }
+
+
 
 
 }

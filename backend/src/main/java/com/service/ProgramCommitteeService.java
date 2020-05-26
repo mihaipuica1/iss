@@ -21,14 +21,18 @@ public class ProgramCommitteeService {
     private UserRepository userRepository;
     private SectionRepository sectionRepository;
     private EvaluationRepository evaluationRepository;
+    private PCMemberRepository pcMemberRepository;
+    private BidRepository bidRepository;
 
     @Autowired
-    public ProgramCommitteeService(RecommendationRepository recommendationRepository, PaperRepository paperRepository, UserRepository userRepository, SectionRepository sectionRepository, EvaluationRepository evaluationRepository) {
+    public ProgramCommitteeService(RecommendationRepository recommendationRepository, PaperRepository paperRepository, UserRepository userRepository, SectionRepository sectionRepository, EvaluationRepository evaluationRepository, PCMemberRepository pcmmemberRepository, BidRepository bidRepository) {
         this.recommendationRepository = recommendationRepository;
         this.paperRepository = paperRepository;
         this.userRepository = userRepository;
         this.sectionRepository = sectionRepository;
         this.evaluationRepository = evaluationRepository;
+        this.pcMemberRepository = pcmmemberRepository;
+        this.bidRepository = bidRepository;
     }
 
 
@@ -51,5 +55,19 @@ public class ProgramCommitteeService {
         return PaperMapper.entityToPaper(existingPaper);
     }
 
+    @Transactional
+    public void bidProposal(int paperId, String email, StatusJson status) {  // -> only if user is not already an author or reviewer of this paper
+        PaperEntity paperEntity = paperRepository.findById(paperId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Paper with id " + paperId + " not found!"));
+        CommitteeMemberEntity pcMemberEntity = pcMemberRepository.findById(email).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "PC member " + email + " not found"));
+
+        BidEntity bidEntity = new BidEntity();
+        bidEntity.setStatus(status);
+        bidRepository.save(bidEntity);
+
+        paperEntity.getBids().put(bidEntity, pcMemberEntity);
+        pcMemberEntity.getPapers().values().forEach(paper -> System.out.println(paper.getTitle()));
+
+        paperRepository.save(paperEntity);
+    }
 
 }

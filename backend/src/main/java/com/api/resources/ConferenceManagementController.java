@@ -9,6 +9,7 @@ import com.model.ProgramJson;
 import com.model.SectionJson;
 import com.service.ConferenceManagementService;
 import com.service.LocationService;
+import com.web.json.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
@@ -117,5 +118,11 @@ public class ConferenceManagementController {
         return locationService.addLocation(eventId, location);
     }
 
-
+    @PUT
+    @Path("event/committee/{email}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonResponse addProgramCommittee(@PathParam("email") String email){
+        conferenceService.addProgramCommittee(email);
+        return new JsonResponse().with("Response", "OK");
+    }
 }

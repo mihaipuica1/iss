@@ -1,6 +1,7 @@
 package com.service;
 
 
+import com.entities.CommitteeMemberEntity;
 import com.entities.EventEntity;
 import com.entities.ProgramEntity;
 import com.entities.SectionEntity;
@@ -14,6 +15,7 @@ import com.model.EventJson;
 import com.model.ProgramJson;
 import com.model.SectionJson;
 import com.repository.*;
+import com.web.json.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -33,13 +35,15 @@ public class ConferenceManagementService {
     private UserRepository userRepository;
     private LocationRepository locationRepository;
     private SectionRepository sectionRepository;
+    private PCMemberRepository pcMemberRepository;
 
     @Autowired
-    public ConferenceManagementService(ConferenceRepository eventRepository, UserRepository userRepository, LocationRepository locationRepository, SectionRepository sectionRepository) {
+    public ConferenceManagementService(ConferenceRepository eventRepository, UserRepository userRepository, LocationRepository locationRepository, SectionRepository sectionRepository, PCMemberRepository pcMemberRepository) {
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
         this.locationRepository = locationRepository;
         this.sectionRepository = sectionRepository;
+        this.pcMemberRepository = pcMemberRepository;
     }
 
     // ------------------------------  Event management ------------------------------
@@ -126,5 +130,14 @@ public class ConferenceManagementService {
 
         sectionRepository.save(existingSection);
         return SectionMapper.entityToSection(existingSection);
+    }
+
+    // ----------------------- Committee management -------------------------
+
+    @Transactional
+    public void addProgramCommittee(String email) {
+        CommitteeMemberEntity committeeMemberEntity = new CommitteeMemberEntity(email);
+
+        pcMemberRepository.save(committeeMemberEntity);
     }
 }
