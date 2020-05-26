@@ -2,6 +2,7 @@ package com.mapper;
 
 import com.entities.CommitteeMemberEntity;
 import com.entities.PaperEntity;
+import com.input.PaperInput;
 import com.model.PaperJson;
 
 import java.util.stream.Collectors;
@@ -9,13 +10,14 @@ import java.util.stream.Collectors;
 
 public class PaperMapper {
 
-    public static PaperEntity paperToEntity(PaperJson paper) {
+    public static PaperEntity paperToEntity(PaperInput paper) {
 
         return PaperEntity.builder()
                 .title(paper.getTitle())
-                .content(paper.getContent())
-                .topics(paper.getTopics())
+                .fileName(paper.getFileName())
+                .description(paper.getDescription())
                 .keywords(paper.getKeywords())
+                .topics(paper.getTopics())
                 .build();
     }
 
@@ -24,15 +26,15 @@ public class PaperMapper {
         return PaperJson.builder()
                 .id(entity.getId())
                 .title(entity.getTitle())
-                .content(entity.getContent())
-                .bidders(entity.getBids().values().stream().map(CommitteeMemberEntity::getEmail).collect(Collectors.toList()))
+                .fileName(entity.getFileName())
+                .description(entity.getDescription())
+//                .bidders(entity.getBids().values().stream().map(CommitteeMemberEntity::getEmail).collect(Collectors.toList()))
                 //.reviewers(entity.getReviewers().values().stream().map(PCMemberEntity::getEmail).collect(Collectors.toList()))
 
 //                .qualifiers(entity.getQualifiers())
-//                .authors(entity.getUsers() != null ? entity.getUsers().stream()
-//                        .filter(userPaperEntity -> userPaperEntity.getType().equals("author"))
-//                        .map(user -> user.getUser().getEmail())
-//                        .collect(Collectors.toList()) : null)
+                .authors(entity.getAuthors() != null ? entity.getAuthors().stream()
+                        .map(author -> author.getEmail())
+                        .collect(Collectors.toList()) : null)
 //                .reviewers(entity.getUsers() != null ? entity.getUsers().stream()
 //                        .filter(userPaperEntity -> userPaperEntity.getType().equals("reviewer"))
 //                        .map(userPaperEntity -> userPaperEntity.getUser().getEmail())

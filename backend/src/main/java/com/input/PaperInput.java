@@ -1,6 +1,6 @@
-package com.model;
+package com.input;
 
-
+import com.model.Qualifier;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,17 +13,12 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaperJson {
+public class PaperInput {
 
-    private int id;
     private String title;
     private String fileName;
     private String description;
-    private Qualifier[] qualifiers;
-    private List<String> authors;
-    private List<String> reviewers;
+    private String[] authors;
     private List<String> topics;
     private List<String> keywords;
-    private List<String> bidders;
-
 }

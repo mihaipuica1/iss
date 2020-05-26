@@ -1,5 +1,6 @@
 package com.api.resources;
 
+import com.input.PaperInput;
 import com.model.PaperJson;
 import com.service.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,13 @@ public class PaperController {
         this.paperService = paperService;
     }
 
-//    @POST
-//    @Consumes("application/json")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Paper submitPaper(Paper paper) {
-//
-//        return paperService.submitPaper(paper);
-//    }
+    @POST
+    @Consumes("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("paper")
+    public PaperJson submitPaper(PaperInput paper) {
+        return paperService.submitPaper(paper);
+    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

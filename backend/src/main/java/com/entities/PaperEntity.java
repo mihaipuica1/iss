@@ -31,8 +31,17 @@ public class PaperEntity {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "content")
-    private String content;
+    @Column(name = "fileName")
+    private String fileName;
+
+    @Column(name = "description")
+    private String description;
+
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "paper_author",
+            joinColumns = {@JoinColumn(name = "paper_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "email", referencedColumnName = "email")})
+    private List<AuthorEntity> authors;
 
     @OneToMany(mappedBy = "paper", fetch = FetchType.LAZY)
     private List<EvaluationEntity> reviews;
@@ -71,14 +80,23 @@ public class PaperEntity {
         if (!(o instanceof PaperEntity)) return false;
         PaperEntity that = (PaperEntity) o;
         return title.equals(that.title) &&
-                content.equals(that.content) &&
+                fileName.equals(that.fileName) &&
+                description.equals(that.description) &&
                 topics.equals(that.topics) &&
                 keywords.equals(that.keywords);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(title, content, topics, keywords);
+        int result = Objects.hash(title, fileName, description, topics, keywords);
         return result;
+    }
+
+    public void addAuthor(AuthorEntity newAuthor) {
+        if(this.authors == null)
+        {
+            this.authors = new ArrayList<AuthorEntity>();
+        }
+        this.authors.add(newAuthor);
     }
 }
