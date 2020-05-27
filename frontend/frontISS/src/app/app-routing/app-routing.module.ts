@@ -42,12 +42,12 @@ const routes: Routes = [
         path: 'bidProposal', component: BidProposalComponent
       },
       {
-        path: 'otherProposals', component: ViewOtherProposalsComponent
+        path: 'viewOtherProposals', component: ViewOtherProposalsComponent
       }
     ]
   },
   {
-    path: 'conferenceChair', component: ConferenceChairComponent,children: [
+    path: 'conferenceChair', component: ConferenceChairComponent, children: [
       {
         path: 'addConference', component: AddConferenceComponent
       },
