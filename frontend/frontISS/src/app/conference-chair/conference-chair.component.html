@@ -4,26 +4,20 @@
       <div class="card bg-dark my-5">
         <div class="card-body">
           <h2 class="card-title text-center text-white py-3">{{ title }}</h2>
-          <h3 style="text-align: center; color: gray">{{title2}}</h3>
-          <table class="table table-bordered table-striped">
+          <ul class="text-center list-inline py-3">
+            <li class="list-inline-item">
 
-            <tr>
-              <th scope="col" style="color: gray;">Id</th>
-              <th scope="col" style="color: gray;">Name</th>
-              <th scope="col" style="color: gray;">Email</th>
+              <a routerLink="addConference" class="btn btn-info"> Add Conference</a>
+            </li>
+            <li class="list-inline-item">
 
-            </tr>
+              <a routerLink="assignPapers" class="btn btn-info">Assign Papers</a>
+            </li>
+            <li class="list-inline-item">
 
-            <tbody>
-            <tr *ngFor="let pcMember of pcMembers">
-              <td>{{ pcMember.id }}</td>
-              <td>{{ pcMember.name }}</td>
-              <td>{{pcMember.email}}</td>
-
-
-            </tr>
-            </tbody>
-          </table>
+              <a routerLink="viewConferences" class="btn btn-info">View Conference</a>
+            </li>
+          </ul>
         </div>
       </div>
       <router-outlet></router-outlet>

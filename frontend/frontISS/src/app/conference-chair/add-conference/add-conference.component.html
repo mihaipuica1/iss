@@ -1,3 +1,65 @@
-<p>
-  add-conference works!
-</p>
+
+<div class="card my-5">
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit()" #conferenceForm="ngForm">
+      <div class="form-group">
+        <label for="interval">Interval</label>
+        <input type="text" [(ngModel)]="conference.interval"
+               class="form-control"
+               id="interval"
+               name="interval"
+               placeholder="Interval"
+               required #interval="ngModel">
+      </div>
+      <div *ngIf="interval.invalid && interval.touched" class="alert alert-danger">Interval is required</div>
+
+      <div class="form-group">
+        <label for="Abstract">Abstract Deadline</label>
+        <input type="text" [(ngModel)]="conference.abstractDeadline"
+               class="form-control"
+               id="Abstract"
+               name="Abstract"
+               placeholder="Abstract Deadline"
+               required #Abstract="ngModel">
+        <div *ngIf="Abstract.invalid && Abstract.touched" class="alert alert-danger">Abstract Deadline are required</div>
+      </div>
+
+      <div class="form-group">
+        <label for="Proposal">Proposal Deadline</label>
+        <input type="text" [(ngModel)]="conference.proposalDeadline"
+               class="form-control"
+               id="Proposal"
+               name="Proposal"
+               placeholder="Proposal Deadline"
+               required #Proposal="ngModel">
+        <div *ngIf="Proposal.invalid && Proposal.touched" class="alert alert-danger">Proposal Deadline needed!</div>
+      </div>
+      <div class="form-group">
+        <label for="Bidding">Bidding Deadline</label>
+        <input type="text" [(ngModel)]="conference.biddingDeadline"
+               class="form-control"
+               id="Bidding"
+               name="Bidding"
+               placeholder="Bidding Deadline"
+               required #Bidding="ngModel">
+        <div *ngIf="Bidding.invalid && Bidding.touched" class="alert alert-danger">Bidding Deadline is required</div>
+      </div>
+      <div class="form-group">
+        <label for="event">Event</label>
+        <input type="text" [(ngModel)]="conference.event"
+               class="form-control"
+               id="event"
+               name="event"
+               placeholder="Event"
+               required #event="ngModel">
+        <div *ngIf="event.invalid && event.touched" class="alert alert-danger">Event is required</div>
+      </div>
+
+      <hr>
+
+      <button type="submit" [disabled]="!conferenceForm.form.valid"
+              class="btn btn-info">Submit</button>
+
+    </form>
+  </div>
+</div>

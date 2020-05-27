@@ -11,6 +11,9 @@ import {MySubmissionsComponent} from '../speaker/my-submissions/my-submissions.c
 import {GiveQualifierComponent} from '../reviewer/give-qualifier/give-qualifier.component';
 import {BidProposalComponent} from '../reviewer/bid-proposal/bid-proposal.component';
 import {ViewOtherProposalsComponent} from '../reviewer/view-other-proposals/view-other-proposals.component';
+import {AddConferenceComponent} from '../conference-chair/add-conference/add-conference.component';
+import {AssignPapersComponent} from '../conference-chair/assign-papers/assign-papers.component';
+import {ViewConferencesComponent} from '../conference-chair/view-conferences/view-conferences.component';
 
 
 const routes: Routes = [
@@ -44,7 +47,18 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'conferenceChair', component: ConferenceChairComponent
+    path: 'conferenceChair', component: ConferenceChairComponent,children: [
+      {
+        path: 'addConference', component: AddConferenceComponent
+      },
+
+      {
+        path: 'assignPapers', component: AssignPapersComponent
+      },
+      {
+        path: 'viewConferences', component: ViewConferencesComponent
+      }
+    ]
   }
 
 ];

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Conference} from '../../models/conference';
 
 @Component({
   selector: 'app-view-conferences',
@@ -6,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view-conferences.component.css']
 })
 export class ViewConferencesComponent implements OnInit {
-
-  constructor() { }
+  title: string;
+  conferences: Conference[];
+  constructor() {
+    this.title = 'Conferences';
+  }
 
   ngOnInit() {
   }
