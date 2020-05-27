@@ -1,6 +1,6 @@
 
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-              <a class="navbar-brand" href="#">Eventhub</a>
+            <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow p-1 mb-5 bg-white rounded">
+              <a class="navbar-brand" routerLink=""><img src="assets\img\planeLogo.png" style="width:170px;height:30px;" ></a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -8,19 +8,44 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                   <li class="nav-item">
-                    <a class="nav-link" routerLink="/speaker" >Author</a>
+                    <a class="nav-link"  routerLink="" >Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" routerLink="/reviewer" >Reviwer</a>
+                    <a class="nav-link" *ngIf="role === 'speaker' && auth.isLoggedIn()" routerLink="/speaker" >Author</a>
                   </li>
+
+                      <li class="nav-item">
+
+                        <a class="nav-link" *ngIf="role === 'speaker'&& auth.isLoggedIn()" routerLink="submitProposal" > Submit Proposal</a>
+                      </li>
+                      <li class="nav-item">
+          
+                        <a class="nav-link" *ngIf="role === 'speaker' && auth.isLoggedIn()" routerLink="mysubmissions" >My Submissions</a>
+                      </li>
+                  <!-- <li class="nav-item">
+                    <a class="nav-link" *ngIf="role === 'reviewer' && auth.isLoggedIn()" routerLink="" >Reviewr</a>
+                  </li> -->
+                      <li class="nav-item">
+
+                        <a class="nav-link" routerLink="giveQualifier" *ngIf="role === 'reviewer' && auth.isLoggedIn()" > Give Qualifier</a>
+                      </li>
+                      <li class="nav-item">
+          
+                        <a class="nav-link" routerLink="bidProposal" *ngIf="role === 'reviewer' && auth.isLoggedIn()" >Bid Proposal</a>
+                      </li>
+                      <li class="nav-item">
+          
+                        <a class="nav-link" routerLink="viewOtherProposals"*ngIf="role === 'reviewer' && auth.isLoggedIn()"  >Other Proposals</a>
+                      </li>
+
                   <li class="nav-item">
-                    <a class="nav-link" routerLink="/conferenceChair" >Conference Chair</a>
+                    <a class="nav-link " *ngIf="role === 'chair'" routerLink="/conferenceChair" >Conference Chair</a>
                   </li>
                 </ul>
                 <ul class="navbar-nav">
-                    <a class="nav-link" *ngIf="1" routerLink="/login" routerLinkActive="active">Login</a>
-                    <a class="nav-link" *ngIf="1" routerLink="/register" routerLinkActive="active">Register</a>
-                    <!--a class="nav-link" style="cursor:pointer" *ngIf="_authService.loggedIn()" (click)="_authService.logoutUser()">Logout</a-->        
+                    <a class="nav-link" *ngIf="!auth.isLoggedIn()" (click)="doLogin()">Login</a>
+                    <a class="nav-link" *ngIf="!auth.isLoggedIn()" routerLink="" routerLinkActive="active">Register</a>
+                    <a class="nav-link" style="cursor:pointer" *ngIf="auth.isLoggedIn()" (click)="auth.logoutUser()">Logout</a>        
                 </ul>
               </div>
             </nav>    
@@ -49,5 +74,16 @@
             </div>
 
             <router-outlet></router-outlet>
+
+
+            <footer class="page-footer font-small blue fixed-bottom">
+
+              <!-- Copyright -->
+              <div class="footer-copyright text-center py-3">© 2020 Copyright:
+                <div> SoupTime the great ones</div>
+              </div>
+              <!-- Copyright -->
+            
+            </footer>
 
             <!--to do some login stuff, i got it-->

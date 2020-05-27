@@ -14,11 +14,32 @@ import {ViewOtherProposalsComponent} from '../reviewer/view-other-proposals/view
 import {AddConferenceComponent} from '../conference-chair/add-conference/add-conference.component';
 import {AssignPapersComponent} from '../conference-chair/assign-papers/assign-papers.component';
 import {ViewConferencesComponent} from '../conference-chair/view-conferences/view-conferences.component';
+import { HomePageComponent } from '../home-page/home-page.component';
 
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'giveQualifier', component: GiveQualifierComponent
+  },
+  {
+    path: 'home', component: HomePageComponent
+  },
+  {
+    path: 'bidProposal', component: BidProposalComponent
+  },
+  {
+    path: 'viewOtherProposals', component: ViewOtherProposalsComponent
+  },
 {
-  path:'#', redirectTo:'', pathMatch:'full'
+  path: 'submitProposal', component: ProposalFormComponent
+},
+{
+  path: 'mysubmissions', component: MySubmissionsComponent
 },
   {path: 'speaker', component: AuthorComponent , children:[
 
@@ -68,4 +89,5 @@ const routes: Routes = [
   exports: [RouterModule]
 
 })
-export class AppRoutingModule { }
+export class AppRoutingModule { 
+}

@@ -19,6 +19,8 @@ import { ViewOtherProposalsComponent } from './reviewer/view-other-proposals/vie
 import { AddConferenceComponent } from './conference-chair/add-conference/add-conference.component';
 import { ViewConferencesComponent } from './conference-chair/view-conferences/view-conferences.component';
 import { AssignPapersComponent } from './conference-chair/assign-papers/assign-papers.component';
+import { AuthService } from './auth.service';
+import { HomePageComponent } from './home-page/home-page.component';
 
 
 
@@ -35,7 +37,8 @@ import { AssignPapersComponent } from './conference-chair/assign-papers/assign-p
     ViewOtherProposalsComponent,
     AddConferenceComponent,
     ViewConferencesComponent,
-    AssignPapersComponent
+    AssignPapersComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,7 @@ import { AssignPapersComponent } from './conference-chair/assign-papers/assign-p
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
