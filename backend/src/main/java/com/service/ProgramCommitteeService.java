@@ -1,10 +1,9 @@
 package com.service;
 
 import com.entities.*;
-//import com.mapper.EvaluationMapper;
+import com.mapper.EvaluationMapper;
 import com.input.EvaluationInput;
 import com.mapper.PaperMapper;
-import com.mapper.UserMapper;
 import com.model.*;
 import com.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,18 +36,8 @@ public class ProgramCommitteeService {
     }
 
 
-
-
     @Transactional
-    public User findUserByEmail(String email) {
-        UserEntity entity = userRepository.findById(email).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "User with email " + email + " not found!"));
-        return UserMapper.entityToUser(entity);
-    }
-
-
-
-    @Transactional
-    public PaperJson setPaperSection(int paperId, int sectionId) {
+    public PaperJson assignPaperToSection(int paperId, int sectionId) {
         PaperEntity existingPaper = paperRepository.findById(paperId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Paper with id " + paperId + " not found"));
         existingPaper.setSection(sectionRepository.findById(sectionId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Section with id " + sectionId + " not found.")));
 
@@ -70,5 +59,19 @@ public class ProgramCommitteeService {
 
         paperRepository.save(paperEntity);
     }
+
+    @Transactional
+    public EvaluationJson reviewPaper(String email, EvaluationInput evaluation) {
+
+        PaperEntity paperEntity = paperRepository.findById(evaluation.getPaperId()).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Paper with id " + evaluation.getPaperId() + " not found!"));
+        CommitteeMemberEntity pcMemberEntity = pcMemberRepository.findById(email).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "PC member " + email + " not found"));
+        RecommendationEntity recommendation = new RecommendationEntity(evaluation.getRecommendation());
+        recommendationRepository.save(recommendation);
+
+        EvaluationEntity review = pcMemberEntity.addReview(paperEntity, evaluation.getQualifier(), recommendation );
+
+        return EvaluationMapper.entityToEvaluation(review);
+    }
+
 
 }

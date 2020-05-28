@@ -1,6 +1,7 @@
 package com.mapper;
 
 import com.entities.CommitteeMemberEntity;
+import com.entities.EvaluationEntity;
 import com.entities.PaperEntity;
 import com.input.PaperInput;
 import com.model.PaperJson;
@@ -28,8 +29,8 @@ public class PaperMapper {
                 .title(entity.getTitle())
                 .fileName(entity.getFileName())
                 .description(entity.getDescription())
-//                .bidders(entity.getBids().values().stream().map(CommitteeMemberEntity::getEmail).collect(Collectors.toList()))
-                //.reviewers(entity.getReviewers().values().stream().map(PCMemberEntity::getEmail).collect(Collectors.toList()))
+                .bidders(entity.getBids().values().stream().map(CommitteeMemberEntity::getEmail).collect(Collectors.toList()))
+                .reviewers(entity.getReviews().stream().map(input -> input.getReviewer().getEmail()).collect(Collectors.toList()))
 
 //                .qualifiers(entity.getQualifiers())
                 .authors(entity.getAuthors() != null ? entity.getAuthors().stream()

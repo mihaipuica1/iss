@@ -44,7 +44,7 @@ public class PaperEntity {
     private List<AuthorEntity> authors;
 
     @OneToMany(mappedBy = "paper", fetch = FetchType.LAZY)
-    private List<EvaluationEntity> reviews;
+    private List<EvaluationEntity> reviews = new ArrayList<>();;
 
 
 
