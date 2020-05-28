@@ -33,21 +33,20 @@ public class ProgramCommitteeController {
     }
 
 
-    @POST
-    @Path("/review")
+    @PUT
+    @Path("/review/{email}")
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public EvaluationJson reviewPaper(EvaluationInput evaluation) {
-         //return pcService.reviewPaper(evaluation);
-        return null;
+    public EvaluationJson reviewPaper(@PathParam("email") String email, EvaluationInput evaluation) {
+         return pcService.reviewPaper(email, evaluation);
     }
 
 
     @PUT
     @Path("/paper/section/{paperId}/{sectionId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public PaperJson setPaperSection(@PathParam("paperId") int paperId, @PathParam("sectionId") int sectionId) {
-        return pcService.setPaperSection(paperId, sectionId);
+    public PaperJson assignPaperToSection(@PathParam("paperId") int paperId, @PathParam("sectionId") int sectionId) {
+        return pcService.assignPaperToSection(paperId, sectionId);
     }
 
 

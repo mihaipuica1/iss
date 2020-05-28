@@ -3,9 +3,7 @@ package com.entities;
 
 import com.model.Qualifier;
 import com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
@@ -13,7 +11,6 @@ import javax.persistence.*;
 import java.util.Objects;
 
 
-//@Builder
 @Getter
 @Setter
 @Entity(name = "evaluation")
@@ -27,11 +24,12 @@ public class EvaluationEntity {
     @EmbeddedId
     private EvaluationKey id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("reviewer")
+    @JoinColumn(name = "reviewer")
     private CommitteeMemberEntity reviewer;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("paperId")
     private PaperEntity paper;
 
