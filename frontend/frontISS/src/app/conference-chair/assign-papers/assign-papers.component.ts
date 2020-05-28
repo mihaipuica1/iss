@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {PcMember} from '../../models/pcmember';
 import {Paper} from '../../models/paper';
+import '@angular/cdk';
+import '@angular/forms';
 
 @Component({
   selector: 'app-assign-papers',
@@ -22,4 +24,7 @@ title2: string;
   ngOnInit() {
   }
 
+  assign(value: string, value2: string) {
+
+  }
 }

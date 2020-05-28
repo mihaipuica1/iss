@@ -44,7 +44,17 @@
             </tr>
             </tbody>
           </table>
-          <button>Assign</button>
+          <label style="color: aliceblue">
+            <input type="text" #a />
+            Take from first table a title
+          </label>
+          <br>
+          <label style="color: aliceblue">
+            <input type="text" #b />
+            Take from second table a name
+          </label>
+
+          <button (click)="assign(a.value,b.value)">Assign </button>
         </div>
       </div>
       <router-outlet></router-outlet>
