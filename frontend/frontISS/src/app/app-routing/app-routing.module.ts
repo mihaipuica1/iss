@@ -10,12 +10,14 @@ import { AppComponent } from '../app.component';
 import {MySubmissionsComponent} from '../speaker/my-submissions/my-submissions.component';
 import {GiveQualifierComponent} from '../reviewer/give-qualifier/give-qualifier.component';
 import {BidProposalComponent} from '../reviewer/bid-proposal/bid-proposal.component';
-import {ViewOtherProposalsComponent} from '../reviewer/view-other-proposals/view-other-proposals.component';
 import {AddConferenceComponent} from '../conference-chair/add-conference/add-conference.component';
 import {AssignPapersComponent} from '../conference-chair/assign-papers/assign-papers.component';
 import {ViewConferencesComponent} from '../conference-chair/view-conferences/view-conferences.component';
 import { HomePageComponent } from '../home-page/home-page.component';
 import { AuthGuardService } from '../Guards/auth-guard.service';
+import {SectionComponent} from '../conference-chair/section/section.component';
+import {AssignSectionComponent} from '../conference-chair/assign-section/assign-section.component';
+import {AssignSupervisorComponent} from '../conference-chair/assign-supervisor/assign-supervisor.component';
 
 
 const routes: Routes = [
@@ -32,9 +34,6 @@ const routes: Routes = [
   },
   {
     path: 'bidProposal', component: BidProposalComponent
-  },
-  {
-    path: 'viewOtherProposals', component: ViewOtherProposalsComponent
   },
 {
   path: 'submitProposal', component: ProposalFormComponent
@@ -62,9 +61,6 @@ const routes: Routes = [
 
       {
         path: 'bidProposal', component: BidProposalComponent
-      },
-      {
-        path: 'viewOtherProposals', component: ViewOtherProposalsComponent
       }
     ]
   },
@@ -79,6 +75,16 @@ const routes: Routes = [
       },
       {
         path: 'viewConferences', component: ViewConferencesComponent
+      },
+      {
+        path: 'createSection', component: SectionComponent
+      },
+
+      {
+        path: 'assignSection', component: AssignSectionComponent
+      },
+      {
+        path: 'assignSupervisor', component: AssignSupervisorComponent
       }
     ]
   }
@@ -90,5 +96,5 @@ const routes: Routes = [
   exports: [RouterModule]
 
 })
-export class AppRoutingModule { 
+export class AppRoutingModule {
 }

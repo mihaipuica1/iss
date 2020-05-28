@@ -15,13 +15,15 @@ import { ReviewerComponent } from './reviewer/reviewer.component';
 import { MySubmissionsComponent } from './speaker/my-submissions/my-submissions.component';
 import { BidProposalComponent } from './reviewer/bid-proposal/bid-proposal.component';
 import { GiveQualifierComponent } from './reviewer/give-qualifier/give-qualifier.component';
-import { ViewOtherProposalsComponent } from './reviewer/view-other-proposals/view-other-proposals.component';
 import { AddConferenceComponent } from './conference-chair/add-conference/add-conference.component';
 import { ViewConferencesComponent } from './conference-chair/view-conferences/view-conferences.component';
 import { AssignPapersComponent } from './conference-chair/assign-papers/assign-papers.component';
 import { AuthService } from './AuthentificatrionService/auth.service';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AuthGuardService } from './Guards/auth-guard.service';
+import { SectionComponent } from './conference-chair/section/section.component';
+import { AssignSectionComponent } from './conference-chair/assign-section/assign-section.component';
+import { AssignSupervisorComponent } from './conference-chair/assign-supervisor/assign-supervisor.component';
 
 
 
@@ -35,11 +37,13 @@ import { AuthGuardService } from './Guards/auth-guard.service';
     MySubmissionsComponent,
     BidProposalComponent,
     GiveQualifierComponent,
-    ViewOtherProposalsComponent,
     AddConferenceComponent,
     ViewConferencesComponent,
     AssignPapersComponent,
-    HomePageComponent
+    HomePageComponent,
+    SectionComponent,
+    AssignSectionComponent,
+    AssignSupervisorComponent
   ],
   imports: [
     BrowserModule,

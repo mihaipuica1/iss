@@ -1,11 +1,23 @@
  export class Paper {
     id: string;
     title: string;
-    content: string;
+   keywords: string;
+   topics: string;
+   authors: string;
+   filename: string;
+   description: string;
 
-   constructor(id: string, title: string, content: string) {
+
+   constructor(id: string, title: string, keywords: string, topics: string, authors: string, filename: string, description: string) {
      this.id = id;
      this.title = title;
-     this.content = content;
+     this.keywords = keywords;
+     this.topics = topics;
+     this.authors = authors;
+     this.filename = filename;
+     this.description = description;
+   }
+   contructor() {
+
    }
  }

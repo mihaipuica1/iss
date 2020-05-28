@@ -5,5 +5,7 @@ export class Conference {
   abstractDeadline: string;
   proposalDeadline: string;
   biddingDeadline: string;
-  event: string;
+  name: string;
+  country: string;
+  city: string;
 }

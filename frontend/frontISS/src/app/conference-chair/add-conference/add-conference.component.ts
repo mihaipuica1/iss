@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Conference} from '../../models/conference';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Proposal} from '../../models/proposal';
 
 @Component({
   selector: 'app-add-conference',

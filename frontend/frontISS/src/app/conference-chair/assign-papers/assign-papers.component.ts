@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {PcMember} from '../../models/pcmember';
+import {Paper} from '../../models/paper';
 
 @Component({
   selector: 'app-assign-papers',
@@ -7,12 +8,16 @@ import {PcMember} from '../../models/pcmember';
   styleUrls: ['./assign-papers.component.css']
 })
 export class AssignPapersComponent implements OnInit {
-  title2: String;
+  title: string;
 
+title2: string;
   pcMembers: PcMember[];
+  papers: Paper[];
   constructor() {
-    this.title2 = 'PcMembers';
-    this.pcMembers = [new PcMember('1', 'a', 'a@cs.ubbcluj.ro')];}
+    this.title = 'PcMembers';
+    this.pcMembers = [new PcMember('1', 'a', 'a@cs.ubbcluj.ro')];
+    this.title2 = 'Papers';
+  }
 
   ngOnInit() {
   }

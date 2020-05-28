@@ -3,9 +3,8 @@
     <div class="col-md-12">
       <div class="card bg-dark my-5">
         <div class="card-body">
-          <h3 style="text-align: center; color: gray">{{title}}</h3>
-
-
+          <h2 style="text-align: center; color: gray">{{title}}</h2>
+          <h3 style="text-align: center; color: gray">{{title1}}</h3>
 
           <table class="table table-bordered table-striped">
 
@@ -32,26 +31,17 @@
           <table class="table table-bordered table-striped">
 
             <tr>
-              <th scope="col" style="color: gray;">Title</th>
-              <th scope="col" style="color: gray;">Description</th>
-              <th scope="col" style="color: gray;">Topics</th>
-
+              <th scope="col" style="color: gray;">Name</th>
             </tr>
 
             <tbody>
-            <tr *ngFor="let paper of papers">
-              <td>{{ paper.title }}</td>
-              <td>{{paper.description}}</td>
-              <td>{{paper.topics}}</td>
-              <td>
-                <button style="background-color: gray">Edit</button>
-              </td>
-
+            <tr *ngFor="let section of sections">
+              <td>{{section.name}}</td>
 
             </tr>
             </tbody>
           </table>
-          <button >Assign</button>
+          <button>Assign</button>
         </div>
       </div>
       <router-outlet></router-outlet>

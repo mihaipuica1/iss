@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Proposal } from '../../models/proposal';
 import { ActivatedRoute, Router } from '@angular/router';
+import {Paper} from '../../models/paper';
 
 @Component({
   selector: 'app-proposal-form',
@@ -9,12 +9,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ProposalFormComponent {
 
-  proposal: Proposal;
+  proposal: Paper;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
   ) {
-    this.proposal = new Proposal();
+    this.proposal = new Paper( null,null,null,null,null,null,null);
   }
 
   onSubmit() {  }

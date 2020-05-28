@@ -16,12 +16,12 @@ export class ReviewerComponent implements OnInit {
   constructor() {
     this.title = 'Reviewer';
     this.title2 = 'Papers';
-    this.papers = [new Paper('1', 'a', 'a')];
+    this.papers = [new Paper('1', 'a', 'a','a','a','a','a')];
   }
 
   ngOnInit() {
   }
-onclick(){
+onclick() {
     return '$(\'#paper\').click(function(){$(this).data(\'clicked\', false);})';
 }
 }

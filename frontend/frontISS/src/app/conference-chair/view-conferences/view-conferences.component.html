@@ -9,26 +9,29 @@
           <table class="table table-bordered table-striped">
 
             <tr>
-              <th scope="col" style="color: gray;">Id</th>
+              <th scope="col" style="color: gray;">Name</th>
               <th scope="col" style="color: gray;">Date</th>
               <th scope="col" style="color: gray;">Interval</th>
               <th scope="col" style="color: gray;">Abstract Deadline</th>
               <th scope="col" style="color: gray;">Proposal Deadline</th>
               <th scope="col" style="color: gray;">Biddinng Deadline</th>
-              <th scope="col" style="color: gray;">Event</th>
+              <th scope="col" style="color: gray;">Country</th>
+              <th scope="col" style="color: gray;">City</th>
 
 
             </tr>
 
             <tbody>
             <tr *ngFor="let conference of conferences">
-              <td>{{ conference.id }}</td>
+              <td>{{conference.name}}</td>
               <td>{{ conference.date }}</td>
               <td>{{conference.interval}}</td>
               <td>{{ conference.abstractDeadline }}</td>
               <td>{{ conference.proposalDeadline }}</td>
               <td>{{conference.biddingDeadline}}</td>
-              <td>{{conference.event}}</td>
+              <td>{{conference.country}}</td>
+              <td>{{conference.city}}</td>
+
 
 
 

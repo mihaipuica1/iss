@@ -13,7 +13,7 @@ export class MySubmissionsComponent implements OnInit {
   constructor() {
     this.title = 'My Submissions';
     this.title2 = 'My Papers';
-    this.papers = [new Paper('1', '1', '1')];
+    this.papers = [new Paper('1', '1', '1','1','1','1','1')];
   }
 
   ngOnInit() {

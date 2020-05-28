@@ -22,7 +22,7 @@
                required #keywords="ngModel">
         <div *ngIf="keywords.invalid && keywords.touched" class="alert alert-danger">Keywords are required</div>
       </div>
-      
+
       <div class="form-group">
         <label for="topics">Topics</label>
         <input type="text" [(ngModel)]="proposal.topics"
@@ -33,15 +33,27 @@
                required #topics="ngModel">
         <div *ngIf="topics.invalid && topics.touched" class="alert alert-danger">Topics needed!</div>
       </div>
+
       <div class="form-group">
-        <label for="content">Content</label>
-        <input type="text" [(ngModel)]="proposal.content"
+        <label for="Description">Description</label>
+        <input type="text" [(ngModel)]="proposal.description"
                class="form-control"
-               id="content"
-               name="content"
-               placeholder="Content"
-               required #content="ngModel">
-        <div *ngIf="content.invalid && content.touched" class="alert alert-danger">Content is required</div>
+               id="Description"
+               name="Description"
+               placeholder="Description"
+               required #Description="ngModel">
+        <div *ngIf="Description.invalid && Description.touched" class="alert alert-danger">Description is required</div>
+      </div>
+
+      <div class="form-group">
+        <label for="Authors">Authors</label>
+        <input type="text" [(ngModel)]="proposal.authors"
+               class="form-control"
+               id="Authors"
+               name="Authors"
+               placeholder="Authors"
+               required #Authors="ngModel">
+        <div *ngIf="Authors.invalid && Authors.touched" class="alert alert-danger">Authors are required</div>
       </div>
       <input type="file" id="myFile" name="filename">
 
@@ -52,7 +64,7 @@
               class="btn btn-info">Submit</button>
 
     </form>
-    <img src="assets\img\LogoZ.png" style="width:450px;height:500px;margin-left: 280px;" > 
+    <img src="assets\img\LogoZ.png" style="width:450px;height:500px;margin-left: 280px;" >
   </div>
 </div>
 </div>
