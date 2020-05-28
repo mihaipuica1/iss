@@ -27,13 +27,16 @@ export class AuthService {
     if(this.r="reviewer"){
       this._router.navigate(['reviewer'])
     }
+
     else if(this.r="speaker"){
       this._router.navigate(['speaker'])
     }
+
     else{
     this._router.navigate(['']);
     }
   }
+  
   getRole(){
     if(localStorage.getItem("token") === null){
       return "none";
@@ -42,6 +45,7 @@ export class AuthService {
     return jwt_decode(localStorage.getItem('token'))['role'];
     }
   }
+
   logoutUser(){
     this.token="";
     this.decoded="";
