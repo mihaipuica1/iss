@@ -15,6 +15,7 @@ import {AddConferenceComponent} from '../conference-chair/add-conference/add-con
 import {AssignPapersComponent} from '../conference-chair/assign-papers/assign-papers.component';
 import {ViewConferencesComponent} from '../conference-chair/view-conferences/view-conferences.component';
 import { HomePageComponent } from '../home-page/home-page.component';
+import { AuthGuardService } from '../Guards/auth-guard.service';
 
 
 const routes: Routes = [
@@ -24,7 +25,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'giveQualifier', component: GiveQualifierComponent
+    path: 'giveQualifier', component: GiveQualifierComponent, canActivate:[AuthGuardService]
   },
   {
     path: 'home', component: HomePageComponent

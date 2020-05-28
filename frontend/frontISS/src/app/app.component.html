@@ -1,6 +1,6 @@
 
             <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow p-1 mb-5 bg-white rounded">
-              <a class="navbar-brand" routerLink=""><img src="assets\img\planeLogo.png" style="width:170px;height:30px;" ></a>
+              <a class="navbar-brand" routerLink=""><img src="assets\img\LogoZ2.png" style="width:170px;height:40px;" ></a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -8,82 +8,69 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                   <li class="nav-item">
-                    <a class="nav-link"  routerLink="" >Home</a>
+                    <a class="nav-link" *ngIf="!auth.isLoggedIn()" routerLink="" >Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" *ngIf="role === 'speaker' && auth.isLoggedIn()" routerLink="/speaker" >Author</a>
+                    <a class="nav-link" *ngIf="this.auth.getRole() === 'speaker' && auth.isLoggedIn()" routerLink="/speaker" >Author</a>
                   </li>
 
                       <li class="nav-item">
 
-                        <a class="nav-link" *ngIf="role === 'speaker'&& auth.isLoggedIn()" routerLink="submitProposal" > Submit Proposal</a>
+                        <a class="nav-link" *ngIf="this.auth.getRole() === 'speaker'&& auth.isLoggedIn()" routerLink="submitProposal" > Submit Proposal</a>
                       </li>
                       <li class="nav-item">
           
-                        <a class="nav-link" *ngIf="role === 'speaker' && auth.isLoggedIn()" routerLink="mysubmissions" >My Submissions</a>
+                        <a class="nav-link" *ngIf="this.auth.getRole() === 'speaker' && auth.isLoggedIn()" routerLink="mysubmissions" >My Submissions</a>
                       </li>
+                  <li class="nav-item">
+                    <a class="nav-link" *ngIf="this.auth.getRole() === 'reviewer' && auth.isLoggedIn()" routerLink="reviewer" >Reviewer</a>
+                  </li>
+                      <li class="nav-item">
+
+                        <a class="nav-link" routerLink="giveQualifier" *ngIf="this.auth.getRole() === 'reviewer' && auth.isLoggedIn()" > Give Qualifier</a>
+                      </li>
+                      <li class="nav-item">
+          
+                        <a class="nav-link" routerLink="bidProposal" *ngIf="this.auth.getRole() === 'reviewer' && auth.isLoggedIn()" >Bid Proposal</a>
+                      </li>
+                      <li class="nav-item">
+          
+                        <a class="nav-link" routerLink="viewOtherProposals"*ngIf="this.auth.getRole() === 'reviewer' && auth.isLoggedIn()"  >Other Proposals</a>
+                      </li>
+                      
+                      <li class="nav-item">
+
+                        <a routerLink="addConference" *ngIf="this.auth.getRole() === 'chair' && auth.isLoggedIn()" class="nav-link"> Add Conference</a>
+                      </li>
+                      <li class="nav-item">
+          
+                        <a routerLink="assignPapers" *ngIf="this.auth.getRole() === 'chair' && auth.isLoggedIn()" class="nav-link">Assign Papers</a>
+                      </li>
+                      <li class="nav-item">
+          
+                        <a routerLink="viewConferences" *ngIf="this.auth.getRole() === 'chair' && auth.isLoggedIn()" class="nav-link">View Conference</a>
+                      </li>
+
                   <!-- <li class="nav-item">
-                    <a class="nav-link" *ngIf="role === 'reviewer' && auth.isLoggedIn()" routerLink="" >Reviewr</a>
+                    <a class="nav-link " *ngIf="this.auth.getRole() === 'chair'" routerLink="/conferenceChair" >Conference Chair</a>
                   </li> -->
-                      <li class="nav-item">
-
-                        <a class="nav-link" routerLink="giveQualifier" *ngIf="role === 'reviewer' && auth.isLoggedIn()" > Give Qualifier</a>
-                      </li>
-                      <li class="nav-item">
-          
-                        <a class="nav-link" routerLink="bidProposal" *ngIf="role === 'reviewer' && auth.isLoggedIn()" >Bid Proposal</a>
-                      </li>
-                      <li class="nav-item">
-          
-                        <a class="nav-link" routerLink="viewOtherProposals"*ngIf="role === 'reviewer' && auth.isLoggedIn()"  >Other Proposals</a>
-                      </li>
-
-                  <li class="nav-item">
-                    <a class="nav-link " *ngIf="role === 'chair'" routerLink="/conferenceChair" >Conference Chair</a>
-                  </li>
                 </ul>
                 <ul class="navbar-nav">
-                    <a class="nav-link" *ngIf="!auth.isLoggedIn()" (click)="doLogin()">Login</a>
+                    <a class="nav-link" *ngIf="!auth.isLoggedIn()" (click)="this.auth.loginUser()" style="cursor:pointer">Login</a>
                     <a class="nav-link" *ngIf="!auth.isLoggedIn()" routerLink="" routerLinkActive="active">Register</a>
                     <a class="nav-link" style="cursor:pointer" *ngIf="auth.isLoggedIn()" (click)="auth.logoutUser()">Logout</a>        
                 </ul>
               </div>
             </nav>    
-
-            
-            <div #myModal class="modal fade" id="myModal" data-toggle="modal" data-target="#myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-scrollable" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-
-                  <div class="modal-body">
-                    <li class="nav">
-                      <a routerLink="/speaker" data-dismiss="modal" class="btn btn-info"> Speaker</a>
-                      <a routerLink="/reviewer" data-dismiss="modal"  class="btn btn-info"> Reviewer</a>
-                      <a routerLink="/conferenceChair" data-dismiss="modal" class="btn btn-info"> Conference Chair</a>
-
-                    </li>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <router-outlet></router-outlet>
 
-
-            <footer class="page-footer font-small blue fixed-bottom">
-
-              <!-- Copyright -->
-              <div class="footer-copyright text-center py-3">© 2020 Copyright:
-                <div> SoupTime the great ones</div>
-              </div>
-              <!-- Copyright -->
-            
-            </footer>
+                        
+      <footer class="page-footer font-small blue ">
+        <div class="footer-copyright text-center py-3">© 2020 Copyright:
+          <div> SoupTime the great ones</div>
+          <div> All rights reserved</div>
+        </div>
+      
+      </footer>
 
             <!--to do some login stuff, i got it-->

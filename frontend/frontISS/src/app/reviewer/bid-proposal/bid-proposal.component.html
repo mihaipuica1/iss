@@ -8,17 +8,13 @@
           <table class="table table-bordered table-striped">
 
             <tr>
-              <th scope="col" style="color: gray;">Id</th>
               <th scope="col" style="color: gray;">Title</th>
-              <th scope="col" style="color: gray;">Content</th>
 
             </tr>
 
             <tbody>
             <tr *ngFor="let paper of papers">
-              <td>{{ paper.id }}</td>
               <td>{{ paper.title }}</td>
-              <td>{{paper.content}}</td>
               <td>
                 <button style="background-color: gray">Accept</button>
               </td>
