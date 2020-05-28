@@ -22,4 +22,7 @@ export class AssignSupervisorComponent implements OnInit {
 
   }
 
+  assign(value: string, value2: string) {
+
+  }
 }

@@ -23,4 +23,7 @@ title2: string;
   ngOnInit() {
   }
 
+  assign(value: string, value2: string) {
+
+  }
 }

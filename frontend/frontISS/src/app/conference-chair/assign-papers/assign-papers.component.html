@@ -7,23 +7,25 @@
 
 
 
-          <table class="table table-bordered table-striped">
+          <table  class="table table-bordered table-striped" >
 
             <tr>
-              <th scope="col" style="color: gray;">Id</th>
               <th scope="col" style="color: gray;">Name</th>
               <th scope="col" style="color: gray;">Email</th>
 
             </tr>
 
             <tbody>
+
             <tr *ngFor="let pcMember of pcMembers">
-              <td>{{ pcMember.id }}</td>
+
               <td>{{ pcMember.name }}</td>
               <td>{{pcMember.email}}</td>
 
-
             </tr>
+
+
+
             </tbody>
           </table>
           <hr>
@@ -32,6 +34,8 @@
           <table class="table table-bordered table-striped">
 
             <tr>
+
+
               <th scope="col" style="color: gray;">Title</th>
               <th scope="col" style="color: gray;">Description</th>
               <th scope="col" style="color: gray;">Topics</th>
@@ -40,6 +44,7 @@
 
             <tbody>
             <tr *ngFor="let paper of papers">
+
               <td>{{ paper.title }}</td>
               <td>{{paper.description}}</td>
               <td>{{paper.topics}}</td>
@@ -48,10 +53,21 @@
               </td>
 
 
+
             </tr>
             </tbody>
           </table>
-          <button >Assign</button>
+          <label style="color: aliceblue">
+          <input type="text" #a />
+            Take from first table a name
+          </label>
+          <br>
+          <label style="color: aliceblue">
+            <input type="text" #b />
+            Take from second table a title
+          </label>
+
+          <button (click)="assign(a.value,b.value)">Assign </button>
         </div>
       </div>
       <router-outlet></router-outlet>
