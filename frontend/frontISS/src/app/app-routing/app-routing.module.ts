@@ -35,7 +35,7 @@ const routes: Routes = [
     path: 'home/:id', component: HomePageComponent
   },
 
-//reviwer
+// reviwer
       {
       path: 'reviewer', component: ReviewerComponent, canActivate:[AuthGuardService]
 
@@ -48,7 +48,8 @@ const routes: Routes = [
       path: 'bidProposal', component: BidProposalComponent, canActivate:[AuthGuardService]
       },
 
-//author
+
+// author
       {
       path: 'submitProposal', component: ProposalFormComponent, canActivate:[SpeakerGuardService]
       },
@@ -59,7 +60,7 @@ const routes: Routes = [
 
       },
 
-      //chair
+      // chair
       {
         path: 'addConference', component: AddConferenceComponent, canActivate:[ChairGuardService]
       },

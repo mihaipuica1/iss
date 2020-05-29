@@ -9,7 +9,8 @@ import {Paper} from '../../models/paper';
 })
 export class AssignPapersComponent implements OnInit {
   title: string;
-
+ok:boolean;
+i:any;
 title2: string;
   pcMembers: PcMember[];
   papers: Paper[];
@@ -24,5 +25,25 @@ title2: string;
 
   assign(value: string, value2: string) {
 
+  }
+
+  isInFirstTable(value: string) {
+    this.ok = false;
+    for (this.i = 0; this.i <= this.pcMembers.length; this.i++) {
+      if (this.pcMembers[this.i].name === value) {
+        this.ok = true;
+      }
+    }
+    return this.ok;
+  }
+
+  isInSecondTable(value: string) {
+    this.ok = false;
+    for (this.i = 0; this.i <= this.papers.length; this.i++) {
+      if (this.papers[this.i].title === value) {
+        this.ok = true;
+      }
+    }
+    return this.ok;
   }
 }

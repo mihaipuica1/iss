@@ -13,6 +13,9 @@ export class AssignSupervisorComponent implements OnInit {
   title: string;
   title1: string;
   title2: string;
+  pcMember: any;
+  i: any;
+  ok: boolean;
   constructor() { }
 
   ngOnInit() {
@@ -24,5 +27,24 @@ export class AssignSupervisorComponent implements OnInit {
 
   assign(value: string, value2: string) {
 
+  }
+  isInFirstTable(value: string) {
+    this.ok = false;
+    for (this.i = 0; this.i <= this.pcMembers.length; this.i++) {
+        if (this.pcMembers[this.i].name === value) {
+          this.ok = true;
+        }
+    }
+    return this.ok;
+  }
+
+  isInSecondTable(value: string) {
+    this.ok = false;
+    for (this.i = 0; this.i <= this.sections.length; this.i++) {
+      if (this.sections[this.i].name === value) {
+        this.ok = true;
+      }
+    }
+    return this.ok;
   }
 }

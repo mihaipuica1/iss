@@ -67,7 +67,7 @@
             Take from second table a title
           </label>
 
-          <button (click)="assign(a.value,b.value)">Assign </button>
+          <button (click)="assign(a.value,b.value)" [disabled]="!isInFirstTable(a.value)  || !isInSecondTable(b.value)">Assign </button>
         </div>
       </div>
       <router-outlet></router-outlet>
