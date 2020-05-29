@@ -27,6 +27,13 @@ public class PaperController {
         return paperService.submitPaper(paper);
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("paper/{paperId}")
+    public PaperJson findById(@PathParam("paperId") int id) {
+        return paperService.findById(id);
+    }
+
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
