@@ -1,8 +1,8 @@
 package com.api.resources;
 
-import com.entities.ProfileEntity;
-import com.input.ProfileInput;
-import com.service.AuthenticateService;
+import com.entities.ApplicationUser;
+import com.input.Authentication;
+import com.service.AuthenticationService;
 import com.web.json.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,11 +17,11 @@ import javax.ws.rs.core.MediaType;
 @Path("/")
 public class AuthenticationController {
 
-    private AuthenticateService authenticationService;
+    private AuthenticationService authenticationService;
     private PasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @Autowired
-    public AuthenticationController(AuthenticateService authenticationService) {
+    public AuthenticationController(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
     }
 
@@ -29,7 +29,7 @@ public class AuthenticationController {
     @POST
     @Path("register")
     @Consumes("application/json")
-    public void register(ProfileInput profileInput) {
+    public void register(Authentication profileInput) {
         authenticationService.register(profileInput);
     }
 
@@ -37,10 +37,10 @@ public class AuthenticationController {
     @Path("login")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes("application/json")
-    public JsonResponse login(ProfileInput profileInput) {
+    public JsonResponse login(Authentication profileInput) {
 
         String password = profileInput.getPassword();
-        ProfileEntity profile = authenticationService.login(profileInput);
+        ApplicationUser profile = authenticationService.login(profileInput);
 
         if (bCryptPasswordEncoder.matches(password, profile.getPassword())) {
             return new JsonResponse().with("status", "ok");

@@ -1,10 +1,10 @@
 package com.service;
 
-import com.entities.ProfileEntity;
+import com.entities.ApplicationUser;
 import com.mapper.ProfileMapper;
-import com.input.ProfileInput;
+import com.input.Authentication;
 import com.model.Role;
-import com.repository.ProfileRepository;
+import com.repository.ApplicationUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,28 +16,28 @@ import org.springframework.web.client.HttpClientErrorException;
 import java.util.Optional;
 
 @Service
-public class AuthenticateService {
+public class AuthenticationService {
 
-    private ProfileRepository profileRepository;
+    private ApplicationUserRepository applicationUserRepository;
     private PasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @Autowired
-    public AuthenticateService(ProfileRepository profileRepository) {
-        this.profileRepository = profileRepository;
+    public AuthenticationService(ApplicationUserRepository applicationUserRepository) {
+        this.applicationUserRepository = applicationUserRepository;
     }
 
     @Transactional
-    public void register(ProfileInput input) {
+    public void register(Authentication input) {
 
-        Optional<ProfileEntity> profile = profileRepository.findById(input.getUsername());
+        Optional<ApplicationUser> profile = applicationUserRepository.findById(input.getUsername());
 
         if (!profile.isPresent()) {
-            ProfileEntity profileEntity = ProfileMapper.profileToEntity(input);
+            ApplicationUser profileEntity = ProfileMapper.profileToEntity(input);
 
             profileEntity.setRoles(new Role[1]);
             profileEntity.getRoles()[0] = Role.valueOf(input.getRoles());
             profileEntity.setPassword(bCryptPasswordEncoder.encode(profileEntity.getPassword()));
-            profileRepository.save(profileEntity);
+            applicationUserRepository.save(profileEntity);
 
         } else {
             if (profile.get().getRoles() == null) {
@@ -51,12 +51,12 @@ public class AuthenticateService {
                 profile.get().setRoles(roles);
             }
 
-            profileRepository.save(profile.get());
+            applicationUserRepository.save(profile.get());
         }
     }
 
-    public ProfileEntity login(ProfileInput profileInput) {
+    public ApplicationUser login(Authentication profileInput) {
 
-        return profileRepository.findById(profileInput.getUsername()).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Profile not found."));
+        return applicationUserRepository.findById(profileInput.getUsername()).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Profile not found."));
     }
 }

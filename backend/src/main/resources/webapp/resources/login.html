@@ -33,16 +33,26 @@
 
 
 <script>
+    function get(name){
+        if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+            return decodeURIComponent(name[1]);
+    }
 
-function login(event) {
+    function setActionAttribute() {
+        var currentForm = document.getElementById("loginForm");
+        var currentLocation = currentForm.action + get("redirect_uri");
+        currentForm.action = currentLocation;
+    }
 
-    event.preventDefault();
-    const form = document.getElementById('loginForm');
-    let rawData = new FormData(form);
+    function login(event) {
 
-    let data = {};
-    for(let pair of rawData.entries()) {
-     data[pair[0]] = pair[1];
+      event.preventDefault();
+      const form = document.getElementById('loginForm');
+      let rawData = new FormData(form);
+
+      let data = {};
+      for(let pair of rawData.entries()) {
+        data[pair[0]] = pair[1];
     }
 
     console.log(data);

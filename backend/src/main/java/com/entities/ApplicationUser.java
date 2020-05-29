@@ -23,7 +23,7 @@ import javax.validation.constraints.Email;
         }
 )
 @Entity(name = "profile")
-public class ProfileEntity {
+public class ApplicationUser {
 
     @Id
     @Email

@@ -1,12 +1,12 @@
 package com.mapper;
 
-import com.entities.ProfileEntity;
-import com.input.ProfileInput;
+import com.entities.ApplicationUser;
+import com.input.Authentication;
 
 public class ProfileMapper {
 
-    public static ProfileEntity profileToEntity(ProfileInput input) {
-        return ProfileEntity.builder()
+    public static ApplicationUser profileToEntity(Authentication input) {
+        return ApplicationUser.builder()
                 .username(input.getUsername())
                 .password(input.getPassword())
                 .firstName(input.getFirstName())
@@ -14,8 +14,8 @@ public class ProfileMapper {
                 .build();
     }
 
-    public static ProfileInput inputToEntity(ProfileEntity entity) {
-        return ProfileInput.builder()
+    public static Authentication inputToEntity(ApplicationUser entity) {
+        return Authentication.builder()
                 .username(entity.getUsername())
                 .password(entity.getPassword())
                 .firstName(entity.getFirstName())
