@@ -1,13 +1,18 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../AuthentificatrionService/auth.service';
 
 @Component({
   selector: 'app-author',
   templateUrl: './author.component.html',
   styleUrls: ['./author.component.css']
 })
-export class AuthorComponent {
+export class AuthorComponent implements OnInit{
   title: string;
-  constructor() {
+  constructor(private router:ActivatedRoute, private auth:AuthService) {
     this.title = 'Speaker/Author';
+  }
+  ngOnInit(){
+
   }
 }

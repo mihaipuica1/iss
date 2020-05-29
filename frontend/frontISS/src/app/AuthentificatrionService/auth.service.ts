@@ -20,22 +20,24 @@ export class AuthService {
   }
 
   loginUser(){
-    this.token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwicm9sZSI6ImNoYWlyIiwiaWF0IjoxNTE2MjM5MDIyfQ.f_r1Qr232o_7ZZrbdBLuvrhXjA2hEiq8jaaPBucSSB0';
-    localStorage.setItem ('token', this.token);
-    this.decoded = jwt_decode(this.token);
-    this.r = this.decoded['role'];
-    if(this.r==="reviewer"){
-      this._router.navigate(['reviewer'])
-    }
+    this._router.navigateByUrl('/home?token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwicm9sZSI6ImNoYWlyIiwiaWF0IjoxNTE2MjM5MDIyfQ.f_r1Qr232o_7ZZrbdBLuvrhXjA2hEiq8jaaPBucSSB0"').then(() => {
+      window.location.reload();
+    });
+    
+    // this.decoded = jwt_decode(this.token);
+    // this.r = this.decoded['role'];
+    // if(this.r==="reviewer"){
+    //   this._router.navigate(['reviewer'])
+    // }
 
-    else if(this.r==="speaker"){
-      this._router.navigate(['speaker'])
-    }
+    // else if(this.r==="speaker"){
+    //   this._router.navigate(['speaker'])
+    // }
 
-    else{
-    this._router.navigate(['']);
-    }
-  }
+    // else{
+    // this._router.navigate(['']);
+    // }
+  } 
   
   getRole(){
     if(localStorage.getItem("token") === null){
@@ -52,8 +54,9 @@ export class AuthService {
     localStorage.removeItem('token');
     this._router.navigate(['']);
   }
-  
+
   setToken(tok:string){
-    localStorage.setItem('token',tok);
+    localStorage.setItem('token', tok);
+    this.token=tok;
   }
 }

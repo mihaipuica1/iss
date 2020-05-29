@@ -29,10 +29,10 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'home', component: HomePageComponent
+    path: 'home', component: HomePageComponent,runGuardsAndResolvers: 'always'
   },
   {
-    path: 'home/:id', component: HomePageComponent
+    path: 'home/:id', component: HomePageComponent, runGuardsAndResolvers: 'always'
   },
 
 // reviwer
