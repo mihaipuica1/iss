@@ -3,13 +3,13 @@ import { AuthService } from '../AuthentificatrionService/auth.service';
 import { Router, CanActivate } from '@angular/router';
 
 @Injectable()
-export class AuthGuardService implements CanActivate {
+export class ChairGuardService implements CanActivate {
 
   constructor(private _authService: AuthService,
     private _router: Router) { }
 
   canActivate(): boolean {
-    if (this._authService.isLoggedIn() && this._authService.getRole() === "reviewer") {
+    if (this._authService.isLoggedIn() && this._authService.getRole() === "chair") {
       console.log('true')
       return true
     } else {
@@ -18,5 +18,4 @@ export class AuthGuardService implements CanActivate {
       return false
     }
   }
-
 }

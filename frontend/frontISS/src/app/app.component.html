@@ -8,7 +8,7 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                   <li class="nav-item">
-                    <a class="nav-link" *ngIf="!auth.isLoggedIn()" routerLink="" >Home</a>
+                    <a class="nav-link" routerLink="" >Home</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" *ngIf="this.auth.getRole() === 'speaker' && auth.isLoggedIn()" routerLink="/speaker" >Author</a>
@@ -33,11 +33,10 @@
           
                         <a class="nav-link" routerLink="bidProposal" *ngIf="this.auth.getRole() === 'reviewer' && auth.isLoggedIn()" >Bid Proposal</a>
                       </li>
-                      <li class="nav-item">
-          
-                        <a class="nav-link" routerLink="viewOtherProposals"*ngIf="this.auth.getRole() === 'reviewer' && auth.isLoggedIn()"  >Other Proposals</a>
-                      </li>
-                      
+
+                        <li class="nav-item">
+                    <a class="nav-link " *ngIf="this.auth.getRole() === 'chair' && auth.isLoggedIn()" routerLink="/conferenceChair" >Conference Chair</a>
+                  </li>
                       <li class="nav-item">
 
                         <a routerLink="addConference" *ngIf="this.auth.getRole() === 'chair' && auth.isLoggedIn()" class="nav-link"> Add Conference</a>
@@ -50,10 +49,20 @@
           
                         <a routerLink="viewConferences" *ngIf="this.auth.getRole() === 'chair' && auth.isLoggedIn()" class="nav-link">View Conference</a>
                       </li>
+                      <li class="nav-item">
 
-                  <!-- <li class="nav-item">
-                    <a class="nav-link " *ngIf="this.auth.getRole() === 'chair'" routerLink="/conferenceChair" >Conference Chair</a>
-                  </li> -->
+                        <a routerLink="createSection" *ngIf="this.auth.getRole() === 'chair' && auth.isLoggedIn()" class="nav-link"> Create Section</a>
+                      </li>
+                      <li class="nav-item">
+          
+                        <a routerLink="assignSection" *ngIf="this.auth.getRole() === 'chair' && auth.isLoggedIn()" class="nav-link">Assign Section</a>
+                      </li>
+                      <li class="nav-item">
+          
+                        <a routerLink="assignSupervisor" *ngIf="this.auth.getRole() === 'chair' && auth.isLoggedIn()" class="nav-link">Assign Supervisor</a>
+                      </li>
+
+                
                 </ul>
                 <ul class="navbar-nav">
                     <a class="nav-link" *ngIf="!auth.isLoggedIn()" (click)="this.auth.loginUser()" style="cursor:pointer">Login</a>

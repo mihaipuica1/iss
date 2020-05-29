@@ -20,15 +20,15 @@ export class AuthService {
   }
 
   loginUser(){
-    this.token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwicm9sZSI6InNwZWFrZXIiLCJpYXQiOjE1MTYyMzkwMjJ9.f_r1Qr232o_7ZZrbdBLuvrhXjA2hEiq8jaaPBucSSB0';
+    this.token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwicm9sZSI6ImNoYWlyIiwiaWF0IjoxNTE2MjM5MDIyfQ.f_r1Qr232o_7ZZrbdBLuvrhXjA2hEiq8jaaPBucSSB0';
     localStorage.setItem ('token', this.token);
     this.decoded = jwt_decode(this.token);
     this.r = this.decoded['role'];
-    if(this.r="reviewer"){
+    if(this.r==="reviewer"){
       this._router.navigate(['reviewer'])
     }
 
-    else if(this.r="speaker"){
+    else if(this.r==="speaker"){
       this._router.navigate(['speaker'])
     }
 
@@ -52,5 +52,8 @@ export class AuthService {
     localStorage.removeItem('token');
     this._router.navigate(['']);
   }
-
+  
+  setToken(tok:string){
+    localStorage.setItem('token',tok);
+  }
 }

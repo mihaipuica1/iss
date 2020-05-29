@@ -18,6 +18,8 @@ import { AuthGuardService } from '../Guards/auth-guard.service';
 import {SectionComponent} from '../conference-chair/section/section.component';
 import {AssignSectionComponent} from '../conference-chair/assign-section/assign-section.component';
 import {AssignSupervisorComponent} from '../conference-chair/assign-supervisor/assign-supervisor.component';
+import { SpeakerGuardService } from '../Guards/speaker-guard.service';
+import { ChairGuardService } from '../Guards/chair-guard.service';
 
 
 const routes: Routes = [
@@ -27,66 +29,59 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'giveQualifier', component: GiveQualifierComponent, canActivate:[AuthGuardService]
-  },
-  {
     path: 'home', component: HomePageComponent
   },
   {
-    path: 'bidProposal', component: BidProposalComponent
+    path: 'home/:id', component: HomePageComponent
   },
-{
-  path: 'submitProposal', component: ProposalFormComponent
-},
-{
-  path: 'mysubmissions', component: MySubmissionsComponent
-},
-  {path: 'speaker', component: AuthorComponent , children:[
 
-    {
-      path: 'submitProposal', component: ProposalFormComponent
-    },
+//reviwer
+      {
+      path: 'reviewer', component: ReviewerComponent, canActivate:[AuthGuardService]
 
-    {
-      path: 'mysubmissions', component: MySubmissionsComponent
-    }
-  ]
+      },
+      {
+      path: 'giveQualifier', component: GiveQualifierComponent, canActivate:[AuthGuardService]
+      },
 
-  },
+      {
+      path: 'bidProposal', component: BidProposalComponent, canActivate:[AuthGuardService]
+      },
+
+//author
+      {
+      path: 'submitProposal', component: ProposalFormComponent, canActivate:[SpeakerGuardService]
+      },
+      {
+      path: 'mysubmissions', component: MySubmissionsComponent, canActivate:[SpeakerGuardService]
+      },
+      {path: 'speaker', component: AuthorComponent , canActivate:[SpeakerGuardService]
+
+      },
+
+      //chair
+      {
+        path: 'addConference', component: AddConferenceComponent, canActivate:[ChairGuardService]
+      },
+
+      {
+        path: 'assignPapers', component: AssignPapersComponent, canActivate:[ChairGuardService]
+      },
+      {
+        path: 'viewConferences', component: ViewConferencesComponent, canActivate:[ChairGuardService]
+      },
+      {
+        path: 'createSection', component: SectionComponent, canActivate:[ChairGuardService]
+      },
+
+      {
+        path: 'assignSection', component: AssignSectionComponent, canActivate:[ChairGuardService]
+      },
+      {
+        path: 'assignSupervisor', component: AssignSupervisorComponent, canActivate:[ChairGuardService]
+      },
   {
-    path: 'reviewer', component: ReviewerComponent, children: [
-      {
-        path: 'giveQualifier', component: GiveQualifierComponent
-      },
-
-      {
-        path: 'bidProposal', component: BidProposalComponent
-      }
-    ]
-  },
-  {
-    path: 'conferenceChair', component: ConferenceChairComponent, children: [
-      {
-        path: 'addConference', component: AddConferenceComponent
-      },
-
-      {
-        path: 'assignPapers', component: AssignPapersComponent
-      },
-      {
-        path: 'viewConferences', component: ViewConferencesComponent
-      },
-      {
-        path: 'createSection', component: SectionComponent
-      },
-
-      {
-        path: 'assignSection', component: AssignSectionComponent
-      },
-      {
-        path: 'assignSupervisor', component: AssignSupervisorComponent
-      }
-    ]
+    path: 'conferenceChair', component: ConferenceChairComponent, canActivate:[ChairGuardService]
   }
 
 ];

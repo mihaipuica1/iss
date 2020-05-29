@@ -24,6 +24,8 @@ import { AuthGuardService } from './Guards/auth-guard.service';
 import { SectionComponent } from './conference-chair/section/section.component';
 import { AssignSectionComponent } from './conference-chair/assign-section/assign-section.component';
 import { AssignSupervisorComponent } from './conference-chair/assign-supervisor/assign-supervisor.component';
+import { SpeakerGuardService } from './Guards/speaker-guard.service';
+import { ChairGuardService } from './Guards/chair-guard.service';
 
 
 
@@ -49,9 +51,10 @@ import { AssignSupervisorComponent } from './conference-chair/assign-supervisor/
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    
   ],
-  providers: [AuthService, AuthGuardService],
+  providers: [AuthService, AuthGuardService, SpeakerGuardService, ChairGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
