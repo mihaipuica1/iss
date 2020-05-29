@@ -31,7 +31,7 @@ public class PaperEntity {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "fileName")
+    @Column(name = "file_name")
     private String fileName;
 
     @Column(name = "description")
@@ -70,8 +70,20 @@ public class PaperEntity {
     private SectionEntity section;
 
 
+    public void addAuthor(AuthorEntity newAuthor) {
+        if(this.authors == null)
+        {
+            this.authors = new ArrayList<>();
+        }
+        this.authors.add(newAuthor);
+    }
+
     public Map<BidEntity, CommitteeMemberEntity> getBids() {
         return bidders;
+    }
+
+    public List<EvaluationEntity> getReviews() {
+        return reviews;
     }
 
     @Override
@@ -92,11 +104,5 @@ public class PaperEntity {
         return result;
     }
 
-    public void addAuthor(AuthorEntity newAuthor) {
-        if(this.authors == null)
-        {
-            this.authors = new ArrayList<AuthorEntity>();
-        }
-        this.authors.add(newAuthor);
-    }
+
 }

@@ -15,7 +15,6 @@ import javax.ws.rs.core.MediaType;
 public class ProgramCommitteeController {
 
     private ProgramCommitteeService pcService;
-    private UserService userService;
 
     @Autowired
     public ProgramCommitteeController(ProgramCommitteeService pcService) {
@@ -34,11 +33,12 @@ public class ProgramCommitteeController {
 
 
     @PUT
-    @Path("/review/{email}")
+    @Path("/review/{paperId}/{email}")
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public EvaluationJson reviewPaper(@PathParam("email") String email, EvaluationInput evaluation) {
-         return pcService.reviewPaper(email, evaluation);
+    public EvaluationJson reviewPaper(@PathParam("paperId") int paperId, @PathParam("email") String email, EvaluationInput evaluationInput) {
+
+        return pcService.reviewPaper(paperId, email, evaluationInput);
     }
 
 
@@ -49,7 +49,11 @@ public class ProgramCommitteeController {
         return pcService.assignPaperToSection(paperId, sectionId);
     }
 
-
+    @PUT
+    @Path("/reviewer/paper/{paperId}/{email}")
+    public String assignPaper(@PathParam("paperId") int paperId, @PathParam("email") String email) {
+        return pcService.assignPaper(paperId, email);
+    }
 
 
 }

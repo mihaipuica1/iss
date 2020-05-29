@@ -118,11 +118,13 @@ public class ConferenceManagementController {
         return locationService.addLocation(eventId, location);
     }
 
+
+
     @PUT
-    @Path("event/committee/{email}")
+    @Path("event/committee/{eventId}/{email}")
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonResponse addProgramCommittee(@PathParam("email") String email){
-        conferenceService.addProgramCommittee(email);
+    public JsonResponse addProgramCommittee(@PathParam("email") String email, @PathParam("eventId") int eventId) {
+        conferenceService.addProgramCommittee(email, eventId);
         return new JsonResponse().with("Response", "OK");
     }
 }

@@ -18,7 +18,7 @@ public class PaperInput {
     private String title;
     private String fileName;
     private String description;
-    private String[] authors;
+    private List<String> authors;
     private List<String> topics;
     private List<String> keywords;
 }

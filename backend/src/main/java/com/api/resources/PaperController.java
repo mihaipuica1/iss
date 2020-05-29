@@ -38,9 +38,9 @@ public class PaperController {
 
     @PUT
     @Path("paper/{paperId}")
-    @Consumes(MediaType.TEXT_PLAIN)
-    public void updatePaper(@PathParam("paperId") int paperId, String newContent) {
-        paperService.updatePaper(paperId, newContent);
+    @Consumes("application/json")
+    public void updatePaper(@PathParam("paperId") int paperId, PaperInput paperInput) {
+        paperService.updatePaper(paperId, paperInput);
     }
 
 

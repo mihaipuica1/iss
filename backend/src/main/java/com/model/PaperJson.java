@@ -19,7 +19,7 @@ public class PaperJson {
     private String title;
     private String fileName;
     private String description;
-    private Qualifier[] qualifiers;
+    private List<Qualifier> qualifiers;
     private List<String> authors;
     private List<String> reviewers;
     private List<String> topics;

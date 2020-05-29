@@ -12,9 +12,7 @@ import lombok.*;
 public class EvaluationInput {
 
     private Qualifier qualifier;
-    private String reviewer;
     private String recommendation;
-    private int paperId;
 
 }
 

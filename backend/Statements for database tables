@@ -9,6 +9,17 @@ DROP TABLE IF EXISTS bid CASCADE ;
 DROP TABLE IF EXISTS account CASCADE ;
 DROP TABLE IF EXISTS paper_pcmember CASCADE ;
 DROP TYPE IF EXISTS qualifier;
+DROP TYPE IF EXISTS role;
+DROP TABLE IF EXISTS profile CASCADE ;
+
+create table if not exists profile
+(
+	username text NOT NULL primary key,
+	password text,
+	first_name text,
+	last_name text,
+	roles text[]
+);
 
 create table if not exists event
 (
@@ -48,8 +59,8 @@ create table if not exists paper
 (
 	id smallint NOT NULL GENERATED ALWAYS AS IDENTITY primary key,
 	title text,
-	fileName text,
 	description text,
+	file_name text,
 	topics text[],
 	keywords text[],
     section_id smallint
@@ -106,6 +117,7 @@ create table if not exists paper_author
 
 CREATE TYPE  qualifier AS ENUM
     ('WEAK_REJECT', 'WEAK_ACCEPT', 'STRONG_ACCEPT', 'REJECT', 'BORDERLINE_PAPER', 'ACCEPT', 'STRONG_REJECT');
+
 
 ALTER TABLE paper_pcmember
 ADD FOREIGN KEY (paper_id) REFERENCES paper(id);
