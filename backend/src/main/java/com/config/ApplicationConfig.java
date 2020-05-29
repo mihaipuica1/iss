@@ -23,7 +23,7 @@ public class ApplicationConfig extends ResourceConfig {
         register(AuthenticationController.class);
 
         register(JacksonJaxbJsonProvider.class);
-
+        register(CorsFilter.class);
         register(OpenApiResource.class);
         register(AcceptHeaderOpenApiResource.class);
     }
