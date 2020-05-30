@@ -1,19 +1,14 @@
 package com.service;
 
 
-import com.entities.CommitteeMemberEntity;
-import com.entities.EventEntity;
-import com.entities.ProgramEntity;
-import com.entities.SectionEntity;
+import com.entities.*;
 import com.input.EventInput;
 import com.input.ProgramInput;
-import com.mapper.EventMapper;
-import com.mapper.LocationMapper;
-import com.mapper.ProgramMapper;
-import com.mapper.SectionMapper;
+import com.mapper.*;
 import com.model.EventJson;
 import com.model.ProgramJson;
 import com.model.SectionJson;
+import com.model.User;
 import com.repository.*;
 import com.web.json.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,14 +31,16 @@ public class ConferenceManagementService {
     private LocationRepository locationRepository;
     private SectionRepository sectionRepository;
     private PCMemberRepository pcMemberRepository;
+    private ParticipantRepository participantRepository;
 
     @Autowired
-    public ConferenceManagementService(ConferenceRepository eventRepository, UserRepository userRepository, LocationRepository locationRepository, SectionRepository sectionRepository, PCMemberRepository pcMemberRepository) {
+    public ConferenceManagementService(ConferenceRepository eventRepository, UserRepository userRepository, LocationRepository locationRepository, SectionRepository sectionRepository, PCMemberRepository pcMemberRepository, ParticipantRepository participantRepository) {
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
         this.locationRepository = locationRepository;
         this.sectionRepository = sectionRepository;
         this.pcMemberRepository = pcMemberRepository;
+        this.participantRepository = participantRepository;
     }
 
     // ------------------------------  Event management ------------------------------
@@ -142,5 +139,25 @@ public class ConferenceManagementService {
 
         existingEvent.getProgramCommittee().add(committeeMemberEntity);
         pcMemberRepository.save(committeeMemberEntity);
+    }
+
+    // ---------------------- Participants management -------------------------
+    @Transactional
+    public User addParticipant(int eventId, String email)
+    {
+        EventEntity existingEvent = eventRepository.findById(eventId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Event not found!"));
+        ParticipantEntity participantEntity = new ParticipantEntity(email);
+
+        existingEvent.getParticipants().add(participantEntity);
+        return UserMapper.entityToUser(participantRepository.save(participantEntity));
+    }
+
+    @Transactional
+    public List<User> getParticipants(int eventId)
+    {
+        EventEntity existingEvent = eventRepository.findById(eventId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Event not found!"));
+        return existingEvent.getParticipants().stream()
+                .map(participant -> UserMapper.entityToUser(participant))
+                .collect(Collectors.toList());
     }
 }
