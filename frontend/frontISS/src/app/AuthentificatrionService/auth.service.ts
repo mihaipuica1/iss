@@ -20,9 +20,9 @@ export class AuthService {
   }
 
   loginUser(){
-    this._router.navigateByUrl('/home?token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwicm9sZSI6InJldmlld2VyIiwiaWF0IjoxNTE2MjM5MDIyfQ.f_r1Qr232o_7ZZrbdBLuvrhXjA2hEiq8jaaPBucSSB0"').then(() => {
-      window.location.reload();
-    });
+    // this._router.navigateByUrl('/home?token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwicm9sZSI6InJldmlld2VyIiwiaWF0IjoxNTE2MjM5MDIyfQ.f_r1Qr232o_7ZZrbdBLuvrhXjA2hEiq8jaaPBucSSB0"').then(() => {
+    //   window.location.reload();
+    // });
     
     // this.decoded = jwt_decode(this.token);
     // this.r = this.decoded['role'];
@@ -39,14 +39,23 @@ export class AuthService {
     // }
   } 
   
-  getRole(){
+  getRole()
+  {
     if(localStorage.getItem("token") === null){
       return "none";
     }
     else{
-    return jwt_decode(localStorage.getItem('token'))['role'];
+      if(jwt_decode(localStorage.getItem('token'))['author'])
+        {return "speaker";}
+      else if(jwt_decode(localStorage.getItem('token'))['isCommittemember']){
+        return "reviewer";
+      }
+      else if(jwt_decode(localStorage.getItem('token'))['isChair']){
+        return "chair";
+      }
     }
   }
+
   getName(){
     if(localStorage.getItem("token") === null){
       return "none";
@@ -55,6 +64,7 @@ export class AuthService {
     return jwt_decode(localStorage.getItem('token'))['name'];
     }
   }
+
   logoutUser(){
     this.token="";
     this.decoded="";
@@ -65,5 +75,6 @@ export class AuthService {
   setToken(tok:string){
     localStorage.setItem('token', tok);
     this.token=tok;
+    window.location.reload();
   }
 }

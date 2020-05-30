@@ -20,6 +20,7 @@ import {AssignSectionComponent} from '../conference-chair/assign-section/assign-
 import {AssignSupervisorComponent} from '../conference-chair/assign-supervisor/assign-supervisor.component';
 import { SpeakerGuardService } from '../Guards/speaker-guard.service';
 import { ChairGuardService } from '../Guards/chair-guard.service';
+import { ChoseRoleUserComponent } from '../chose-role-user/chose-role-user.component';
 
 
 const routes: Routes = [
@@ -30,6 +31,9 @@ const routes: Routes = [
   },
   {
     path: 'home', component: HomePageComponent,runGuardsAndResolvers: 'always'
+  },
+  {
+    path: 'logIn', component: ChoseRoleUserComponent,runGuardsAndResolvers: 'always'
   },
   {
     path: 'home/:id', component: HomePageComponent, runGuardsAndResolvers: 'always'

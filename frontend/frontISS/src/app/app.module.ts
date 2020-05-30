@@ -27,6 +27,7 @@ import { AssignSupervisorComponent } from './conference-chair/assign-supervisor/
 import { SpeakerGuardService } from './Guards/speaker-guard.service';
 import { ChairGuardService } from './Guards/chair-guard.service';
 import { SpeakerServiceService } from './Shared/speaker-service.service';
+import { ChoseRoleUserComponent } from './chose-role-user/chose-role-user.component';
 
 
 
@@ -46,7 +47,8 @@ import { SpeakerServiceService } from './Shared/speaker-service.service';
     HomePageComponent,
     SectionComponent,
     AssignSectionComponent,
-    AssignSupervisorComponent
+    AssignSupervisorComponent,
+    ChoseRoleUserComponent
   ],
   imports: [
     BrowserModule,
