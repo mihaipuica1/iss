@@ -28,6 +28,8 @@ import { SpeakerGuardService } from './Guards/speaker-guard.service';
 import { ChairGuardService } from './Guards/chair-guard.service';
 import { SpeakerServiceService } from './Shared/speaker-service.service';
 import { ChoseRoleUserComponent } from './chose-role-user/chose-role-user.component';
+import {ReviewerServiceService} from './Shared/reviewer-service.service';
+import {ConferenceChairServiceService} from './Shared/conference-chair-service.service';
 
 
 
@@ -55,9 +57,9 @@ import { ChoseRoleUserComponent } from './chose-role-user/chose-role-user.compon
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    
+
   ],
-  providers: [AuthService, AuthGuardService, SpeakerGuardService, ChairGuardService, SpeakerServiceService],
+  providers: [AuthService, AuthGuardService, SpeakerGuardService, ChairGuardService, SpeakerServiceService, ReviewerServiceService, ConferenceChairServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
