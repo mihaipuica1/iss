@@ -91,7 +91,7 @@ create table if not exists bid
 create table if not exists account
 (
 	email text NOT NULL primary key,
-	type VARCHAR (10),
+	type VARCHAR (20),
 	section_id smallint
 );
 

@@ -3,10 +3,7 @@ package com.api.resources;
 import com.input.EventInput;
 import com.input.LocationInput;
 import com.input.ProgramInput;
-import com.model.EventJson;
-import com.model.LocationJson;
-import com.model.ProgramJson;
-import com.model.SectionJson;
+import com.model.*;
 import com.service.ConferenceManagementService;
 import com.service.LocationService;
 import com.web.json.JsonResponse;
@@ -126,5 +123,23 @@ public class ConferenceManagementController {
     public JsonResponse addProgramCommittee(@PathParam("email") String email, @PathParam("eventId") int eventId) {
         conferenceService.addProgramCommittee(email, eventId);
         return new JsonResponse().with("Response", "OK");
+    }
+
+    // ----------------------- participants --------------------------------
+    @POST
+    @Consumes("application/json")
+    @Path("event/participants/{eventId}/{email}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public User addParticipant(@PathParam("eventId") int eventId, @PathParam("email") String email) {
+
+        return conferenceService.addParticipant(eventId, email);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("event/participants/{eventId}")
+    public List<User> getParticipants(@PathParam("eventId") int eventId)
+    {
+        return conferenceService.getParticipants(eventId);
     }
 }

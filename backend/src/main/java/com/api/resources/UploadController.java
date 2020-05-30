@@ -25,16 +25,17 @@ public class UploadController {
     }
 
     @POST
-    @Path("upload")
+    @Path("upload/{paperId}")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     public Response uploadPaper(
             @FormDataParam("file") InputStream uploadedInputStream,
-            @FormDataParam("file") FormDataContentDisposition fileDetails) {
+            @FormDataParam("file") FormDataContentDisposition fileDetails,
+            @PathParam("paperId") int paperId) {
 
         //System.out.println(fileDetails.getFileName());
 
-        this.uploadService.upload(uploadedInputStream, fileDetails);
+        this.uploadService.upload(uploadedInputStream, fileDetails, paperId);
 
         //String output = "File uploaded to : " + uploadedFileLocation;
         //System.out.println(output);
