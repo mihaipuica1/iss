@@ -12,6 +12,7 @@ import java.io.*;
 public class UploadService
 {
     private PaperRepository paperRepository;
+    private static final String FILE_PATH = "C:\\Papers\\";
 
     @Autowired
     public UploadService(PaperRepository paperRepository)
@@ -23,9 +24,14 @@ public class UploadService
     public void upload(InputStream uploadedInputStream, FormDataContentDisposition fileDetails, int paperId)
     {
         //destination folder: "C:\Papers\"
-        String uploadedFileLocation = "C:\\Papers\\" + fileDetails.getFileName();
+        String uploadedFileLocation = FILE_PATH + fileDetails.getFileName();
         writeToFile(uploadedInputStream, uploadedFileLocation);
         PaperEntity paperEntity = paperRepository.findById(paperId).orElseThrow(() -> new RuntimeException("Paper does not exist!\n"));
+        if(paperEntity.getFileName() != null)
+        {
+            File file = new File(FILE_PATH + paperEntity.getFileName());
+            file.delete();
+        }
         paperEntity.setFileName(fileDetails.getFileName());
     }
 
