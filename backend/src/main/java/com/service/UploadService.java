@@ -1,8 +1,10 @@
 package com.service;
+import com.entities.PaperEntity;
 import com.repository.PaperRepository;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
 
@@ -17,12 +19,14 @@ public class UploadService
         this.paperRepository = paperRepository;
     }
 
-
-    public void upload(InputStream uploadedInputStream, FormDataContentDisposition fileDetails)
+    @Transactional
+    public void upload(InputStream uploadedInputStream, FormDataContentDisposition fileDetails, int paperId)
     {
         //destination folder: "C:\Papers\"
         String uploadedFileLocation = "C:\\Papers\\" + fileDetails.getFileName();
         writeToFile(uploadedInputStream, uploadedFileLocation);
+        PaperEntity paperEntity = paperRepository.findById(paperId).orElseThrow(() -> new RuntimeException("Paper does not exist!\n"));
+        paperEntity.setFileName(fileDetails.getFileName());
     }
 
     private void writeToFile(InputStream uploadedInputStream,
