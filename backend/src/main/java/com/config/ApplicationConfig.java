@@ -21,6 +21,7 @@ public class ApplicationConfig extends ResourceConfig {
         register(ConferenceManagementController.class);
         register(ProgramCommitteeController.class);
         register(AuthenticationController.class);
+        register(UploadController.class);
 
         register(JacksonJaxbJsonProvider.class);
         register(CorsFilter.class);

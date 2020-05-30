@@ -19,7 +19,7 @@ public class UploadController {
 
 
     @POST
-    @Path("/upload")
+    @Path("upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     public Response uploadPaper(
