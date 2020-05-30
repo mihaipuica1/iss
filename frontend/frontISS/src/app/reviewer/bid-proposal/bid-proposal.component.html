@@ -10,13 +10,17 @@
 
             <tr>
               <th scope="col" style="color: gray;">Title</th>
-              <th scope="col" style="color: gray;"></th>
-              <th scope="col" style="color: gray;"></th>
+              <th scope="col" style="color: gray;">Description</th>
+              <th scope="col" style="color: gray;">Topics</th>
             </tr>
 
             <tbody>
             <tr *ngFor="let paper of papers">
               <td>{{ paper.title }}</td>
+              <td>{{ paper.description }}</td>
+              <td>{{ paper.topics }}</td>
+
+
               <td>
                 <button class="btn btn-secondary" style="text-align: center;">Accept</button>
               </td>

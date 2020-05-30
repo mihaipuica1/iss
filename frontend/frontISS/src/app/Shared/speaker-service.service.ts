@@ -26,15 +26,14 @@ export class SpeakerServiceService {
     return this.http.get<Paper>(url);
   }
 
-  save(paper): Observable<Paper>
-    {
-      return this.http.post<Paper>(this.paperUReL,paper);
+  save(paper): Observable<Paper> {
+      return this.http.post<Paper>(this.paperUReL, paper);
   }
 
 
-  update(paper, id) : Observable<Paper> {
+  update(paper, id): Observable<Paper> {
     const url = `${this.paperUReL}/${id}`;
-    return this.http.put<Paper>(url,paper);
+    return this.http.put<Paper>(url, paper);
   }
 
   }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Paper} from '../../models/paper';
+import {ReviewerServiceService} from '../../Shared/reviewer-service.service';
 
 @Component({
   selector: 'app-give-qualifier',
@@ -9,15 +10,24 @@ import {Paper} from '../../models/paper';
 export class GiveQualifierComponent implements OnInit {
   title: String;
   title2: String;
+  errorMessage: string;
 
   papers: Paper[];
-  constructor() {
+  constructor(private service: ReviewerServiceService) {
     this.title = 'Reviewer';
-    this.title2 = 'Papers';
-    this.papers = [new Paper(1, 'a', 'a','a','a','a','a')]; 
-  }
+    this.title2 = 'Give Qualifier';
 
+  }
   ngOnInit() {
+    this.getPapers();
   }
 
+
+  getPapers() {
+    this.service.findAll()
+      .subscribe(
+        papers => this.papers = papers,
+        error => this.errorMessage = <any>error
+      );
+  }
 }

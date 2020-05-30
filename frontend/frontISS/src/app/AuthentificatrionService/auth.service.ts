@@ -9,21 +9,21 @@ export class AuthService {
   public  decoded = "";
   public r = "";
 
-  constructor(private _router: Router) { 
-    //this.token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwicm9sZSI6InJldmlld2VyIiwiaWF0IjoxNTE2MjM5MDIyfQ.E2cX6ZJtMO1zhxGhSBQJEk9xvNm1yclHLC9389rnV7U';
-    //this.decoded = jwt_decode(this.token);
-    //this.r = this.decoded['role'];
+  constructor(private _router: Router) {
+    // this.token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwicm9sZSI6InJldmlld2VyIiwiaWF0IjoxNTE2MjM5MDIyfQ.E2cX6ZJtMO1zhxGhSBQJEk9xvNm1yclHLC9389rnV7U';
+    // this.decoded = jwt_decode(this.token);
+    // this.r = this.decoded['role'];
   }
 
-  isLoggedIn(){
-    return !!localStorage.getItem('token');  
+  isLoggedIn() {
+    return !!localStorage.getItem('token');
   }
 
   loginUser(){
     // this._router.navigateByUrl('/home?token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwicm9sZSI6InJldmlld2VyIiwiaWF0IjoxNTE2MjM5MDIyfQ.f_r1Qr232o_7ZZrbdBLuvrhXjA2hEiq8jaaPBucSSB0"').then(() => {
     //   window.location.reload();
     // });
-    
+
     // this.decoded = jwt_decode(this.token);
     // this.r = this.decoded['role'];
     // if(this.r==="reviewer"){
@@ -37,8 +37,8 @@ export class AuthService {
     // else{
     // this._router.navigate(['']);
     // }
-  } 
-  
+  }
+
   getRole()
   {
     if(localStorage.getItem("token") === null){
@@ -46,9 +46,9 @@ export class AuthService {
     }
     else{
       if(jwt_decode(localStorage.getItem('token'))['author'])
-        {return "speaker";}
+        {return "reviewer";}
       else if(jwt_decode(localStorage.getItem('token'))['isCommittemember']){
-        return "reviewer";
+        return "speaker";
       }
       else if(jwt_decode(localStorage.getItem('token'))['isChair']){
         return "chair";
