@@ -17,11 +17,10 @@ export class ReviewerComponent implements OnInit {
   constructor(private auth:AuthService) {
     this.title = 'Reviewer';
     this.title2 = 'Papers';
-    this.papers = [new Paper(1, 'a', 'a','a','a','a','a')]; 
   }
 
   ngOnInit() {
-    this.title=this.auth.getName();
+    this.title = this.auth.getName();
   }
 onclick() {
     return '$(\'#paper\').click(function(){$(this).data(\'clicked\', false);})';

@@ -9,20 +9,20 @@ import { AuthService } from '../AuthentificatrionService/auth.service';
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(private router:ActivatedRoute, private auth:AuthService) { }
+  constructor(private router: ActivatedRoute, private auth: AuthService) { }
 
   ngOnInit() {
     if(localStorage.getItem("token") === null && this.router.snapshot.queryParams['token']){
 
-    
-    var tok=this.router.snapshot.queryParamMap.get('token');
-    //var tok="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwicm9sZSI6InNwZWFrZXIiLCJpYXQiOjE1MTYyMzkwMjJ9.f_r1Qr232o_7ZZrbdBLuvrhXjA2hEiq8jaaPBucSSB0"
+
+    var tok = this.router.snapshot.queryParamMap.get('token');
+    // var tok="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwicm9sZSI6InNwZWFrZXIiLCJpYXQiOjE1MTYyMzkwMjJ9.f_r1Qr232o_7ZZrbdBLuvrhXjA2hEiq8jaaPBucSSB0"
     this.auth.setToken(tok);
-    
+
     window.location.reload();
-    
+
   }
-  
+
 }
 
 

@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS paper_pcmember CASCADE ;
 DROP TYPE IF EXISTS qualifier;
 DROP TYPE IF EXISTS role;
 DROP TABLE IF EXISTS profile CASCADE ;
+DROP TABLE IF EXISTS roles CASCADE;
 
 create table if not exists profile
 (
@@ -99,6 +100,14 @@ create table if not exists user_event
 	email text,
 	event_id smallint
 );
+
+create table if not exists roles
+(
+    id smallint NOT NULL GENERATED ALWAYS AS IDENTITY primary key,
+    name varchar(30),
+    profile_id varchar(30)
+);
+
 
 
 

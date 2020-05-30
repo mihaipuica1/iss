@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Paper} from '../../models/paper';
+import {ReviewerServiceService} from '../../Shared/reviewer-service.service';
 
 @Component({
   selector: 'app-bid-proposal',
@@ -9,13 +10,23 @@ import {Paper} from '../../models/paper';
 export class BidProposalComponent implements OnInit {
   title: String;
   title2: String;
-
+errorMessage: String;
   papers: Paper[];
-  constructor() { this.title = 'Reviewer';
-    this.title2 = 'Bid proposal';
-    this.papers = [new Paper(1, 'a', 'a','a','a','a','a')]; }
+  constructor(private service: ReviewerServiceService) {
+    this.title = 'Reviewer';
+    this.title2 = ' Bid Proposal';
 
+  }
   ngOnInit() {
+    this.getPapers();
   }
 
+
+  getPapers() {
+    this.service.findAll()
+      .subscribe(
+        papers => this.papers = papers,
+        error => this.errorMessage = <any>error
+      );
+  }
 }

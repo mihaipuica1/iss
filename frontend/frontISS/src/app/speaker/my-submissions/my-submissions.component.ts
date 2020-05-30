@@ -18,15 +18,14 @@ export class MySubmissionsComponent implements OnInit {
   constructor(private speakerService: SpeakerServiceService, private router: Router) {
     this.title = 'My Submissions';
     this.title2 = 'My Papers';
-    
+
   }
 
   ngOnInit() {
-    //this.papers = [new Paper(1, 'salut buna', 'a','a','a','a','a')];
     this.getPapers();
   }
 
-  
+
   getPapers() {
     this.speakerService.findAll()
       .subscribe(
