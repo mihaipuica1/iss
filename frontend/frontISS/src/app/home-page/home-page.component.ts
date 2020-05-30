@@ -12,6 +12,7 @@ export class HomePageComponent implements OnInit {
   constructor(private router: ActivatedRoute, private auth: AuthService) { }
 
   ngOnInit() {
+    console.log(localStorage.getItem('role'));
     if(localStorage.getItem("token") === null && this.router.snapshot.queryParams['token']){
 
 

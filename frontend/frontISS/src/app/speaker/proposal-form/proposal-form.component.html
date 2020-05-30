@@ -55,7 +55,19 @@
                required #Authors="ngModel">
         <div *ngIf="Authors.invalid && Authors.touched" class="alert alert-danger">Authors are required</div>
       </div>
-      <input type="file" *ngIf="flag"  id="myFile" name="filename" (change)="onFileSelected($event)">
+
+      <!-- <input type="file" *ngIf="flag"  id="myFile" name="filename" (change)="onFileSelected($event)"> -->
+
+      <div class="form-group">
+        <label for="file">Choose File</label>
+        <input type="file"
+               id="file"
+               (change)="handleFileInput($event.target.files)">
+      <button *ngIf="flag"  (click)="newFunciton()"
+              class="btn btn-info">Upload</button>
+      <button *ngIf="flag"  (click)="downloadFile()"
+              class="btn btn-info">DownLoad</button>
+      </div>
 
       <hr>
 

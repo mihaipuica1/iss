@@ -1,8 +1,9 @@
 import { Injectable, Output } from '@angular/core';
 import { Paper } from '../models/paper';
 import { pTest } from '../models/pTest';
-
-import { HttpClient } from '@angular/common/http';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import {map, retry, catchError, tap, mergeMap} from "rxjs/operators";
 
@@ -26,15 +27,40 @@ export class SpeakerServiceService {
     return this.http.get<Paper>(url);
   }
 
-  save(paper): Observable<Paper> {
-      return this.http.post<Paper>(this.paperUReL, paper);
+  save(paper): Observable<Paper>
+    {
+      return this.http.post<Paper>(this.paperUReL,paper);
   }
 
 
-  update(paper, id): Observable<Paper> {
+  update(paper, id) : Observable<Paper> {
     const url = `${this.paperUReL}/${id}`;
-    return this.http.put<Paper>(url, paper);
+    return this.http.put<Paper>(url,paper);
   }
+
+  postFile(fileToUpload, id): Observable<void> {
+    const endpoint = 'http://localhost:8080/api/upload';
+    const url = `${endpoint}/${id}`;
+
+    const formData: FormData = new FormData();
+
+    formData.append('file', fileToUpload);
+    formData.append('file', fileToUpload.name);
+
+    const myHeadr = new HttpHeaders();
+    myHeadr.append('Content-Type', 'multipart/form-data');
+    myHeadr.append('Accept', 'application/json');
+    return this.http
+      .post(url, formData, { headers: myHeadr })
+      .map(() => { res => res.json()});
+     
 
   }
 
+  getFile(id: number){
+    const endpoint = 'http://localhost:8080/api/files';
+    const url = `${endpoint}/${id}`;
+    return this.http.get(url);
+  }
+
+}
