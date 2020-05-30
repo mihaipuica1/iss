@@ -1,6 +1,7 @@
 package com.api.resources;
 
 import com.entities.ApplicationUser;
+import com.entities.RoleEntity;
 import com.input.Authentication;
 import com.model.Role;
 import com.security.TokenUtil;
@@ -87,7 +88,20 @@ public class AuthenticationController {
             Calendar cal = Calendar.getInstance();
             cal.setTime(new Date());
             cal.add(Calendar.DATE, 1);
-            String token = TokenUtil.createToken("SoupTime", profile.get().getUserName(), profile.get().getRoles().contains(Role.AUTHOR), profile.get().getRoles().contains(Role.PC_MEMBER), profile.get().getRoles().contains(Role.CONFERENCE_CHAIR),  profile.get().getFirstName(), cal.getTime());
+            //String token = TokenUtil.createToken("SoupTime", profile.get().getUserName(), profile.get().getRoles().contains(Role.AUTHOR), profile.get().getRoles().contains(Role.PC_MEMBER), profile.get().getRoles().contains(Role.CONFERENCE_CHAIR),  profile.get().getFirstName(), cal.getTime());
+
+            boolean isAuthor = false,isPc = false, isChair = false;
+            for(RoleEntity role : profile.get().getRoles())
+            {
+                if(role.getRole()==Role.AUTHOR)
+                    isAuthor = true;
+                if(role.getRole()==Role.PC_MEMBER)
+                    isPc = true;
+                if(role.getRole()==Role.CONFERENCE_CHAIR)
+                    isChair = true;
+            }
+
+            String token = TokenUtil.createToken("SoupTime", profile.get().getUserName(), isAuthor, isPc, isChair,  profile.get().getFirstName(), cal.getTime());
             final String url = redirectUri + "?token=" + token;
             return new JsonResponse().with("redirectUrl", url).done();
         }

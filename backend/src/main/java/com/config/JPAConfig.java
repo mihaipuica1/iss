@@ -35,7 +35,6 @@ public class JPAConfig {
         config.setUsername("postgres");
         config.setPassword("password");
 
-
         return new HikariDataSource(config);
     }
 

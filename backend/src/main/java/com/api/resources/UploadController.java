@@ -1,7 +1,9 @@
 package com.api.resources;
 
+import com.service.UploadService;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -14,6 +16,13 @@ import java.io.OutputStream;
 @Path("/")
 public class UploadController {
 
+    private UploadService uploadService;
+
+    @Autowired
+    public UploadController(UploadService uploadService)
+    {
+        this.uploadService = uploadService;
+    }
 
     @POST
     @Path("upload")
@@ -23,21 +32,12 @@ public class UploadController {
             @FormDataParam("file") InputStream uploadedInputStream,
             @FormDataParam("file") FormDataContentDisposition fileDetails) {
 
-        System.out.println(fileDetails.getFileName());
+        //System.out.println(fileDetails.getFileName());
 
-        String uploadedFileLocation = "/Users/temp/" + fileDetails.getFileName();
+        this.uploadService.upload(uploadedInputStream, fileDetails);
 
-        // save it
-        writeToFile(uploadedInputStream, uploadedFileLocation);
-
-        String output = "File uploaded to : " + uploadedFileLocation;
-        System.out.println(output);
+        //String output = "File uploaded to : " + uploadedFileLocation;
+        //System.out.println(output);
         return Response.ok("File uploaded = " + fileDetails.getFileName()).build();
-    }
-
-    // save uploaded file to new location
-    private void writeToFile(InputStream uploadedInputStream,
-                             String uploadedFileLocation) {
-
     }
 }
