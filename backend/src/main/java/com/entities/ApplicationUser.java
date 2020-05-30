@@ -3,6 +3,7 @@ package com.entities;
 import com.model.Role;
 import com.vladmihalcea.hibernate.type.array.EnumArrayType;
 import lombok.*;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.Column;

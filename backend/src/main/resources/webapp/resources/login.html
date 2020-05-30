@@ -27,7 +27,7 @@
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Log in</button>
         </div>
-        <span id="demo"/>
+        <span id="error"/>
     </form>
 </div>
 
@@ -52,25 +52,29 @@
 
     console.log(data);
     let contactData = JSON.stringify(data);
-    let redirectUri = get("redirect_uri")
-    new Promise((resolve, reject) => {
+    let redirectUri = get("redirect_uri");
+    let loginPromise = new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-
                     xhr.open('POST', '/api/authenticate?redirect_uri=' + redirectUri);
                     xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.onload = (response) => resolve(response.currentTarget.responseText);
                     xhr.onerror = () => reject(xhr.statusText);
                     xhr.send(contactData);
-                    xhr.onreadystatechange = function() {
-                            if (this.readyState == 4 && this.status == 200) {
+    });
 
+    loginPromise
+            .then(responseText => {
+                let json = JSON.parse(responseText);
+                if (json.response.status != "Error"){
+                    window.location.replace(json.response.redirectUrl);
+                } else{
+                    document.getElementById("error").innerHTML = json.response.error;
+                }
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
 
-                                    var json = JSON.parse(xhr.responseText);
-                                    alert(json.response.redirectUrl);
-                                    window.location.replace(json.response.redirectUrl);
-                                    document.getElementById("demo").innerHTML = response.error;
-                            }
-                     };
-             })
 }
 
 

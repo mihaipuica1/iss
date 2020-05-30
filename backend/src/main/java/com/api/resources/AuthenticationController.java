@@ -18,6 +18,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
 
 import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 
@@ -73,18 +74,20 @@ public class AuthenticationController {
     public JsonResponse authenticate(@QueryParam("redirect_uri") String redirectUri, Authentication profileInput) {
 
         String password = profileInput.getPassword();
-        ApplicationUser profile = authenticationService.login(profileInput);
+        Optional<ApplicationUser> profile = authenticationService.login(profileInput);
 
-        if (bCryptPasswordEncoder.matches(password, profile.getPassword())) {
+        if (profile.isPresent() && bCryptPasswordEncoder.matches(password, profile.get().getPassword())) {
             Calendar cal = Calendar.getInstance();
             cal.setTime(new Date());
             cal.add(Calendar.DATE, 1);
-            String token = TokenUtil.createToken("ISS", profile.getUserName(), null,  profile.getFirstName(), cal.getTime());
+            String token = TokenUtil.createToken("SoupTime", profile.get().getUserName(), true, false, false,  profile.get().getFirstName(), cal.getTime());
             final String url = redirectUri + "?token=" + token;
             return new JsonResponse().with("redirectUrl", url).done();
         }
 
-        return new JsonResponse().with("error", "The username or password you entered is incorrect.").done();
+        return new JsonResponse()
+                .with("status", "Error")
+                .with("error", "The username or password you entered is incorrect.").done();
     }
 
 

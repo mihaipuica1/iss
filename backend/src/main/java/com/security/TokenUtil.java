@@ -26,7 +26,7 @@ public class TokenUtil {
         }
     }
 
-    public static String createToken(String subject, String issuer, String role, String name,  Date expirationDate) {
+    public static String createToken(String subject, String issuer, boolean isAuthor, boolean isCommittemember, boolean isChair, String name,  Date expirationDate) {
         //The JWT signature algorithm we will be using to sign the token
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
@@ -42,7 +42,9 @@ public class TokenUtil {
                 .setSubject(subject)
                 .setIssuedAt(now)
                 .setIssuer(issuer)
-                //.claim("role", role)
+                .claim("author", isAuthor)
+                .claim("isCommittemember", isCommittemember)
+                .claim("isChair", isChair)
                 .claim("name", name)
                 .setExpiration(expirationDate)
                 .signWith(signatureAlgorithm, signingKey)

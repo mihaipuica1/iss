@@ -35,7 +35,7 @@ public class AuthenticationService {
             ApplicationUser profileEntity = ProfileMapper.profileToEntity(input);
 
             //profileEntity.setRoles(new Role[1]);
-           // profileEntity.getRoles()[0] = Role.valueOf(input.getRoles());
+            //profileEntity.getRoles()[0] = Role.valueOf(input.getRoles());
             profileEntity.setPassword(bCryptPasswordEncoder.encode(input.getPassword()));
             applicationUserRepository.save(profileEntity);
 
@@ -55,8 +55,8 @@ public class AuthenticationService {
         }
     }
 
-    public ApplicationUser login(Authentication profileInput) {
+    public Optional<ApplicationUser> login(Authentication profileInput) {
 
-        return applicationUserRepository.findById(profileInput.getUserName()).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Profile not found."));
+        return applicationUserRepository.findById(profileInput.getUserName());
     }
 }
