@@ -2,6 +2,7 @@ package com.api.resources;
 
 import com.entities.ApplicationUser;
 import com.input.Authentication;
+import com.model.Role;
 import com.security.TokenUtil;
 import com.service.AuthenticationService;
 import com.web.json.JsonResponse;
@@ -74,10 +75,10 @@ public class AuthenticationController {
     public JsonResponse authenticate(@QueryParam("redirect_uri") String redirectUri, Authentication profileInput) {
 
         //remove "" or '' from begining to the end
-        StringBuilder sb = new StringBuilder(redirectUri);
-        sb.deleteCharAt(0);
-        sb.deleteCharAt(sb.length()-1);
-        redirectUri = sb.toString();
+//        StringBuilder sb = new StringBuilder(redirectUri);
+//        sb.deleteCharAt(0);
+//        sb.deleteCharAt(sb.length()-1);
+//        redirectUri = sb.toString();
 
         String password = profileInput.getPassword();
         Optional<ApplicationUser> profile = authenticationService.login(profileInput);
@@ -86,7 +87,7 @@ public class AuthenticationController {
             Calendar cal = Calendar.getInstance();
             cal.setTime(new Date());
             cal.add(Calendar.DATE, 1);
-            String token = TokenUtil.createToken("SoupTime", profile.get().getUserName(), profile.get().getRoles().contains("AUTHOR"), profile.get().getRoles().contains("PC_MEMBER"), profile.get().getRoles().contains("CONFERENCE_CHAIR"),  profile.get().getFirstName(), cal.getTime());
+            String token = TokenUtil.createToken("SoupTime", profile.get().getUserName(), profile.get().getRoles().contains(Role.AUTHOR), profile.get().getRoles().contains(Role.PC_MEMBER), profile.get().getRoles().contains(Role.CONFERENCE_CHAIR),  profile.get().getFirstName(), cal.getTime());
             final String url = redirectUri + "?token=" + token;
             return new JsonResponse().with("redirectUrl", url).done();
         }
