@@ -1,11 +1,12 @@
 package com.mapper;
 
 import com.entities.SectionEntity;
+import com.input.SectionInput;
 import com.model.SectionJson;
 
 public class SectionMapper {
 
-    public static SectionEntity sectionToEntity(SectionJson section) {
+    public static SectionEntity sectionToEntity(SectionInput section) {
         return SectionEntity.builder()
                 .name(section.getName())
                 .build();

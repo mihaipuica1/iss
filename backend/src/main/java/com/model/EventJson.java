@@ -21,4 +21,5 @@ public class EventJson {
     private List<String> programCommittee;
     private List<String> participants;
     private List<String> speakers;
+    private List<SectionJson> sections;
 }

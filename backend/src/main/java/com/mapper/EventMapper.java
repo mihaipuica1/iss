@@ -1,8 +1,12 @@
 package com.mapper;
 
+import com.entities.AuthorEntity;
 import com.entities.EventEntity;
 import com.input.EventInput;
 import com.model.EventJson;
+
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class EventMapper {
 
@@ -21,6 +25,7 @@ public class EventMapper {
                 //.speakers(entity.getSpeakers().stream().map(UserEntity::getEmail).collect(Collectors.toList()))
                 .program(ProgramMapper.entityToProgram(entity.getProgram()))
                 .location(LocationMapper.entityToLocation(entity.getLocation()))
+                .sections(entity.getSections() != null ? entity.getSections().stream().map(section -> SectionMapper.entityToSection(section)).collect(Collectors.toList()) : new ArrayList<>())
                 .build();
     }
 }
