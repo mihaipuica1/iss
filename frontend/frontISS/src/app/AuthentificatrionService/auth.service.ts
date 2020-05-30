@@ -20,7 +20,7 @@ export class AuthService {
   }
 
   loginUser(){
-    this._router.navigateByUrl('/home?token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwicm9sZSI6ImNoYWlyIiwiaWF0IjoxNTE2MjM5MDIyfQ.f_r1Qr232o_7ZZrbdBLuvrhXjA2hEiq8jaaPBucSSB0"').then(() => {
+    this._router.navigateByUrl('/home?token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwicm9sZSI6InJldmlld2VyIiwiaWF0IjoxNTE2MjM5MDIyfQ.f_r1Qr232o_7ZZrbdBLuvrhXjA2hEiq8jaaPBucSSB0"').then(() => {
       window.location.reload();
     });
     
@@ -47,7 +47,14 @@ export class AuthService {
     return jwt_decode(localStorage.getItem('token'))['role'];
     }
   }
-
+  getName(){
+    if(localStorage.getItem("token") === null){
+      return "none";
+    }
+    else{
+    return jwt_decode(localStorage.getItem('token'))['name'];
+    }
+  }
   logoutUser(){
     this.token="";
     this.decoded="";

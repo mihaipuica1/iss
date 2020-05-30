@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Paper} from '../models/paper';
+import { AuthService } from '../AuthentificatrionService/auth.service';
 
 @Component({
   selector: 'app-reviewer',
@@ -13,13 +14,14 @@ export class ReviewerComponent implements OnInit {
   papers: Paper[];
 
 
-  constructor() {
+  constructor(private auth:AuthService) {
     this.title = 'Reviewer';
     this.title2 = 'Papers';
-    this.papers = [new Paper('1', 'a', 'a','a','a','a','a')];
+    this.papers = [new Paper(1, 'a', 'a','a','a','a','a')]; 
   }
 
   ngOnInit() {
+    this.title=this.auth.getName();
   }
 onclick() {
     return '$(\'#paper\').click(function(){$(this).data(\'clicked\', false);})';

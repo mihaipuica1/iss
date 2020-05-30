@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {PcMember} from '../models/pcmember';
+import { AuthService } from '../AuthentificatrionService/auth.service';
 
 @Component({
   selector: 'app-conference-chair',
@@ -9,12 +10,13 @@ import {PcMember} from '../models/pcmember';
 export class ConferenceChairComponent implements OnInit {
   title: String;
 
-  constructor() {
+  constructor(private auth:AuthService) {
     this.title = 'Conference Chair';
 
   }
 
   ngOnInit() {
+    this.title=this.auth.getName();
   }
 
 }

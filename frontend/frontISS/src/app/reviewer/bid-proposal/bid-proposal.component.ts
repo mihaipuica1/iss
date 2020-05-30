@@ -12,8 +12,8 @@ export class BidProposalComponent implements OnInit {
 
   papers: Paper[];
   constructor() { this.title = 'Reviewer';
-    this.title2 = 'Papers';
-    this.papers = [new Paper('1', 'a', 'a','a','a','a','a')]; }
+    this.title2 = 'Bid proposal';
+    this.papers = [new Paper(1, 'a', 'a','a','a','a','a')]; }
 
   ngOnInit() {
   }

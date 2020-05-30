@@ -10,9 +10,9 @@ import { AuthService } from '../AuthentificatrionService/auth.service';
 export class AuthorComponent implements OnInit{
   title: string;
   constructor(private router:ActivatedRoute, private auth:AuthService) {
-    this.title = 'Speaker/Author';
+    this.title = '';
   }
   ngOnInit(){
-
+    this.title=this.auth.getName();
   }
 }

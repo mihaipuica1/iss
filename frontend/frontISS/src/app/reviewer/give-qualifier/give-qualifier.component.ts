@@ -14,7 +14,7 @@ export class GiveQualifierComponent implements OnInit {
   constructor() {
     this.title = 'Reviewer';
     this.title2 = 'Papers';
-    this.papers = [new Paper('1', 'a', 'a','a','a','a','a')];
+    this.papers = [new Paper(1, 'a', 'a','a','a','a','a')]; 
   }
 
   ngOnInit() {

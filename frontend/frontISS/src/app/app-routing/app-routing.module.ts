@@ -54,6 +54,9 @@ const routes: Routes = [
       path: 'submitProposal', component: ProposalFormComponent, canActivate:[SpeakerGuardService]
       },
       {
+        path: 'submitProposal/:id', component: ProposalFormComponent, canActivate:[SpeakerGuardService]
+        },
+      {
       path: 'mysubmissions', component: MySubmissionsComponent, canActivate:[SpeakerGuardService]
       },
       {path: 'speaker', component: AuthorComponent , canActivate:[SpeakerGuardService]
