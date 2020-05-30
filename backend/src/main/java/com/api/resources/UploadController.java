@@ -36,6 +36,6 @@ public class UploadController {
 
         //String output = "File uploaded to : " + uploadedFileLocation;
         //System.out.println(output);
-        return new JsonResponse().with("status", "Succes").done();
+        return new JsonResponse().with("status", "Success").done();
     }
 }
