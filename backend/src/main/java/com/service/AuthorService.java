@@ -3,9 +3,11 @@ package com.service;
 import com.entities.AuthorEntity;
 import com.entities.EvaluationEntity;
 import com.entities.PaperEntity;
+import com.mapper.EvaluationMapper;
 import com.mapper.PaperMapper;
 import com.model.PaperJson;
 import com.repository.AuthorRepository;
+import com.repository.EvaluationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 public class AuthorService {
 
     private AuthorRepository authorRepository;
+    private EvaluationRepository evaluationRepository;
 
     @Autowired
     public AuthorService(AuthorRepository authorRepository) {
@@ -54,7 +57,9 @@ public class AuthorService {
 
             return (author.get().getPapers() != null ? author.get().getPapers().stream()
                     .filter(paper -> {
-                        List<EvaluationEntity> evals = new ArrayList<>();
+
+                        List<EvaluationEntity> evals = paper.getReviews();
+
                         if(evals.size()<=2)
                             return false;
                         for(EvaluationEntity evaluation : evals)
