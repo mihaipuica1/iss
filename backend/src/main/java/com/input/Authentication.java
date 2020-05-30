@@ -1,6 +1,7 @@
 package com.input;
 
 
+import com.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,7 @@ public class Authentication {
 
     private String username;
     private String password;
-    private String roles;
+    private Role role;
     private String firstName;
     private String lastName;
 

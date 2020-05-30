@@ -38,6 +38,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+            <version>${org.glassfish.jersey.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.vladmihalcea</groupId>
             <artifactId>hibernate-types-52</artifactId>
             <version>${hibernate-types.version}</version>
