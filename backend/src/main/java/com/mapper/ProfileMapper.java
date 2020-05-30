@@ -7,19 +7,12 @@ public class ProfileMapper {
 
     public static ApplicationUser profileToEntity(Authentication input) {
         return ApplicationUser.builder()
-                .username(input.getUsername())
+                .userName(input.getUserName())
                 .password(input.getPassword())
                 .firstName(input.getFirstName())
                 .lastName(input.getLastName())
                 .build();
     }
 
-    public static Authentication inputToEntity(ApplicationUser entity) {
-        return Authentication.builder()
-                .username(entity.getUsername())
-                .password(entity.getPassword())
-                .firstName(entity.getFirstName())
-                .lastName(entity.getLastName())
-                .build();
-    }
+
 }
