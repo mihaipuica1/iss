@@ -5,14 +5,14 @@ import { SpeakerServiceService } from '../../Shared/speaker-service.service';
 import { switchMap } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 import { pTest } from '../../models/pTest';
-
+import 'rxjs/Rx' ;
 @Component({
   selector: 'app-proposal-form',
   templateUrl: './proposal-form.component.html',
   styleUrls: ['./proposal-form.component.css']
 })
 export class ProposalFormComponent implements OnInit{
-
+  fileToUpload: File = null;
   proposal: Paper;
   flag: boolean;
   private stoking;
@@ -94,9 +94,32 @@ export class ProposalFormComponent implements OnInit{
     });
       //console.log(this.stoking);
     });
+  }
 
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+    this.proposal.filename=this.fileToUpload.name;
+  } 
+  
 
+  newFunciton(){
+    this.speakerService.postFile(this.fileToUpload, this.route.snapshot.params['id']).subscribe(data => {
+      // do something, if upload success
+      console.log("it worked");
+      });
+  }
 
+  downloadFile(){
+    this.speakerService.getFile(this.route.snapshot.params['id']).subscribe(data => this.downloadFilee(data)),//console.log(data),
+    error => console.log('Error downloading the file.'),
+    () => console.info('OK');
+
+  }
+  
+  downloadFilee(data: any) {
+    const blob = new Blob([data], { type: 'text/csv' });
+    const url= window.URL.createObjectURL(blob);
+    window.open(url);
   }
 
 

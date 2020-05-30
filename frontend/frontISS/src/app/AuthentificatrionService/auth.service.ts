@@ -8,6 +8,7 @@ export class AuthService {
   private token: string = '';
   public  decoded = "";
   public r = "";
+  public flag:string;
 
   constructor(private _router: Router) {
     // this.token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwicm9sZSI6InJldmlld2VyIiwiaWF0IjoxNTE2MjM5MDIyfQ.E2cX6ZJtMO1zhxGhSBQJEk9xvNm1yclHLC9389rnV7U';
@@ -39,16 +40,21 @@ export class AuthService {
     // }
   }
 
+  heWantsSpeaker(flag){
+    this.flag=flag;
+    console.log(flag);
+  }
+
   getRole()
   {
     if(localStorage.getItem("token") === null){
       return "none";
     }
     else{
-      if(jwt_decode(localStorage.getItem('token'))['author'])
-        {return "reviewer";}
+      if(jwt_decode(localStorage.getItem('token'))['author'] && localStorage.getItem('role')==='speaker')
+        {return "speaker";}
       else if(jwt_decode(localStorage.getItem('token'))['isCommittemember']){
-        return "speaker";
+        return "reviewer";
       }
       else if(jwt_decode(localStorage.getItem('token'))['isChair']){
         return "chair";
@@ -69,6 +75,7 @@ export class AuthService {
     this.token="";
     this.decoded="";
     localStorage.removeItem('token');
+    localStorage.removeItem('role');
     this._router.navigate(['']);
   }
 

@@ -31,9 +31,9 @@ public class JPAConfig {
         config.setValidationTimeout(TimeUnit.SECONDS.toMillis(2));
         config.setDriverClassName(org.postgresql.Driver.class.getName());
 
-        config.setJdbcUrl("jdbc:postgresql://localhost:5432/isstest");
+        config.setJdbcUrl("jdbc:postgresql://localhost:5432/MybaseIss");
         config.setUsername("postgres");
-        config.setPassword("parola");
+        config.setPassword("password");
 
         return new HikariDataSource(config);
     }

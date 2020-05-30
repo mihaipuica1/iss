@@ -88,6 +88,7 @@ public class AuthenticationController {
             Calendar cal = Calendar.getInstance();
             cal.setTime(new Date());
             cal.add(Calendar.DATE, 1);
+            //String token = TokenUtil.createToken("SoupTime", profile.get().getUserName(), profile.get().getRoles().contains(Role.AUTHOR), profile.get().getRoles().contains(Role.PC_MEMBER), profile.get().getRoles().contains(Role.CONFERENCE_CHAIR),  profile.get().getFirstName(), cal.getTime());
 
             boolean isAuthor = false,isPc = false, isChair = false;
             for(RoleEntity role : profile.get().getRoles())
