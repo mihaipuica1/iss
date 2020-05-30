@@ -4,6 +4,7 @@ package com.service;
 import com.entities.*;
 import com.input.EventInput;
 import com.input.ProgramInput;
+import com.input.SectionInput;
 import com.mapper.*;
 import com.model.EventJson;
 import com.model.ProgramJson;
@@ -105,7 +106,7 @@ public class ConferenceManagementService {
     // ------------------------------  Section management ------------------------------
 
     @Transactional
-    public SectionJson addSection(int eventId, SectionJson section) {
+    public SectionJson addSection(int eventId, SectionInput section) {
         SectionEntity sectionEntity = SectionMapper.sectionToEntity(section);
         sectionEntity.setEvent(eventRepository.findById(eventId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Event not found!")));
 

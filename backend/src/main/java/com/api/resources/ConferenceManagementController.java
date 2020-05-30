@@ -3,6 +3,7 @@ package com.api.resources;
 import com.input.EventInput;
 import com.input.LocationInput;
 import com.input.ProgramInput;
+import com.input.SectionInput;
 import com.model.*;
 import com.service.ConferenceManagementService;
 import com.service.LocationService;
@@ -85,7 +86,7 @@ public class ConferenceManagementController {
     @Path("event/section/{eventId}")
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public SectionJson addSection(@PathParam("eventId") int eventId, SectionJson section) {
+    public SectionJson addSection(@PathParam("eventId") int eventId, SectionInput section) {
 
         return conferenceService.addSection(eventId, section);
     }
