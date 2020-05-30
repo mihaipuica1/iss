@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost:8080/style.css">
 
 
 </head>
@@ -38,11 +38,6 @@
             return decodeURIComponent(name[1]);
     }
 
-    function setActionAttribute() {
-        var currentForm = document.getElementById("loginForm");
-        var currentLocation = currentForm.action + get("redirect_uri");
-        currentForm.action = currentLocation;
-    }
 
     function login(event) {
 
@@ -57,18 +52,22 @@
 
     console.log(data);
     let contactData = JSON.stringify(data);
-
+    let redirectUri = get("redirect_uri")
     new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-                    xhr.open('POST', '/api/login');
+
+                    xhr.open('POST', '/api/authenticate?redirect_uri=' + redirectUri);
                     xhr.setRequestHeader('Content-Type', 'application/json');
                     xhr.onerror = () => reject(xhr.statusText);
                     xhr.send(contactData);
                     xhr.onreadystatechange = function() {
                             if (this.readyState == 4 && this.status == 200) {
-                                    var response = JSON.parse(this.responseText);
-                                    alert(response["status"]);
-                                    document.getElementById("demo").innerHTML = response.status;
+
+
+                                    var json = JSON.parse(xhr.responseText);
+                                    alert(json.response.redirectUrl);
+                                    window.location.replace(json.response.redirectUrl);
+                                    document.getElementById("demo").innerHTML = response.error;
                             }
                      };
              })

@@ -18,4 +18,8 @@ public class Authentication {
     private String roles;
     private String firstName;
     private String lastName;
+
+    public String getUserName(){
+        return username;
+    }
 }

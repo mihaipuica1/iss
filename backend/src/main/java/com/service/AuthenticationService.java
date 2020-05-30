@@ -29,14 +29,14 @@ public class AuthenticationService {
     @Transactional
     public void register(Authentication input) {
 
-        Optional<ApplicationUser> profile = applicationUserRepository.findById(input.getUsername());
+        Optional<ApplicationUser> profile = applicationUserRepository.findById(input.getUserName());
 
         if (!profile.isPresent()) {
             ApplicationUser profileEntity = ProfileMapper.profileToEntity(input);
 
-            profileEntity.setRoles(new Role[1]);
-            profileEntity.getRoles()[0] = Role.valueOf(input.getRoles());
-            profileEntity.setPassword(bCryptPasswordEncoder.encode(profileEntity.getPassword()));
+            //profileEntity.setRoles(new Role[1]);
+           // profileEntity.getRoles()[0] = Role.valueOf(input.getRoles());
+            profileEntity.setPassword(bCryptPasswordEncoder.encode(input.getPassword()));
             applicationUserRepository.save(profileEntity);
 
         } else {
@@ -57,6 +57,6 @@ public class AuthenticationService {
 
     public ApplicationUser login(Authentication profileInput) {
 
-        return applicationUserRepository.findById(profileInput.getUsername()).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Profile not found."));
+        return applicationUserRepository.findById(profileInput.getUserName()).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Profile not found."));
     }
 }
