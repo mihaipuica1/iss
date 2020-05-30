@@ -22,8 +22,8 @@ export class MySubmissionsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.papers = [new Paper(1, 'salut buna', 'a','a','a','a','a')];
-    //this.getPapers();
+    //this.papers = [new Paper(1, 'salut buna', 'a','a','a','a','a')];
+    this.getPapers();
   }
 
   
