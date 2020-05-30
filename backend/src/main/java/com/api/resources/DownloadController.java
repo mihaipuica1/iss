@@ -7,6 +7,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
@@ -15,9 +16,9 @@ public class DownloadController {
     private static final String FILE_PATH = "C:\\Papers\\";
 
     @GET
-    @Path("files/{fileName}")
-    @Produces("application/pdf")
-    public Response downloadFile(@PathParam("fileName") String fileName){
+    @Path("download/{paperId}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response downloadFile(@PathParam("paperId") String fileName){
         File file = new File(FILE_PATH + fileName);
         ResponseBuilder response = Response.ok((Object) file);
         response.header("Content-Disposition","attachment; filename=" + fileName);
