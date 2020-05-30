@@ -1,14 +1,17 @@
 package com.api.resources;
 
+import com.entities.CommitteeMemberEntity;
 import com.input.EvaluationInput;
 import com.model.*;
 import com.service.ProgramCommitteeService;
-import com.service.UserService;
 import com.web.json.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Path("/programCommittee")
@@ -55,5 +58,11 @@ public class ProgramCommitteeController {
         return pcService.assignPaper(paperId, email);
     }
 
-
+    @GET
+    @Path("/members")
+    @Consumes("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<String> getProgrammCommitte() {
+        return pcService.getProgrammCommmittee() != null ? pcService.getProgrammCommmittee().stream().map(CommitteeMemberEntity::getEmail).collect(Collectors.toList()) : new ArrayList<>();
+    }
 }

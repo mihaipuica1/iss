@@ -123,7 +123,7 @@ public class ConferenceManagementService {
     @Transactional
     public SectionJson assignSupervisor(int sectionId, String email) {
         SectionEntity existingSection = sectionRepository.findById(sectionId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Section with id " + sectionId + " not found!"));
-        //existingSection.setSupervisor(userRepository.findById(email).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "User not found!")));
+        existingSection.setSupervisor(pcMemberRepository.findById(email).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Pc Member not found!")));
 
         sectionRepository.save(existingSection);
         return SectionMapper.entityToSection(existingSection);

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.util.List;
+
 
 @Service
 public class ProgramCommitteeService {
@@ -96,6 +98,10 @@ public class ProgramCommitteeService {
         }
 
         return result;
+    }
+
+    public List<CommitteeMemberEntity> getProgrammCommmittee(){
+        return pcMemberRepository.findAll();
     }
 
 
