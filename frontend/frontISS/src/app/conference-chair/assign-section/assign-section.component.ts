@@ -36,7 +36,7 @@ events: Conference[];
   }
 
   assign() {
-    this.service.assignPapertoSection(this.selectedPaper.id,this.selectedSection.id,this.selectedSection);
+    this.service.assignPapertoSection(this.selectedPaper.id,this.selectedSection.id,this.selectedSection).subscribe(res =>console.log(res));
 
   }
 
@@ -62,10 +62,12 @@ events: Conference[];
   }
 
   RowSelected(paper: Paper) {
+    console.log(paper);
     this.selectedPaper = paper;
   }
 
   RowSelectedSection(section: Section) {
+    console.log(section);
     this.selectedSection = section;
   }
 }

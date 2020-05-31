@@ -27,16 +27,17 @@ export class AssignPapersComponent implements OnInit {
 
   ngOnInit() {
     this.getPapers();
-    this.getPcMembers();
+    // this.getPcMembers();
   }
 
   assign() {
-    this.service.assignPaper(this.selectedPaper.id.toString(), this.selectedPcMember.email, this.selectedPaper);
+
+    this.service.assignPaper(this.selectedPaper.id.toString(), this.selectedPcMember.email, this.selectedPaper).subscribe(res => console.log(res));
   }
 
 
-  getPcMembers() {
-    this.service.findAllPcMembers()
+  getPcMembers(id) {
+    this.service.findPcMembersForPaper(id)
       .subscribe(
         members => this.pcMembers = members,
 
@@ -55,11 +56,13 @@ export class AssignPapersComponent implements OnInit {
   }
 
   RowSelected(paper: Paper) {
+    this.getPcMembers(paper.id);
     this.selectedPaper = paper;
     console.log(this.selectedPaper);
   }
 
   RowSelectedPcMembers(pcMember: PcMember) {
     this.selectedPcMember = pcMember;
+    console.log(this.selectedPcMember);
   }
 }

@@ -37,6 +37,11 @@ private assignPaperToSectionURL = 'http://localhost:8080/api/programCommittee/as
     return this.http
       .get<Array<PcMember>>(this.pcmembersUReL);
   }
+  findPcMembersForPaper(id): Observable<PcMember[]> {
+    const url = `${this.pcmembersUReL}/${id}`;
+    return this.http
+      .get<Array<PcMember>>(url);
+  }
 
 
   findAllPapers(): Observable<Paper[]> {

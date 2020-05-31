@@ -17,7 +17,7 @@ export class AddConferenceComponent implements OnInit {
               private router: Router,
               private service: ConferenceChairServiceService
   ) {
-    // this.conference = new Conference("1","A","a","A","a","a","A","a","a",null);
+     this.conference = new Conference(null,null,null,null,null,null,null,null,null,null);
   }
 
 
@@ -33,8 +33,9 @@ export class AddConferenceComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.conference);
     const thisID = this.conference.id.toString();
-    // tslint:disable-next-line:max-line-length
+
     let x = new ConferenceTest(this.conference.date,this.conference.interval,this.conference.abstractDeadline,this.conference.proposalDeadline,this.conference.biddingDeadline,this.conference.name,this.conference.country,this.conference.city);
 
     this.service.updateConference(x);
