@@ -51,18 +51,23 @@ public class ProgramCommitteeService {
     }
 
     @Transactional
-    public void bidProposal(int paperId, String email, StatusJson status) {  // -> only if user is not already an author or reviewer of this paper
+    public boolean bidProposal(int paperId, String email, StatusJson status) {  // -> only if user is not already an author or reviewer of this paper
         PaperEntity paperEntity = paperRepository.findById(paperId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Paper with id " + paperId + " not found!"));
         CommitteeMemberEntity pcMemberEntity = pcMemberRepository.findById(email).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "PC member " + email + " not found"));
 
-        BidEntity bidEntity = new BidEntity();
-        bidEntity.setStatus(status);
-        bidRepository.save(bidEntity);
+        List<CommitteeMemberEntity> pcMemberList = new ArrayList<>(paperEntity.getBids().values());
+        for (CommitteeMemberEntity pcMember : pcMemberList)
+            if (!(pcMember.getEmail().equals(pcMemberEntity.getEmail()))) {
+                BidEntity bidEntity = new BidEntity();
+                bidEntity.setStatus(status);
+                bidRepository.save(bidEntity);
 
-        paperEntity.getBids().put(bidEntity, pcMemberEntity);
-        pcMemberEntity.getPapers().values().forEach(paper -> System.out.println(paper.getTitle()));
-
-        paperRepository.save(paperEntity);
+                paperEntity.getBids().put(bidEntity, pcMemberEntity);
+                pcMemberEntity.getPapers().values().forEach(paper -> System.out.println(paper.getTitle()));
+                paperRepository.save(paperEntity);
+                return true;
+            }
+        return false;
     }
 
 

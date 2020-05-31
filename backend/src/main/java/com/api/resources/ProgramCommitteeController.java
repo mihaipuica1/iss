@@ -30,8 +30,10 @@ public class ProgramCommitteeController {
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonResponse bidProposal(@PathParam("paperId") int paperId, @PathParam("email") String email, @PathParam("status") StatusJson status) {
-        pcService.bidProposal(paperId, email, status);
-        return new JsonResponse().with("response", "OK!");
+        if (pcService.bidProposal(paperId, email, status))
+            return new JsonResponse().with("response", "OK!");
+        else
+            return new JsonResponse().with("response", "Not OK!");
     }
 
 
