@@ -4,7 +4,7 @@
     <form (ngSubmit)="onSubmit()" #conferenceForm="ngForm">
       <div class="form-group">
         <label for="interval">Interval</label>
-        <input type="text" [(ngModel)]="conference.interval"
+        <input type="text" [(ngModel)]="conference.program.interval"
                class="form-control"
                id="interval"
                name="interval"
@@ -15,7 +15,7 @@
 
       <div class="form-group">
         <label for="Date">Date</label>
-        <input type="text" [(ngModel)]="conference.date"
+        <input type="text" [(ngModel)]="conference.program.date"
                class="form-control"
                id="Date"
                name="Date"
@@ -27,7 +27,7 @@
 
       <div class="form-group">
         <label for="Abstract">Abstract Deadline</label>
-        <input type="text" [(ngModel)]="conference.abstractDeadline"
+        <input type="text" [(ngModel)]="conference.program.abstractDeadline"
                class="form-control"
                id="Abstract"
                name="Abstract"
@@ -38,7 +38,7 @@
 
       <div class="form-group">
         <label for="Proposal">Proposal Deadline</label>
-        <input type="text" [(ngModel)]="conference.proposalDeadline"
+        <input type="text" [(ngModel)]="conference.program.proposalDeadline"
                class="form-control"
                id="Proposal"
                name="Proposal"
@@ -48,7 +48,7 @@
       </div>
       <div class="form-group">
         <label for="Bidding">Bidding Deadline</label>
-        <input type="text" [(ngModel)]="conference.biddingDeadline"
+        <input type="text" [(ngModel)]="conference.program.biddingDeadline"
                class="form-control"
                id="Bidding"
                name="Bidding"
@@ -69,7 +69,7 @@
 
       <div class="form-group">
         <label for="Country">Country</label>
-        <input type="text" [(ngModel)]="conference.country"
+        <input type="text" [(ngModel)]="conference.location.country"
                class="form-control"
                id="Country"
                name="Country"
@@ -79,7 +79,7 @@
       </div>
       <div class="form-group">
         <label for="City">City</label>
-        <input type="text" [(ngModel)]="conference.city"
+        <input type="text" [(ngModel)]="conference.location.city"
                class="form-control"
                id="City"
                name="City"
@@ -90,7 +90,7 @@
 
       <hr>
 
-      <button type="submit" [disabled]="conferenceForm.form.valid"
+      <button type="submit" [disabled]="!conferenceForm.form.valid"
               class="btn btn-info">Edit</button>
 
     </form>

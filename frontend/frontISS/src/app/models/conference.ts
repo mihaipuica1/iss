@@ -1,29 +1,28 @@
 import {selector} from 'rxjs/operator/publish';
 import {Section} from './section';
+import {Program} from './Program';
+import {Location} from './Location';
 
 export class Conference {
   id: string;
-  date: string;
-  interval: string;
-  abstractDeadline: string;
-  proposalDeadline: string;
-  biddingDeadline: string;
   name: string;
-  country: string;
-  city: string;
+  location: Location;
   section: Section;
+  program: Program;
+  programCommittee: string[];
+  participants: string[];
+  speakers: string[];
 
 
-  constructor(id: string, date: string, interval: string, abstractDeadline: string, proposalDeadline: string, biddingDeadline: string, name: string, country: string, city: string, section: Section) {
+  constructor(id: string, name: string, location: Location, section: Section, program: Program, programCommittee: string[], participants: string[], speakers: string[]) {
     this.id = id;
-    this.date = date;
-    this.interval = interval;
-    this.abstractDeadline = abstractDeadline;
-    this.proposalDeadline = proposalDeadline;
-    this.biddingDeadline = biddingDeadline;
     this.name = name;
-    this.country = country;
-    this.city = city;
+    this.location = location;
     this.section = section;
+    this.program = program;
+    this.programCommittee = programCommittee;
+    this.participants = participants;
+    this.speakers = speakers;
   }
+
 }

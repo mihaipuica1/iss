@@ -4,6 +4,12 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {pTest} from '../../models/pTest';
 import {ConferenceTest} from '../../models/ConferenceTest';
 import {ConferenceChairServiceService} from '../../Shared/conference-chair-service.service';
+import {Location} from '../../models/Location';
+import {Program} from '../../models/Program';
+import {SectionTest} from '../../models/SectionTest';
+import {Section} from '../../models/section';
+
+
 
 @Component({
   selector: 'app-add-conference',
@@ -12,12 +18,16 @@ import {ConferenceChairServiceService} from '../../Shared/conference-chair-servi
 })
 export class AddConferenceComponent implements OnInit {
   conference: Conference;
+  location: Location;
+  program: Program;
   errorMessage: string;
   constructor(private route: ActivatedRoute,
               private router: Router,
               private service: ConferenceChairServiceService
   ) {
-     this.conference = new Conference(null,null,null,null,null,null,null,null,null,null);
+    this.location = new Location(null,null,null,null);
+    this.program = new Program(null,null,null,null,null,null);
+    this.conference = new Conference(null,null,this.location,null,this.program,null,null,null);
   }
 
 
@@ -36,8 +46,8 @@ export class AddConferenceComponent implements OnInit {
     console.log(this.conference);
     const thisID = this.conference.id.toString();
 
-    let x = new ConferenceTest(this.conference.date,this.conference.interval,this.conference.abstractDeadline,this.conference.proposalDeadline,this.conference.biddingDeadline,this.conference.name,this.conference.country,this.conference.city);
+    let x = new ConferenceTest(this.conference.name,this.conference.program.date,this.conference.program.interval,this.conference.program.abstractDeadline,this.conference.program.proposalDeadline,this.conference.program.biddingDeadline,this.conference.location.country,this.conference.location.city);
 
-    this.service.updateConference(x);
+    this.service.updateConference(x).subscribe(res=>console.log(res));
   }
 }
