@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost:8080/style.css">
 </head>
 
 <body>
@@ -49,7 +49,10 @@
 </div>
 
 <script>
-
+    function get(name){
+        if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+            return decodeURIComponent(name[1]);
+    }
     function postData(event) {
 
         event.preventDefault();
@@ -64,13 +67,29 @@
         console.log(data);
         let contactData = JSON.stringify(data);
 
-        new Promise((resolve, reject) => {
+
+        let redirectUri = get("redirect_uri");
+        let registerPromise = new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-        xhr.open('POST', '/api/register');
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.onerror = () => reject(xhr.statusText);
-        xhr.send(contactData);
-    });
+            xhr.open('POST', '/api/registerandauthenticate?redirect_uri='  + redirectUri);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onload = (response) => resolve(response.currentTarget.responseText);
+            xhr.onerror = () => reject(xhr.statusText);
+            xhr.send(contactData);
+        });
+
+        registerPromise
+            .then(responseText => {
+                let json = JSON.parse(responseText);
+                if (json.response.status != "Error"){
+                    window.location.replace(json.response.redirectUrl);
+                } else{
+                    document.getElementById("error").innerHTML = json.response.error;
+                }
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
 
     }
 

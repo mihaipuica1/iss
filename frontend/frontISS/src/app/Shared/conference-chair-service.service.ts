@@ -16,7 +16,7 @@ export class ConferenceChairServiceService {
   private conferenceUReL = 'http://localhost:8080/api/event';
   private pcmembersUReL = 'http://localhost:8080/api/programCommittee/members';
   private sectionURL = 'http://localhost:8080/api/event/section';
-  private assignPaperURL = 'http://localhost:8080/api/programCommittee/reviewer/paper';
+  private assignPaperURL = 'http://localhost:8080/api/programCommittee/assign/paper/to/review';
 
   private conference: Conference;
   constructor(private http: HttpClient) {

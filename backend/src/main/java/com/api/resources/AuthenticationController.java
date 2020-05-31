@@ -62,11 +62,34 @@ public class AuthenticationController {
         return null == resource ? Response.status(NOT_FOUND).build() : Response.ok().entity(resource).build();
     }
 
-    @POST
+
+    @GET
     @Path("register")
+    public Response register(@QueryParam("redirectUri") String redirectUri) throws UnsupportedEncodingException {
+        // forward user to the login page with the desired redirect_uri as path param
+        final URI url = UriComponentsBuilder
+                .fromHttpUrl(uri.getBaseUri() + "registeraccount?redirect_uri=" + redirectUri)
+                .build()
+                .toUri();
+        return Response.status(302)
+                .header(HttpHeaders.LOCATION, url)
+                .build();
+    }
+
+    @GET
+    @Path("registeraccount")
+    public Response registerAccount(@QueryParam("redirect_uri") String redirect_uri) {
+        InputStream resource = context.getResourceAsStream("index.html");
+        return null == resource ? Response.status(NOT_FOUND).build() : Response.ok().entity(resource).build();
+    }
+
+    @POST
+    @Path("registerandauthenticate")
     @Consumes("application/json")
-    public void register(Authentication profileInput) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonResponse register(@QueryParam("redirect_uri") String redirectUri, Authentication profileInput) {
         authenticationService.register(profileInput);
+        return new JsonResponse().with("redirectUrl", redirectUri).done();
     }
 
     @POST
@@ -88,7 +111,6 @@ public class AuthenticationController {
             Calendar cal = Calendar.getInstance();
             cal.setTime(new Date());
             cal.add(Calendar.DATE, 1);
-            //String token = TokenUtil.createToken("SoupTime", profile.get().getUserName(), profile.get().getRoles().contains(Role.AUTHOR), profile.get().getRoles().contains(Role.PC_MEMBER), profile.get().getRoles().contains(Role.CONFERENCE_CHAIR),  profile.get().getFirstName(), cal.getTime());
 
             boolean isAuthor = false,isPc = false, isChair = false;
             for(RoleEntity role : profile.get().getRoles())
