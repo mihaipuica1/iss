@@ -112,7 +112,7 @@ public class AuthenticationController {
             cal.setTime(new Date());
             cal.add(Calendar.DATE, 1);
 
-            boolean isAuthor = false,isPc = false, isChair = false;
+            boolean isAuthor = false,isPc = false, isChair = false, isParticipant = false;
             for(RoleEntity role : profile.get().getRoles())
             {
                 if(role.getRole()==Role.AUTHOR)
@@ -123,7 +123,7 @@ public class AuthenticationController {
                     isChair = true;
             }
 
-            String token = TokenUtil.createToken("SoupTime", profile.get().getUserName(), isAuthor, isPc, isChair,  profile.get().getFirstName(), cal.getTime());
+            String token = TokenUtil.createToken("SoupTime", profile.get().getUserName(), isAuthor, isPc, isChair, profile.get().getFirstName(), cal.getTime());
             final String url = redirectUri + "?token=" + token;
             return new JsonResponse().with("redirectUrl", url).done();
         }

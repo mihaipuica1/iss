@@ -10,7 +10,8 @@ import lombok.Getter;
 public enum Role {
     AUTHOR("AUTHOR"),
     PC_MEMBER("PC_MEMBER"),
-    CONFERENCE_CHAIR("CONFERENCE_CHAIR");
+    CONFERENCE_CHAIR("CONFERENCE_CHAIR"),
+    PARTICIPANT("PARTICIPANT");
 
     @JsonProperty("value")
     private String value;
