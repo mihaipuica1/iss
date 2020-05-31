@@ -4,6 +4,7 @@ import com.entities.*;
 import com.mapper.EvaluationMapper;
 import com.input.EvaluationInput;
 import com.mapper.PaperMapper;
+import com.mapper.UserMapper;
 import com.model.*;
 import com.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,7 +89,6 @@ public class ProgramCommitteeService {
     }
 
 
-
     @Transactional
     public EvaluationJson reviewPaper(int paperId, String email, EvaluationInput evaluationInput) {
 
@@ -112,29 +112,35 @@ public class ProgramCommitteeService {
     }
 
     @Transactional
-    public List<ProgramCommitteeJson> getProgramCommittee(){
+    public List<PaperJson> getPapersOfReviewer(String email) {
+        Optional<CommitteeMemberEntity> reviewer = pcMemberRepository.findById(email);
+        if (reviewer.isPresent()) {
+            return (reviewer.get().getEvaluations() != null ? reviewer.get().getPapers().values().stream()
+                    .map(PaperMapper::entityToPaper)
+                    .collect(Collectors.toList()) : new ArrayList<PaperJson>());
+        } else {
+            return new ArrayList<PaperJson>();
+        }
+    }
+
+    @Transactional
+    public List<ProgramCommitteeJson> getProgramCommitteeMembersForPaper(int paperId) {
         List<CommitteeMemberEntity> pcMembers = pcMemberRepository.findAll();
         List<ProgramCommitteeJson> programCommitteeJsons = new ArrayList<>();
-        List<PaperEntity> papers = paperRepository.findAll();
-        Map<BidEntity, Map.Entry<Integer, CommitteeMemberEntity>> bidAndPcMemberAndPaper = new HashMap<>();
+        PaperEntity paper = paperRepository.findById(paperId).orElseThrow(() -> new RuntimeException("Paper does not exist!"));
         List<String> emailForMembersWithBids = new ArrayList<>();
-        papers.forEach(paper -> {
-            paper.getBids().forEach((bid, member) ->
-                    bidAndPcMemberAndPaper.put(bid, new AbstractMap.SimpleEntry<Integer, CommitteeMemberEntity>(paper.getId(), member)));
-        });
-        bidAndPcMemberAndPaper.forEach((bid, integerAndMember) ->
+        paper.getBids().forEach((bid, member) ->
         {
-            programCommitteeJsons.add(new ProgramCommitteeJson(integerAndMember.getValue().getEmail(), bid.getStatus().getValue(), integerAndMember.getKey()));
-            emailForMembersWithBids.add(integerAndMember.getValue().getEmail());
+            programCommitteeJsons.add(new ProgramCommitteeJson(member.getEmail(), bid.getStatus().getValue()));
+            emailForMembersWithBids.add(member.getEmail());
         });
-        pcMembers.forEach(pcMember->{
-            if(!emailForMembersWithBids.contains(pcMember.getEmail()))
-            {
-                programCommitteeJsons.add(new ProgramCommitteeJson(pcMember.getEmail(), "NO BID", -1));
+        pcMembers.forEach(pcMember -> {
+            if (!emailForMembersWithBids.contains(pcMember.getEmail())) {
+                programCommitteeJsons.add(new ProgramCommitteeJson(pcMember.getEmail(), "NO BID"));
             }
         });
-        Collections.sort(programCommitteeJsons, new Comparator<ProgramCommitteeJson>(){
-            public int compare(ProgramCommitteeJson p1, ProgramCommitteeJson p2){
+        Collections.sort(programCommitteeJsons, new Comparator<ProgramCommitteeJson>() {
+            public int compare(ProgramCommitteeJson p1, ProgramCommitteeJson p2) {
                 return p1.getStatus().compareTo(p2.getStatus());
             }
         });
@@ -142,16 +148,12 @@ public class ProgramCommitteeService {
     }
 
     @Transactional
-    public List<PaperJson> getPapersOfReviewer(String email) {
-        Optional<CommitteeMemberEntity> reviewer = pcMemberRepository.findById(email);
-        if(reviewer.isPresent()){
-            return (reviewer.get().getEvaluations() != null ? reviewer.get().getPapers().values().stream()
-                    .map(PaperMapper::entityToPaper)
-                    .collect(Collectors.toList()) : new ArrayList<PaperJson>());
-        }
-        else{
-            return new ArrayList<PaperJson>();
-        }
+    public List<User> getAllProgramCommitteeMembers()
+    {
+        return pcMemberRepository.findAll().stream().map(member ->
+        {
+            User memberJson = UserMapper.entityToUser(member);
+            return memberJson;
+        }).collect(Collectors.toList());
     }
-
 }

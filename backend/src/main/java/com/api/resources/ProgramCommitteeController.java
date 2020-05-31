@@ -61,11 +61,19 @@ public class ProgramCommitteeController {
     }
 
     @GET
+    @Path("/members/{paperId}")
+    @Consumes("application/json")//
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<ProgramCommitteeJson> getProgramCommittee(@PathParam("paperId") int paperId) {
+        return pcService.getProgramCommitteeMembersForPaper(paperId);
+    }
+
+    @GET
     @Path("/members")
     @Consumes("application/json")//
     @Produces(MediaType.APPLICATION_JSON)
-    public List<ProgramCommitteeJson> getProgramCommittee() {
-        return pcService.getProgramCommittee();
+    public List<User> getProgramCommittee() {
+        return pcService.getAllProgramCommitteeMembers();
     }
 
     @GET

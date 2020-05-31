@@ -12,5 +12,4 @@ import lombok.NoArgsConstructor;
 public class ProgramCommitteeJson {
     private String email;
     private String status;
-    private int paperId;
 }
