@@ -124,13 +124,16 @@ public class ProgramCommitteeService {
     @Transactional
     public List<PaperJson> getPapersOfReviewer(String email) {
         Optional<CommitteeMemberEntity> reviewer = pcMemberRepository.findById(email);
+        List<EvaluationEntity> evalList = evaluationRepository.findAll();
+        List<PaperEntity> paperList = new ArrayList<>();
         if (reviewer.isPresent()) {
-            return (reviewer.get().getEvaluations() != null ? reviewer.get().getPapers().values().stream()
-                    .map(PaperMapper::entityToPaper)
-                    .collect(Collectors.toList()) : new ArrayList<PaperJson>());
-        } else {
-            return new ArrayList<PaperJson>();
+            for (EvaluationEntity evaluation : evalList) {
+                if (evaluation.getReviewer().getEmail().equals(reviewer.get().getEmail()))
+                    paperList.add(evaluation.getPaper());
+            }
         }
+
+        return paperList.stream().map(PaperMapper::entityToPaper).collect(Collectors.toList());
     }
 
     @Transactional
