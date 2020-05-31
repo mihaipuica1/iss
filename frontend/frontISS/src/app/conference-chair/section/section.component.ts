@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Section} from '../../models/section';
+import {pTest} from '../../models/pTest';
+import {ConferenceTest} from '../../models/ConferenceTest';
+import {SectionTest} from '../../models/SectionTest';
+import {ConferenceChairServiceService} from '../../Shared/conference-chair-service.service';
 
 @Component({
   selector: 'app-section',
@@ -8,12 +12,14 @@ import {Section} from '../../models/section';
 })
 export class SectionComponent implements OnInit {
   section: Section;
-  constructor() { }
+  constructor(private service: ConferenceChairServiceService) { }
 
   ngOnInit() {
   }
 
-  onSubmit() {
-
+  onSubmit(id: string) {
+    let x= new SectionTest(this.section.name);
+    this.service.saveSection(id, x);
   }
+
 }

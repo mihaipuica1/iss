@@ -16,7 +16,6 @@ import { MySubmissionsComponent } from './speaker/my-submissions/my-submissions.
 import { BidProposalComponent } from './reviewer/bid-proposal/bid-proposal.component';
 import { GiveQualifierComponent } from './reviewer/give-qualifier/give-qualifier.component';
 import { AddConferenceComponent } from './conference-chair/add-conference/add-conference.component';
-import { ViewConferencesComponent } from './conference-chair/view-conferences/view-conferences.component';
 import { AssignPapersComponent } from './conference-chair/assign-papers/assign-papers.component';
 import { AuthService } from './AuthentificatrionService/auth.service';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -44,7 +43,6 @@ import {ConferenceChairServiceService} from './Shared/conference-chair-service.s
     BidProposalComponent,
     GiveQualifierComponent,
     AddConferenceComponent,
-    ViewConferencesComponent,
     AssignPapersComponent,
     HomePageComponent,
     SectionComponent,

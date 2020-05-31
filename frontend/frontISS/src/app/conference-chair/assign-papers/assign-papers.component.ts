@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {PcMember} from '../../models/pcmember';
 import {Paper} from '../../models/paper';
+import {ConferenceChairServiceService} from '../../Shared/conference-chair-service.service';
+import {PcMem} from '../../models/PcMem';
 
 @Component({
   selector: 'app-assign-papers',
@@ -9,41 +11,55 @@ import {Paper} from '../../models/paper';
 })
 export class AssignPapersComponent implements OnInit {
   title: string;
-ok:boolean;
-i:any;
-title2: string;
+  ok: boolean;
+  i: any;
+  title2: string;
+  pcMem: string[];
   pcMembers: PcMember[];
   papers: Paper[];
-  constructor() {
+  selectedPaper: Paper;
+  selectedPcMember: string;
+  errorMessage: string;
+  constructor(private service: ConferenceChairServiceService) {
     this.title = 'PcMembers';
-    this.pcMembers = [new PcMember('1', 'a', 'a@cs.ubbcluj.ro')];
     this.title2 = 'Papers';
   }
 
   ngOnInit() {
+    this.getPapers();
+    this.getPcMembers();
   }
 
-  assign(value: string, value2: string) {
-
+  assign() {
+    this.service.assignPaper(this.selectedPaper.id.toString(), this.selectedPcMember, this.selectedPaper);
   }
 
-  isInFirstTable(value: string) {
-    this.ok = false;
-    for (this.i = 0; this.i <= this.pcMembers.length; this.i++) {
-      if (this.pcMembers[this.i].name === value) {
-        this.ok = true;
-      }
-    }
-    return this.ok;
+
+  getPcMembers() {
+    this.service.findAllPcMembers()
+      .subscribe(
+        members => this.pcMem = members,
+
+    error => this.errorMessage = <any>error
+      );
+    console.log(this.pcMem);
   }
 
-  isInSecondTable(value: string) {
-    this.ok = false;
-    for (this.i = 0; this.i <= this.papers.length; this.i++) {
-      if (this.papers[this.i].title === value) {
-        this.ok = true;
-      }
-    }
-    return this.ok;
+
+  getPapers() {
+    this.service.findAllPapers()
+      .subscribe(
+        papers => this.papers = papers,
+        error => this.errorMessage = <any>error
+      );
+  }
+
+  RowSelected(paper: Paper) {
+    this.selectedPaper = paper;
+    console.log(this.selectedPaper);
+  }
+
+  RowSelectedPcMembers(pcMember: string) {
+    this.selectedPcMember = pcMember;
   }
 }

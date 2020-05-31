@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Paper} from '../../models/paper';
 import {Section} from '../../models/section';
 import {subscriptionLogsToBeFn} from 'rxjs/testing/TestScheduler';
+import {ConferenceChairServiceService} from '../../Shared/conference-chair-service.service';
+import {Conference} from '../../models/conference';
 
 @Component({
   selector: 'app-assign-section',
@@ -9,6 +11,7 @@ import {subscriptionLogsToBeFn} from 'rxjs/testing/TestScheduler';
   styleUrls: ['./assign-section.component.css']
 })
 export class AssignSectionComponent implements OnInit {
+  errorMessage: string;
 papers: Paper[];
 sections: Section[];
 title: string;
@@ -16,37 +19,50 @@ title1: string;
 title2: string;
 ok: boolean;
 i: any;
-  constructor() {
+selectedSection: Section;
+selectedPaper: Paper;
+events: Conference[];
+  constructor(private service: ConferenceChairServiceService) {
     this.title = 'Choose the papers Sections';
     this.title1 = 'Papers';
     this.title2 = 'Sections';
   }
 
   ngOnInit() {
+    this.getPapers();
+    this.getSections();
   }
 
-  assign(value: string, value2: string) {
+  assign() {
 
   }
 
-  isInFirstTable(value: string) {
-    this.ok = false;
-    for (this.i = 0; this.i <= this.papers.length; this.i++) {
-      if (this.papers[this.i].title === value) {
-        this.ok = true;
-      }
+
+  getPapers() {
+    this.service.findAllPapers()
+      .subscribe(
+        papers => this.papers = papers,
+        error => this.errorMessage = <any>error
+      );
+  }
+  getConferences() {
+    this.service.findAll()
+      .subscribe(
+        events => this.events = events,
+        error => this.errorMessage = <any>error
+      );
+  }
+  getSections() {
+    for ( this.i = 0; this.i <= this.events.length; this.i++) {
+        this.sections.push(this.events[this.i].section);
     }
-    return this.ok;
   }
 
-  isInSecondTable(value: string) {
-  this.ok = false;
-  for (this.i = 0; this.i <= this.sections.length; this.i++) {
-    if (this.sections[this.i].name === value) {
-      this.ok = true;
-    }
+  RowSelected(paper: Paper) {
+    this.selectedPaper= paper;
   }
-  return this.ok;
-}
 
+  RowSelectedSection(section: Section) {
+    this.selectedSection = section;
+  }
 }

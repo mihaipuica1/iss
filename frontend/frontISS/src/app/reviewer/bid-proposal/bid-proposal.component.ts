@@ -29,4 +29,11 @@ errorMessage: String;
         error => this.errorMessage = <any>error
       );
   }
+
+  bidP(id: string, value: string) {
+    this.service.bid(id, value).subscribe(
+      data => console.log(data)
+    );
+
+  }
 }

@@ -10,17 +10,16 @@
           <table  class="table table-bordered table-striped" >
 
             <tr>
-              <th scope="col" style="color: gray;">Name</th>
               <th scope="col" style="color: gray;">Email</th>
 
             </tr>
 
             <tbody>
 
-            <tr *ngFor="let pcMember of pcMembers">
+            <tr *ngFor="let pcMember of pcMem" (click)="RowSelectedPcMembers(pcMember)">
 
-              <td>{{ pcMember.name }}</td>
-              <td>{{pcMember.email}}</td>
+              <td>{{ pcMember }}</td>
+
 
             </tr>
 
@@ -43,31 +42,19 @@
             </tr>
 
             <tbody>
-            <tr *ngFor="let paper of papers">
+            <tr *ngFor="let paper of papers" (click)="RowSelected(paper)">
 
               <td>{{ paper.title }}</td>
               <td>{{paper.description}}</td>
               <td>{{paper.topics}}</td>
-              <td>
-                <button style="background-color: gray">Edit</button>
-              </td>
 
 
 
             </tr>
             </tbody>
           </table>
-          <label style="color: aliceblue">
-          <input type="text" #a />
-            Take from first table a name
-          </label>
-          <br>
-          <label style="color: aliceblue">
-            <input type="text" #b />
-            Take from second table a title
-          </label>
 
-          <button (click)="assign(a.value,b.value)" [disabled]="!isInFirstTable(a.value)  || !isInSecondTable(b.value)">Assign </button>
+          <button (click)="assign()" >Assign </button>
         </div>
       </div>
       <router-outlet></router-outlet>

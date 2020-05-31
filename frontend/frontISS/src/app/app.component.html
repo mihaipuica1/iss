@@ -39,16 +39,13 @@
       </li>
           <li class="nav-item">
 
-            <a routerLink="addConference" *ngIf="this.auth.getRole() === 'chair' && auth.isLoggedIn()" class="nav-link"> Add Conference</a>
+            <a routerLink="addConference" *ngIf="this.auth.getRole() === 'chair' && auth.isLoggedIn()" class="nav-link"> Edit Conference</a>
           </li>
           <li class="nav-item">
 
             <a routerLink="assignPapers" *ngIf="this.auth.getRole() === 'chair' && auth.isLoggedIn()" class="nav-link">Assign Papers</a>
           </li>
-          <li class="nav-item">
 
-            <a routerLink="viewConferences" *ngIf="this.auth.getRole() === 'chair' && auth.isLoggedIn()" class="nav-link">View Conference</a>
-          </li>
           <li class="nav-item">
 
             <a routerLink="createSection" *ngIf="this.auth.getRole() === 'chair' && auth.isLoggedIn()" class="nav-link"> Create Section</a>
@@ -66,13 +63,13 @@
     <ul class="navbar-nav">
         <a class="nav-link" *ngIf="!auth.isLoggedIn()" routerLink="logIn" style="cursor:pointer">Login</a>
         <a class="nav-link" *ngIf="!auth.isLoggedIn()" routerLink="" routerLinkActive="active">Register</a>
-        <a class="nav-link" style="cursor:pointer" *ngIf="auth.isLoggedIn()" (click)="auth.logoutUser()">Logout</a>        
+        <a class="nav-link" style="cursor:pointer" *ngIf="auth.isLoggedIn()" (click)="auth.logoutUser()">Logout</a>
     </ul>
   </div>
-</nav>    
+</nav>
 <router-outlet></router-outlet>
 
-            
+
 <footer class="page-footer font-small blue ">
 <div class="footer-copyright text-center py-3">© 2020 Copyright:
 <div> SoupTime the great ones</div>

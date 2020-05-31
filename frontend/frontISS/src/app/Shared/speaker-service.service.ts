@@ -29,13 +29,13 @@ export class SpeakerServiceService {
 
   save(paper): Observable<Paper>
     {
-      return this.http.post<Paper>(this.paperUReL,paper);
+      return this.http.post<Paper>(this.paperUReL, paper);
   }
 
 
   update(paper, id) : Observable<Paper> {
     const url = `${this.paperUReL}/${id}`;
-    return this.http.put<Paper>(url,paper);
+    return this.http.put<Paper>(url, paper);
   }
 
   postFile(fileToUpload, id): Observable<void> {
@@ -53,7 +53,7 @@ export class SpeakerServiceService {
     return this.http
       .post(url, formData, { headers: myHeadr })
       .map(() => { res => res.json()});
-     
+
 
   }
 
