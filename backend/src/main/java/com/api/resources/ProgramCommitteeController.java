@@ -65,4 +65,12 @@ public class ProgramCommitteeController {
     public List<String> getProgrammCommitte() {
         return pcService.getProgrammCommmittee() != null ? pcService.getProgrammCommmittee().stream().map(CommitteeMemberEntity::getEmail).collect(Collectors.toList()) : new ArrayList<>();
     }
+
+    @GET
+    @Path("/papers/{email}")
+    @Consumes("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<PaperJson> getPapersOfReviewer(@PathParam("email") String email) {
+        return pcService.getPapersOfReviewer(email);
+    }
 }

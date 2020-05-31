@@ -12,7 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -104,5 +107,17 @@ public class ProgramCommitteeService {
         return pcMemberRepository.findAll();
     }
 
+    @Transactional
+    public List<PaperJson> getPapersOfReviewer(String email) {
+        Optional<CommitteeMemberEntity> reviewer = pcMemberRepository.findById(email);
+        if(reviewer.isPresent()){
+            return (reviewer.get().getEvaluations() != null ? reviewer.get().getPapers().values().stream()
+                    .map(PaperMapper::entityToPaper)
+                    .collect(Collectors.toList()) : new ArrayList<PaperJson>());
+        }
+        else{
+            return new ArrayList<PaperJson>();
+        }
+    }
 
 }

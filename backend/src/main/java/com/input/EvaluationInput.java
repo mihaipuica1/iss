@@ -12,7 +12,6 @@ import lombok.*;
 public class EvaluationInput {
     private Qualifier qualifier;
     private String recommendation;
-
 }
 
 
