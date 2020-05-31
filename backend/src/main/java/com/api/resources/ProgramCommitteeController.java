@@ -62,10 +62,10 @@ public class ProgramCommitteeController {
 
     @GET
     @Path("/members")
-    @Consumes("application/json")
+    @Consumes("application/json")//
     @Produces(MediaType.APPLICATION_JSON)
-    public List<String> getProgrammCommitte() {
-        return pcService.getProgrammCommmittee() != null ? pcService.getProgrammCommmittee().stream().map(CommitteeMemberEntity::getEmail).collect(Collectors.toList()) : new ArrayList<>();
+    public List<ProgramCommitteeJson> getProgramCommittee() {
+        return pcService.getProgramCommittee();
     }
 
     @GET

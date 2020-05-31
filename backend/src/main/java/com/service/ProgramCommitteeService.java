@@ -12,9 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -108,8 +111,29 @@ public class ProgramCommitteeService {
         return result;
     }
 
-    public List<CommitteeMemberEntity> getProgrammCommmittee(){
-        return pcMemberRepository.findAll();
+    @Transactional
+    public List<ProgramCommitteeJson> getProgramCommittee(){
+        List<CommitteeMemberEntity> pcMembers = pcMemberRepository.findAll();
+        List<ProgramCommitteeJson> programCommitteeJsons = new ArrayList<>();
+        List<PaperEntity> papers = paperRepository.findAll();
+        Map<BidEntity, Map.Entry<Integer, CommitteeMemberEntity>> bidAndPcMemberAndPaper = new HashMap<>();
+        List<String> emailForMembersWithBids = new ArrayList<>();
+        papers.forEach(paper -> {
+            paper.getBids().forEach((bid, member) ->
+                    bidAndPcMemberAndPaper.put(bid, new AbstractMap.SimpleEntry<Integer, CommitteeMemberEntity>(paper.getId(), member)));
+        });
+        bidAndPcMemberAndPaper.forEach((bid, integerAndMember) ->
+        {
+            programCommitteeJsons.add(new ProgramCommitteeJson(integerAndMember.getValue().getEmail(), bid.getStatus().getValue(), integerAndMember.getKey()));
+            emailForMembersWithBids.add(integerAndMember.getValue().getEmail());
+        });
+        pcMembers.forEach(pcMember->{
+            if(!emailForMembersWithBids.contains(pcMember.getEmail()))
+            {
+                programCommitteeJsons.add(new ProgramCommitteeJson(pcMember.getEmail(), "NO BID", -1));
+            }
+        });
+        return programCommitteeJsons;
     }
 
     @Transactional
