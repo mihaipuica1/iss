@@ -21,13 +21,13 @@ export class ProposalFormComponent implements OnInit{
               private speakerService: SpeakerServiceService
   ) {
 
-    this.proposal = new Paper( null,null,null,null,null,null,null);
-//     var str = new String("Apple--Basket--Share--Options") 
+    this.proposal = new Paper( null, null, null, null, null, null, null);
+//     var str = new String("Apple--Basket--Share--Options")
 // var splits = str.split("--")
 // console.log(splits)
   }
 
-  onSubmit() { 
+  onSubmit() {
     console.log("a intrat aici");
       var str1 = this.proposal.authors;
       var splits = str1.split(",");
@@ -57,7 +57,7 @@ export class ProposalFormComponent implements OnInit{
       .pipe(switchMap((params: Params) => this.speakerService.getPaper(+params['id'])))
       .subscribe(paperr => this.proposal = paperr);
 
-    } 
+    }
     else{
     //this.proposal = new Paper(1,'salut buna', 'aasd',['a','dsadasda'],['a','asdasddasd'],'a','a')
     this.proposal = new Paper( null,null,null,null,null,null,null);
@@ -66,7 +66,7 @@ export class ProposalFormComponent implements OnInit{
   }
 
   onFileSelected(event) {
-    if(event.target.files.length > 0) 
+    if(event.target.files.length > 0)
      {
        //console.log(event.target.files[0].name);
        this.proposal.filename=event.target.files[0].name;
@@ -99,8 +99,8 @@ export class ProposalFormComponent implements OnInit{
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
     this.proposal.filename=this.fileToUpload.name;
-  } 
-  
+  }
+
 
   newFunciton(){
     this.speakerService.postFile(this.fileToUpload, this.route.snapshot.params['id']).subscribe(data => {
@@ -115,7 +115,7 @@ export class ProposalFormComponent implements OnInit{
     () => console.info('OK');
 
   }
-  
+
   downloadFilee(data: any) {
     const blob = new Blob([data], { type: 'text/csv' });
     const url= window.URL.createObjectURL(blob);

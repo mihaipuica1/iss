@@ -12,7 +12,6 @@ import {GiveQualifierComponent} from '../reviewer/give-qualifier/give-qualifier.
 import {BidProposalComponent} from '../reviewer/bid-proposal/bid-proposal.component';
 import {AddConferenceComponent} from '../conference-chair/add-conference/add-conference.component';
 import {AssignPapersComponent} from '../conference-chair/assign-papers/assign-papers.component';
-import {ViewConferencesComponent} from '../conference-chair/view-conferences/view-conferences.component';
 import { HomePageComponent } from '../home-page/home-page.component';
 import { AuthGuardService } from '../Guards/auth-guard.service';
 import {SectionComponent} from '../conference-chair/section/section.component';
@@ -74,9 +73,6 @@ const routes: Routes = [
 
       {
         path: 'assignPapers', component: AssignPapersComponent, canActivate:[ChairGuardService]
-      },
-      {
-        path: 'viewConferences', component: ViewConferencesComponent, canActivate:[ChairGuardService]
       },
       {
         path: 'createSection', component: SectionComponent, canActivate:[ChairGuardService]

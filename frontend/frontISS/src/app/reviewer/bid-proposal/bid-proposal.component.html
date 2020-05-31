@@ -22,10 +22,10 @@
 
 
               <td>
-                <button class="btn btn-secondary" style="text-align: center;">Accept</button>
+                <button class="btn btn-secondary" (click)="bidP( paper.id.toString(),'ACCEPT')" style="text-align: center;">Accept</button>
               </td>
               <td>
-                <button class="btn btn-secondary" style="text-align: center">Refuse</button>
+                <button class="btn btn-secondary" (click)="bidP( paper.id.toString(),'REJECT')" style="text-align: center">Refuse</button>
               </td>
 
 

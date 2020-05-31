@@ -16,13 +16,10 @@
             </tr>
 
             <tbody>
-            <tr *ngFor="let paper of papers">
-              <td>{{ paper.title }}</td>
+            <tr *ngFor="let paper of papers" (click)="RowSelected(paper)">
+              <td >{{ paper.title }}</td>
               <td>{{paper.description}}</td>
               <td>{{paper.topics}}</td>
-              <td>
-                <button style="background-color: gray">Edit</button>
-              </td>
 
 
             </tr>
@@ -38,7 +35,7 @@
             </tr>
 
             <tbody>
-            <tr *ngFor="let section of sections">
+            <tr *ngFor="let section of sections"(click)="RowSelectedSection(section)">
               <td>{{section.name}}</td>
 
             </tr>
@@ -54,7 +51,7 @@
             Take from second table a name
           </label>
 
-          <button (click)="assign(a.value,b.value)" [disabled]="!isInFirstTable(a.value)  || !isInSecondTable(b.value)">Assign </button>
+          <button (click)="assign()">Assign </button>
         </div>
       </div>
       <router-outlet></router-outlet>

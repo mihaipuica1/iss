@@ -55,7 +55,7 @@ public class ProgramCommitteeController {
     }
 
     @PUT
-    @Path("/assign/paper/to/review{paperId}/{email}")
+    @Path("/assign/paper/to/review/{paperId}/{email}")
     public String assignPaper(@PathParam("paperId") int paperId, @PathParam("email") String email) {
         return pcService.assignPaper(paperId, email);
     }
