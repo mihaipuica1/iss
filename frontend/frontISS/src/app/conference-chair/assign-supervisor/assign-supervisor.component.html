@@ -9,14 +9,12 @@
           <table class="table table-bordered table-striped">
 
             <tr>
-              <th scope="col" style="color: gray;">Name</th>
               <th scope="col" style="color: gray;">Email</th>
 
             </tr>
 
             <tbody>
-            <tr *ngFor="let pcMember of pcMembers">
-              <td>{{ pcMember.name }}</td>
+            <tr *ngFor="let pcMember of pcMembers" (click)="rowSelectedPcMember(pcMember)">
               <td>{{pcMember.email}}</td>
 
 
@@ -33,23 +31,15 @@
             </tr>
 
             <tbody>
-            <tr *ngFor="let section of sections">
+            <tr *ngFor="let section of sections" (click)="rowSelectedSections(section)">
               <td>{{section.name}}</td>
 
             </tr>
             </tbody>
           </table>
-          <label style="color: aliceblue">
-            <input type="text" #a />
-            Take from first table a name
-          </label>
-          <br>
-          <label style="color: aliceblue">
-            <input type="text" #b />
-            Take from second table a name
-          </label>
 
-          <button (click)="assign(a.value,b.value)" [disabled]="!isInFirstTable(a.value)  || !isInSecondTable(b.value)">Assign </button>
+
+          <button (click)="assign()">Assign </button>
         </div>
       </div>
       <router-outlet></router-outlet>

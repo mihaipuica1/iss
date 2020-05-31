@@ -10,14 +10,15 @@ import {PcMem} from '../models/PcMem';
 
 @Injectable()
 export class ConferenceChairServiceService {
-  private conferenceURL: string;
+  private conferenceURL= 'http://localhost:8080/api/events';
   private paperURL = 'http://localhost:8080/api/papers';
   private  paperUReL = 'http://localhost:8080/api/paper';
   private conferenceUReL = 'http://localhost:8080/api/event';
   private pcmembersUReL = 'http://localhost:8080/api/programCommittee/members';
   private sectionURL = 'http://localhost:8080/api/event/section';
+  private assignSupervisorSectionURL = 'http://localhost:8080/api/event/section/supervisor';
   private assignPaperURL = 'http://localhost:8080/api/programCommittee/assign/paper/to/review';
-
+private assignPaperToSectionURL = 'http://localhost:8080/api/programCommittee/assign/paper/to/section';
   private conference: Conference;
   constructor(private http: HttpClient) {
     this.conferenceURL = 'http://localhost:8080/api/events';
@@ -32,9 +33,9 @@ export class ConferenceChairServiceService {
     const url = `${this.conferenceUReL}/${id}`;
     return this.http.get<Conference>(url);
   }
-  findAllPcMembers(): Observable<string[]> {
+  findAllPcMembers(): Observable<PcMember[]> {
     return this.http
-      .get<Array<string>>(this.pcmembersUReL);
+      .get<Array<PcMember>>(this.pcmembersUReL);
   }
 
 
@@ -56,6 +57,16 @@ export class ConferenceChairServiceService {
   assignPaper(paperId: string, email: string, paper) {
     const url = `${this.assignPaperURL}/${paperId}/${email}`;
     return this.http.put(url, paper);
+  }
+  assignSupervisortoSection(sectionId, email: string, section){
+    const url = `${this.assignSupervisorSectionURL}/${sectionId}/${email}`;
+    return this.http.put(url, section);
+  }
+  assignPapertoSection(paperId,sectionId,section){
+    const url = `${this.assignPaperToSectionURL}/${paperId}/${sectionId}`;
+    return this.http.put(url, section);
+
+
   }
 
 }

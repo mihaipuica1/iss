@@ -26,7 +26,8 @@ export class GiveQualifierComponent implements OnInit {
 
 
   getPapers() {
-    const email = localStorage.getItem('iss');
+    const email = localStorage.getItem('email');
+    console.log(email);
     this.service.getAcceptedPapers(email)
       .subscribe(
         papers => this.papers = papers,

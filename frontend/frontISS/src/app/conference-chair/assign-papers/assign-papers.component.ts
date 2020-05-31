@@ -18,7 +18,7 @@ export class AssignPapersComponent implements OnInit {
   pcMembers: PcMember[];
   papers: Paper[];
   selectedPaper: Paper;
-  selectedPcMember: string;
+  selectedPcMember: PcMember;
   errorMessage: string;
   constructor(private service: ConferenceChairServiceService) {
     this.title = 'PcMembers';
@@ -31,18 +31,18 @@ export class AssignPapersComponent implements OnInit {
   }
 
   assign() {
-    this.service.assignPaper(this.selectedPaper.id.toString(), this.selectedPcMember, this.selectedPaper);
+    this.service.assignPaper(this.selectedPaper.id.toString(), this.selectedPcMember.email, this.selectedPaper);
   }
 
 
   getPcMembers() {
     this.service.findAllPcMembers()
       .subscribe(
-        members => this.pcMem = members,
+        members => this.pcMembers = members,
 
     error => this.errorMessage = <any>error
       );
-    console.log(this.pcMem);
+    console.log(this.pcMembers);
   }
 
 
@@ -59,7 +59,7 @@ export class AssignPapersComponent implements OnInit {
     console.log(this.selectedPaper);
   }
 
-  RowSelectedPcMembers(pcMember: string) {
+  RowSelectedPcMembers(pcMember: PcMember) {
     this.selectedPcMember = pcMember;
   }
 }

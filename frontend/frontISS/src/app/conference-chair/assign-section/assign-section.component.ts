@@ -22,6 +22,7 @@ i: any;
 selectedSection: Section;
 selectedPaper: Paper;
 events: Conference[];
+
   constructor(private service: ConferenceChairServiceService) {
     this.title = 'Choose the papers Sections';
     this.title1 = 'Papers';
@@ -30,10 +31,12 @@ events: Conference[];
 
   ngOnInit() {
     this.getPapers();
-    this.getSections();
+    this.getConferences();
+
   }
 
   assign() {
+    this.service.assignPapertoSection(this.selectedPaper.id,this.selectedSection.id,this.selectedSection);
 
   }
 
@@ -48,18 +51,18 @@ events: Conference[];
   getConferences() {
     this.service.findAll()
       .subscribe(
-        events => this.events = events,
+        events => this.getSections(events),
         error => this.errorMessage = <any>error
       );
   }
-  getSections() {
-    for ( this.i = 0; this.i <= this.events.length; this.i++) {
-        this.sections.push(this.events[this.i].section);
-    }
+  getSections(events) {
+    console.log(events);
+    this.sections = events[0].sections;
+
   }
 
   RowSelected(paper: Paper) {
-    this.selectedPaper= paper;
+    this.selectedPaper = paper;
   }
 
   RowSelectedSection(section: Section) {

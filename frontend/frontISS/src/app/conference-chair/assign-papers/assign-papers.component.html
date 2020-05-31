@@ -11,14 +11,17 @@
 
             <tr>
               <th scope="col" style="color: gray;">Email</th>
+              <th scope="col" style="color: gray;">Bid</th>
 
             </tr>
 
             <tbody>
 
-            <tr *ngFor="let pcMember of pcMem" (click)="RowSelectedPcMembers(pcMember)">
+            <tr *ngFor="let pcMember of pcMembers" (click)="RowSelectedPcMembers(pcMember)">
 
-              <td>{{ pcMember }}</td>
+              <td>{{ pcMember.email }}</td>
+              <td>{{ pcMember.status }}</td>
+
 
 
             </tr>

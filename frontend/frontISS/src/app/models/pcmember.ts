@@ -1,11 +1,11 @@
 export class PcMember {
   id: string;
-  name: string;
+  status: string;
   email: string;
 
-  constructor(id: string, name: string, email: string) {
+  constructor(id: string, status: string, email: string) {
     this.id = id;
-    this.name = name;
+    this.status = status;
     this.email = email;
   }
 }

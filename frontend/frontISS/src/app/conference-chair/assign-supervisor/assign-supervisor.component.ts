@@ -23,6 +23,8 @@ export class AssignSupervisorComponent implements OnInit {
   i: any;
   ok: boolean;
   errorMessage: string;
+  selectedPcMember: PcMember;
+  selectedSection: Section;
   constructor(private service: ConferenceChairServiceService) {
     this.title = 'Choose supervisor';
     this.title1 = 'Pc Member';
@@ -31,50 +33,37 @@ export class AssignSupervisorComponent implements OnInit {
 
   ngOnInit() {
 this.getPcMembers();
-this.getSections();
+this.getConferences();
 
   }
 
-  assign(value: string, value2: string) {
-
-  }
-  isInFirstTable(value: string) {
-    this.ok = false;
-    for (this.i = 0; this.i <= this.pcMembers.length; this.i++) {
-        if (this.pcMembers[this.i].name === value) {
-          this.ok = true;
-        }
-    }
-    return this.ok;
+  assign() {
+    this.service.assignSupervisortoSection(this.selectedPcMember.email,this.selectedSection.id,this.selectedSection);
   }
 
-  isInSecondTable(value: string) {
-    this.ok = false;
-    for (this.i = 0; this.i <= this.sections.length; this.i++) {
-      if (this.sections[this.i].name === value) {
-        this.ok = true;
-      }
-    }
-    return this.ok;
-  }
   getPcMembers() {
     this.service.findAllPcMembers()
       .subscribe(
-        members => this.pcMem = members,
+        members => this.pcMembers = members,
         error => this.errorMessage = <any>error
       );
   }
   getConferences() {
     this.service.findAll()
       .subscribe(
-        events => this.events = events,
+        events => this.getSections(events),
         error => this.errorMessage = <any>error
       );
   }
-  getSections() {
-    for ( this.i = 0; this.i <= this.events.length; this.i++) {
-      this.sections.push(this.events[this.i].section);
-    }
+  getSections(events) {
+    this.sections = events[0].sections;
   }
 
+  rowSelectedSections(section: Section) {
+    this.selectedSection = section;
+  }
+
+  rowSelectedPcMember(pcMember: PcMember) {
+    this.selectedPcMember = pcMember;
+  }
 }
