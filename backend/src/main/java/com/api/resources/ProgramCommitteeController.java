@@ -36,7 +36,7 @@ public class ProgramCommitteeController {
 
 
     @PUT
-    @Path("/review/{paperId}/{email}")
+    @Path("/review/paper/{paperId}/{email}")
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
     public EvaluationJson reviewPaper(@PathParam("paperId") int paperId, @PathParam("email") String email, EvaluationInput evaluationInput) {
@@ -46,14 +46,14 @@ public class ProgramCommitteeController {
 
 
     @PUT
-    @Path("/paper/section/{paperId}/{sectionId}")
+    @Path("assign/paper/to/section/{paperId}/{sectionId}")
     @Produces(MediaType.APPLICATION_JSON)
     public PaperJson assignPaperToSection(@PathParam("paperId") int paperId, @PathParam("sectionId") int sectionId) {
         return pcService.assignPaperToSection(paperId, sectionId);
     }
 
     @PUT
-    @Path("/reviewer/paper/{paperId}/{email}")
+    @Path("/assign/paper/to/review{paperId}/{email}")
     public String assignPaper(@PathParam("paperId") int paperId, @PathParam("email") String email) {
         return pcService.assignPaper(paperId, email);
     }

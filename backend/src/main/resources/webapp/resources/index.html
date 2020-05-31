@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost:8080/style.css">
 </head>
 
 <body>
@@ -66,7 +66,7 @@
 
         new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-        xhr.open('POST', '/api/register');
+        xhr.open('POST', '/api/registerandauthenticate');
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onerror = () => reject(xhr.statusText);
         xhr.send(contactData);
