@@ -10,7 +10,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EvaluationInput {
-
     private Qualifier qualifier;
     private String recommendation;
 

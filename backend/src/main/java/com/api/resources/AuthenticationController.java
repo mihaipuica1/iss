@@ -65,7 +65,7 @@ public class AuthenticationController {
 
     @GET
     @Path("register")
-    public Response register(@QueryParam("redirect_uri") String redirectUri) {
+    public Response register(@QueryParam("redirectUri") String redirectUri) throws UnsupportedEncodingException {
         // forward user to the login page with the desired redirect_uri as path param
         final URI url = UriComponentsBuilder
                 .fromHttpUrl(uri.getBaseUri() + "registeraccount?redirect_uri=" + redirectUri)
