@@ -133,6 +133,11 @@ public class ProgramCommitteeService {
                 programCommitteeJsons.add(new ProgramCommitteeJson(pcMember.getEmail(), "NO BID", -1));
             }
         });
+        Collections.sort(programCommitteeJsons, new Comparator<ProgramCommitteeJson>(){
+            public int compare(ProgramCommitteeJson p1, ProgramCommitteeJson p2){
+                return p1.getStatus().compareTo(p2.getStatus());
+            }
+        });
         return programCommitteeJsons;
     }
 
