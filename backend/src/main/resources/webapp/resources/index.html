@@ -71,7 +71,7 @@
         let redirectUri = get("redirect_uri");
         let registerPromise = new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', '/api/registerandauthenticate='  + redirectUri);
+            xhr.open('POST', '/api/registerandauthenticate?redirect_uri='  + redirectUri);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.onload = (response) => resolve(response.currentTarget.responseText);
             xhr.onerror = () => reject(xhr.statusText);
