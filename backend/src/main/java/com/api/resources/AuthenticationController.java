@@ -86,8 +86,10 @@ public class AuthenticationController {
     @POST
     @Path("registerandauthenticate")
     @Consumes("application/json")
-    public void register(Authentication profileInput) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonResponse register(@QueryParam("redirect_uri") String redirectUri, Authentication profileInput) {
         authenticationService.register(profileInput);
+        return new JsonResponse().with("redirectUrl", redirectUri).done();
     }
 
     @POST
@@ -109,7 +111,6 @@ public class AuthenticationController {
             Calendar cal = Calendar.getInstance();
             cal.setTime(new Date());
             cal.add(Calendar.DATE, 1);
-            //String token = TokenUtil.createToken("SoupTime", profile.get().getUserName(), profile.get().getRoles().contains(Role.AUTHOR), profile.get().getRoles().contains(Role.PC_MEMBER), profile.get().getRoles().contains(Role.CONFERENCE_CHAIR),  profile.get().getFirstName(), cal.getTime());
 
             boolean isAuthor = false,isPc = false, isChair = false;
             for(RoleEntity role : profile.get().getRoles())
