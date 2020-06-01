@@ -18,7 +18,8 @@ export class ConferenceChairServiceService {
   private sectionURL = 'http://localhost:8080/api/event/section';
   private assignSupervisorSectionURL = 'http://localhost:8080/api/event/section/supervisor';
   private assignPaperURL = 'http://localhost:8080/api/programCommittee/assign/paper/to/review';
-private assignPaperToSectionURL = 'http://localhost:8080/api/programCommittee/assign/paper/to/section';
+  private assignPaperToSectionURL = 'http://localhost:8080/api/programCommittee/assign/paper/to/section';
+  private assignReviewerToEventURL = 'http://localhost:8080/api/event/committee';
   private conference: Conference;
   constructor(private http: HttpClient) {
     this.conferenceURL = 'http://localhost:8080/api/events';
@@ -70,6 +71,12 @@ private assignPaperToSectionURL = 'http://localhost:8080/api/programCommittee/as
   assignPapertoSection(paperId,sectionId,section){
     const url = `${this.assignPaperToSectionURL}/${paperId}/${sectionId}`;
     return this.http.put(url, section);
+
+
+  }
+  assignReviewerToEvent(event,eventId,email){
+    const url = `${this.assignReviewerToEventURL}/${eventId}/${email}`;
+    return this.http.put(url, event);
 
 
   }

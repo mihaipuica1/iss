@@ -8,6 +8,8 @@ import {Location} from '../../models/Location';
 import {Program} from '../../models/Program';
 import {SectionTest} from '../../models/SectionTest';
 import {Section} from '../../models/section';
+import {LocationUpdate} from '../../models/LocationUpdate';
+import {ProgramUpdate} from '../../models/ProgramUpdate';
 
 
 
@@ -43,11 +45,12 @@ export class AddConferenceComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.conference);
+
     const thisID = this.conference.id.toString();
+    const location = new LocationUpdate(this.conference.location.country,this.conference.location.city);
+    const program = new ProgramUpdate(this.conference.program.date,this.conference.program.interval,this.conference.program.abstractDeadline,this.conference.program.proposalDeadline,this.conference.program.biddingDeadline);
+    const x = new ConferenceTest(this.conference.name, location, program);
 
-    let x = new ConferenceTest(this.conference.name,this.conference.program.date,this.conference.program.interval,this.conference.program.abstractDeadline,this.conference.program.proposalDeadline,this.conference.program.biddingDeadline,this.conference.location.country,this.conference.location.city);
-
-    this.service.updateConference(x).subscribe(res=>console.log(res));
+    this.service.updateConference(x).subscribe(res =>console.log(res));
   }
 }

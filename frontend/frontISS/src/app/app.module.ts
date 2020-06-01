@@ -31,6 +31,7 @@ import {ReviewerServiceService} from './Shared/reviewer-service.service';
 import {ConferenceChairServiceService} from './Shared/conference-chair-service.service';
 import { ParticipantComponent } from './participant/participant.component';
 import { AllPapersComponent } from './speaker/all-papers/all-papers.component';
+import { AssignReviewerEventComponent } from './conference-chair/assign-reviewer-event/assign-reviewer-event.component';
 
 
 
@@ -52,7 +53,8 @@ import { AllPapersComponent } from './speaker/all-papers/all-papers.component';
     AssignSupervisorComponent,
     ChoseRoleUserComponent,
     ParticipantComponent,
-    AllPapersComponent
+    AllPapersComponent,
+    AssignReviewerEventComponent
   ],
   imports: [
     BrowserModule,

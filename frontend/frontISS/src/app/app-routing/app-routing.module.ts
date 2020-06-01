@@ -22,6 +22,7 @@ import { ChairGuardService } from '../Guards/chair-guard.service';
 import { ChoseRoleUserComponent } from '../chose-role-user/chose-role-user.component';
 import { ParticipantComponent } from '../participant/participant.component';
 import { AllPapersComponent } from '../speaker/all-papers/all-papers.component';
+import {AssignReviewerEventComponent} from '../conference-chair/assign-reviewer-event/assign-reviewer-event.component';
 
 
 const routes: Routes = [
@@ -92,6 +93,9 @@ const routes: Routes = [
       {
         path: 'assignSupervisor', component: AssignSupervisorComponent, canActivate:[ChairGuardService]
       },
+  {
+    path: 'assignReviewerPaper', component: AssignReviewerEventComponent, canActivate:[ChairGuardService]
+  },
   {
     path: 'conferenceChair', component: ConferenceChairComponent, canActivate:[ChairGuardService]
   }
