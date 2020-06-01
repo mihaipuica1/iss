@@ -49,10 +49,6 @@ export class AuthService {
     this.flag = flag;
     console.log(flag);
   }
-  heWantsConferenceChair(flag) {
-    this.flag = flag;
-    console.log(flag);
-  }
 
   getRole() {
     if (localStorage.getItem('token') === null) {
