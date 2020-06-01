@@ -29,6 +29,8 @@ import { SpeakerServiceService } from './Shared/speaker-service.service';
 import { ChoseRoleUserComponent } from './chose-role-user/chose-role-user.component';
 import {ReviewerServiceService} from './Shared/reviewer-service.service';
 import {ConferenceChairServiceService} from './Shared/conference-chair-service.service';
+import { ParticipantComponent } from './participant/participant.component';
+import { AllPapersComponent } from './speaker/all-papers/all-papers.component';
 
 
 
@@ -48,7 +50,9 @@ import {ConferenceChairServiceService} from './Shared/conference-chair-service.s
     SectionComponent,
     AssignSectionComponent,
     AssignSupervisorComponent,
-    ChoseRoleUserComponent
+    ChoseRoleUserComponent,
+    ParticipantComponent,
+    AllPapersComponent
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,4 @@
+<div class="big">
 <div class="container">
     <div class="col-md-12">
       <div class="card shadow-lg p-3 mb-5 bg-white rounded">
@@ -6,9 +7,9 @@
           <h3 style="text-align: center; color: gray">{{title2}}</h3>
           <br>
           <br>
-          <table class="table table-hover">
+          <table class="table table-hover" style="cursor: default;">
 
-            <tr>
+            <tr class="table-secondary">
               <th scope="col" style="color: gray;">Title</th>
               <th scope="col" style="color: gray;">Description</th>
               <th scope="col" style="color: gray;">Topics</th>
@@ -19,7 +20,7 @@
             <tbody>
             <tr *ngFor="let paper of papers" 
                 [class.selected]="paper === selectedPaper"
-                  (click)="onSelect(paper)">
+>
               <td style="color: gray;">{{paper.title }}</td>
               <td style="color: gray;">{{paper.description}}</td>
               <td style="color: gray;">{{paper.topics}}</td>
@@ -35,4 +36,5 @@
       </div>
       <router-outlet></router-outlet>
     </div>
+</div>
 </div>

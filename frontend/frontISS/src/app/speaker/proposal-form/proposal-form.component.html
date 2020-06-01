@@ -58,10 +58,10 @@
 
       <!-- <input type="file" *ngIf="flag"  id="myFile" name="filename" (change)="onFileSelected($event)"> -->
 
-      <div class="form-group">
-        <label for="file">Choose File</label>
+      <div *ngIf="flag" class="form-group">
         <input type="file"
                id="file"
+               
                (change)="handleFileInput($event.target.files)">
       <button *ngIf="flag"  (click)="newFunciton()"
               class="btn btn-info">Upload</button>
@@ -70,11 +70,12 @@
       </div>
 
       <hr>
-
+      <div class="col text-center">
       <button *ngIf="flag"  (click)="EditNow()"
               class="btn btn-info">Update</button>
       <button type="submit"  *ngIf="!flag" [disabled]="!proposalForm.form.valid" (click)="onSubmit()"
               class="btn btn-info">Submit</button>
+      </div>
 
     </form>
 

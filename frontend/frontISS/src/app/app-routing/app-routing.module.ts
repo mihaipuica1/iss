@@ -20,6 +20,8 @@ import {AssignSupervisorComponent} from '../conference-chair/assign-supervisor/a
 import { SpeakerGuardService } from '../Guards/speaker-guard.service';
 import { ChairGuardService } from '../Guards/chair-guard.service';
 import { ChoseRoleUserComponent } from '../chose-role-user/chose-role-user.component';
+import { ParticipantComponent } from '../participant/participant.component';
+import { AllPapersComponent } from '../speaker/all-papers/all-papers.component';
 
 
 const routes: Routes = [
@@ -27,6 +29,9 @@ const routes: Routes = [
     path: '',
     redirectTo: '/home',
     pathMatch: 'full'
+  },
+  {
+    path: 'Event', component: ParticipantComponent,runGuardsAndResolvers: 'always'
   },
   {
     path: 'home', component: HomePageComponent,runGuardsAndResolvers: 'always'
@@ -62,6 +67,9 @@ const routes: Routes = [
       {
       path: 'mysubmissions', component: MySubmissionsComponent, canActivate:[SpeakerGuardService]
       },
+      {
+        path: 'allPapers', component: AllPapersComponent, canActivate:[SpeakerGuardService]
+        },
       {path: 'speaker', component: AuthorComponent , canActivate:[SpeakerGuardService]
 
       },

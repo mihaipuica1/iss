@@ -1,15 +1,16 @@
 <div class="container">
-  <div class="row">
     <div class="col-md-12">
-      <div class="card bg-dark my-5">
+      <div class="card shadow-lg p-3 mb-5 bg-white rounded">
         <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
           <h3 style="text-align: center; color: gray">{{title}}</h3>
+              <hr>
+              <br>
 
+          <table  class="table table-hover " style="cursor:initial">
 
-
-          <table  class="table table-bordered table-striped" >
-
-            <tr>
+            <tr class="table-secondary">
               <th scope="col" style="color: gray;">Email</th>
               <th scope="col" style="color: gray;">Bid</th>
 
@@ -19,8 +20,8 @@
 
             <tr *ngFor="let pcMember of pcMembers" (click)="RowSelectedPcMembers(pcMember)">
 
-              <td>{{ pcMember.email }}</td>
-              <td>{{ pcMember.status }}</td>
+              <td style="cursor: default;" >{{ pcMember.email }}</td>
+              <td style="cursor: default;"> {{ pcMember.status }}</td>
 
 
 
@@ -30,12 +31,14 @@
 
             </tbody>
           </table>
-          <hr>
+            </div>
+            <div class="col-md-6">
           <h3 style="text-align: center; color: gray">{{title2}}</h3>
+          <hr>
+          <br>
+          <table class="table table-hover " style="cursor:initial" >
 
-          <table class="table table-bordered table-striped">
-
-            <tr>
+            <tr class="table-secondary">
 
 
               <th scope="col" style="color: gray;">Title</th>
@@ -47,20 +50,27 @@
             <tbody>
             <tr *ngFor="let paper of papers" (click)="RowSelected(paper)">
 
-              <td>{{ paper.title }}</td>
-              <td>{{paper.description}}</td>
-              <td>{{paper.topics}}</td>
+              <td style="cursor: default;" >{{ paper.title }}</td>
+              <td style="cursor: default;" >{{paper.description}}</td>
+              <td style="cursor: default;">{{paper.topics}}</td>
 
 
 
             </tr>
             </tbody>
           </table>
+            </div>
 
-          <button (click)="assign()" >Assign </button>
+        </div>
+        <br>
+
+        <div class="col text-center">
+          <hr>
+          <button class="btn btn-info" style="text-align: center;" (click)="assign()" >Assign </button>
+          </div>
         </div>
       </div>
       <router-outlet></router-outlet>
-    </div>
+
   </div>
 </div>

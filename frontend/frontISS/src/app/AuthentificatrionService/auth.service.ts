@@ -49,6 +49,10 @@ export class AuthService {
     this.flag = flag;
     console.log(flag);
   }
+  heWantsConferenceChair(flag) {
+    this.flag = flag;
+    console.log(flag);
+  }
 
   getRole() {
     if (localStorage.getItem('token') === null) {
@@ -56,10 +60,13 @@ export class AuthService {
     } else {
       if (jwt_decode(localStorage.getItem('token'))['author'] && localStorage.getItem('role') === 'speaker') {
         return 'speaker';
-      } else if (jwt_decode(localStorage.getItem('token'))['isCommittemember'] && localStorage.getItem('role') === 'reviewer') {
-        return 'reviewer';
-      } else if (jwt_decode(localStorage.getItem('token'))['isChair'] && localStorage.getItem('role') === 'chair') {
+      } else if (jwt_decode(localStorage.getItem('token'))['isChair']) {
         return 'chair';
+      } else if (jwt_decode(localStorage.getItem('token'))['isCommittemember']) {
+        return 'reviewer';
+      }
+      else if(this.flag === 'participant'){
+        return 'partifipant'
       }
     }
   }
@@ -77,6 +84,7 @@ export class AuthService {
     this.decoded = '';
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    localStorage.removeItem('email');
     this._router.navigate(['']);
   }
 

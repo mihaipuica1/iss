@@ -3,7 +3,7 @@ td{
   }
   .hero {
     color: #fff;
-    height: 100%;
+    height: 100vh;
     font-size: 24px;
     overflow: hidden;
     background: url(/assets/img/home.png) no-repeat 50% 50%;
@@ -11,7 +11,9 @@ td{
     background-color: #003459 !important;
     padding-bottom: 25vh;
   }
-  
+  .big{
+    height: 100%;
+}
   h1, .h1 {
     font-size: 36px;
     line-height: 1.1;
@@ -27,7 +29,7 @@ td{
   
   }
   .hero__title {
-    padding-top: 350px;
+    padding-top: 280px;
     font-size: 50px;
     font-weight: 700;
   }
