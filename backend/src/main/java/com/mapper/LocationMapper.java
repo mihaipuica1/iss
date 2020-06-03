@@ -1,7 +1,9 @@
 package com.mapper;
 
 import com.entities.LocationEntity;
+import com.entities.ProgramEntity;
 import com.input.LocationInput;
+import com.input.ProgramInput;
 import com.model.LocationJson;
 
 public class LocationMapper {
@@ -19,5 +21,11 @@ public class LocationMapper {
                 .country(entity.getCountry())
                 .city(entity.getCity())
                 .build();
+    }
+
+    public static LocationEntity updateLocation(LocationEntity entity, LocationInput location){
+        entity.setCountry(location.getCountry());
+        entity.setInterval(location.getCity());
+        return entity;
     }
 }

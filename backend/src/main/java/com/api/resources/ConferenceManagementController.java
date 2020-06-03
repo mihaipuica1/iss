@@ -31,8 +31,15 @@ public class ConferenceManagementController {
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
     public EventJson addEvent(EventInput event) {
-
         return conferenceService.addEvent(event);
+    }
+
+    @PUT
+    @Path("event/update/{id}")
+    @Consumes("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    public EventJson updateEvent(@PathParam("id") int id, EventInput event) {
+        return conferenceService.updateEvent(id, event);
     }
 
     @DELETE

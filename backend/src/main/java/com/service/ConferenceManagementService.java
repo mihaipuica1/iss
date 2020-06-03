@@ -3,6 +3,7 @@ package com.service;
 
 import com.entities.*;
 import com.input.EventInput;
+import com.input.LocationInput;
 import com.input.ProgramInput;
 import com.input.SectionInput;
 import com.mapper.*;
@@ -53,6 +54,23 @@ public class ConferenceManagementService {
         entity.setLocation(LocationMapper.locationToEntity(event.getLocation()));
 
         return EventMapper.entityToEvent(eventRepository.save(entity));
+    }
+
+    @Transactional
+    public EventJson updateEvent(int eventId, EventInput newEvent)
+    {
+        ProgramInput newProgram = newEvent.getProgramInput();
+        LocationInput newLocation = newEvent.getLocationInput();
+        String newName = newEvent.getName();
+        EventEntity event = eventRepository.findById(eventId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Event not found!"));
+
+        ProgramMapper.updateProgram(event.getProgram(), newProgram);
+        LocationMapper.updateLocation(event.getLocation(), newLocation);
+        event.setProgram(newProgram);
+        event.setLocation(newLocation);
+        event.setName(newName);
+
+        return EventMapper.entityToEvent(event);
     }
 
     @Transactional
