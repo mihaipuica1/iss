@@ -25,7 +25,7 @@ public class LocationMapper {
 
     public static LocationEntity updateLocation(LocationEntity entity, LocationInput location){
         entity.setCountry(location.getCountry());
-        entity.setInterval(location.getCity());
+        entity.setCity(location.getCity());
         return entity;
     }
 }

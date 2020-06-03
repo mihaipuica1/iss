@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.util.List;
 
-@Getter
 @Builder
 @Data
 @NoArgsConstructor
@@ -15,4 +14,21 @@ public class EventInput {
     private String name;
     private ProgramInput program;
     private LocationInput location;
+
+    public ProgramInput getProgram()
+    {
+        return program;
+    }
+
+    public LocationInput getLocation()
+    {
+        return location;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+
 }
