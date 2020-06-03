@@ -59,15 +59,18 @@ public class ConferenceManagementService {
     @Transactional
     public EventJson updateEvent(int eventId, EventInput newEvent)
     {
-        ProgramInput newProgram = newEvent.getProgramInput();
-        LocationInput newLocation = newEvent.getLocationInput();
+        ProgramInput newProgram = newEvent.getProgram();
+        LocationInput newLocation = newEvent.getLocation();
         String newName = newEvent.getName();
         EventEntity event = eventRepository.findById(eventId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Event not found!"));
 
-        ProgramMapper.updateProgram(event.getProgram(), newProgram);
-        LocationMapper.updateLocation(event.getLocation(), newLocation);
-        event.setProgram(newProgram);
-        event.setLocation(newLocation);
+        ProgramEntity programEntity = event.getProgram();
+        LocationEntity locationEntity = event.getLocation();
+
+        ProgramMapper.updateProgram(programEntity, newProgram);
+        LocationMapper.updateLocation(locationEntity, newLocation);
+        event.setProgram(programEntity);
+        event.setLocation(locationEntity);
         event.setName(newName);
 
         return EventMapper.entityToEvent(event);
