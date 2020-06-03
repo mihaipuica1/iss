@@ -60,7 +60,7 @@ export class ProposalFormComponent implements OnInit{
     }
     else{
     //this.proposal = new Paper(1,'salut buna', 'aasd',['a','dsadasda'],['a','asdasddasd'],'a','a')
-    this.proposal = new Paper( null,null,null,null,null,null,null);
+    this.proposal = new Paper( null,null,null,null,localStorage.getItem('email'),null,null);
     console.log("teapa");
     }
   }

@@ -28,8 +28,8 @@ export class ChoseRoleUserComponent implements OnInit {
   }
   heGoesConferenceChair(){
 
-    this.auth.heWantsConferenceChair("conferenceChair");
-    localStorage.setItem('role','chair');
+    this.auth.heWantsConferenceChair("participant");
+    localStorage.setItem('role','participant');
     window.location.replace('http://localhost:8080/api/login?redirect_uri=http://localhost:4200/home');
   }
 

@@ -12,14 +12,25 @@ export class SpeakerServiceService {
 
   private paperURL: string;
   private paperUReL = 'http://localhost:8080/api/paper';
+  private authorPapers = 'http://localhost:8080/api/author/papers';
+  private authorPapersAccepted = 'http://localhost:8080/api/author/acceptedPapers';
   private paper: Paper;
   constructor(private http: HttpClient) {
     this.paperURL = 'http://localhost:8080/api/papers';
   }
 
   findAll(): Observable<Paper[]> {
+    const email = localStorage.getItem('email');
+    const url = `${this.authorPapers}/${email}`;
     return this.http
-    .get<Array<Paper>>(this.paperURL);
+    .get<Array<Paper>>(url);
+  }
+
+  findAlAccepted(): Observable<Paper[]> {
+    const email = localStorage.getItem('email');
+    const url = `${this.authorPapersAccepted}/${email}`;
+    return this.http
+    .get<Array<Paper>>(url);
   }
 
   getPaper(id: number): Observable<Paper> {
@@ -29,13 +40,13 @@ export class SpeakerServiceService {
 
   save(paper): Observable<Paper>
     {
-      return this.http.post<Paper>(this.paperUReL, paper);
+      return this.http.post<Paper>(this.paperUReL,paper);
   }
 
 
   update(paper, id) : Observable<Paper> {
     const url = `${this.paperUReL}/${id}`;
-    return this.http.put<Paper>(url, paper);
+    return this.http.put<Paper>(url,paper);
   }
 
   postFile(fileToUpload, id): Observable<void> {
@@ -53,7 +64,7 @@ export class SpeakerServiceService {
     return this.http
       .post(url, formData, { headers: myHeadr })
       .map(() => { res => res.json()});
-
+     
 
   }
 

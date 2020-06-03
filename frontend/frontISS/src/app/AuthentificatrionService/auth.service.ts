@@ -65,8 +65,9 @@ export class AuthService {
       } else if (jwt_decode(localStorage.getItem('token'))['isCommittemember']) {
         return 'reviewer';
       }
-      else if(this.flag === 'participant'){
-        return 'partifipant'
+      else if(localStorage.getItem('role') === 'participant'){
+
+        return 'participant'
       }
     }
   }

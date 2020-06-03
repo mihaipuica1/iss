@@ -33,7 +33,7 @@ export class AllPapersComponent implements OnInit {
 
 
   getPapers() {
-    this.speakerService.findAll()
+    this.speakerService.findAlAccepted()
       .subscribe(
         papers => this.papers = papers,
         error => this.errorMessage = <any>error
