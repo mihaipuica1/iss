@@ -2,19 +2,24 @@ package com.service;
 
 
 import com.entities.AuthorEntity;
+import com.entities.EventEntity;
 import com.entities.PaperEntity;
 import com.input.PaperInput;
 import com.mapper.PaperMapper;
 import com.model.PaperJson;
 import com.repository.AuthorRepository;
+import com.repository.ConferenceRepository;
 import com.repository.PaperRepository;
 import com.repository.UserRepository;
+import com.web.json.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,17 +30,27 @@ public class PaperService {
 
     private PaperRepository paperRepository;
     private AuthorRepository authorRepository;
+    private ConferenceRepository conferenceRepository;
 
     @Autowired
-    public PaperService(PaperRepository paperRepository, AuthorRepository authorRepository) {
+    public PaperService(PaperRepository paperRepository, AuthorRepository authorRepository, ConferenceRepository cr) {
         this.paperRepository = paperRepository;
         this.authorRepository = authorRepository;
+        this.conferenceRepository = cr;
     }
 
     @Transactional
-    public PaperJson submitPaper(PaperInput paperInput) {
+    public Serializable submitPaper(PaperInput paperInput) {
 
         PaperEntity entity = PaperMapper.paperToEntity(paperInput);
+
+        EventEntity event = conferenceRepository.findById(1).get();
+
+        if(event.getProgram().getProposalDeadline().compareTo(LocalDateTime.now())<0)
+            return new JsonResponse().with("status","Cannot submit paper after the date" + event.getProgram().getProposalDeadline().toString());
+
+
+
         for(String email : paperInput.getAuthors())
         {
             Optional<AuthorEntity> author = authorRepository.findById(email);

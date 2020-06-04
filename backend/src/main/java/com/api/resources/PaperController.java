@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.io.Serializable;
 import java.util.List;
 
 @Path("/")
@@ -23,7 +24,7 @@ public class PaperController {
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
     @Path("paper")
-    public PaperJson submitPaper(PaperInput paper) {
+    public Serializable submitPaper(PaperInput paper) {
         return paperService.submitPaper(paper);
     }
 

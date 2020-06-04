@@ -7,12 +7,14 @@ import com.mapper.PaperMapper;
 import com.mapper.UserMapper;
 import com.model.*;
 import com.repository.*;
+import com.web.json.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,9 +29,10 @@ public class ProgramCommitteeService {
     private PCMemberRepository pcMemberRepository;
     private BidRepository bidRepository;
     private ApplicationUserRepository appUserRepository;
+    private ConferenceRepository conferenceRepository;
 
     @Autowired
-    public ProgramCommitteeService(RecommendationRepository recommendationRepository, PaperRepository paperRepository, UserRepository userRepository, SectionRepository sectionRepository, EvaluationRepository evaluationRepository, PCMemberRepository pcmmemberRepository, BidRepository bidRepository,ApplicationUserRepository appUserRepo) {
+    public ProgramCommitteeService(RecommendationRepository recommendationRepository, PaperRepository paperRepository, UserRepository userRepository, SectionRepository sectionRepository, EvaluationRepository evaluationRepository, PCMemberRepository pcmmemberRepository, BidRepository bidRepository,ApplicationUserRepository appUserRepo,ConferenceRepository cr) {
         this.recommendationRepository = recommendationRepository;
         this.paperRepository = paperRepository;
         this.userRepository = userRepository;
@@ -38,6 +41,7 @@ public class ProgramCommitteeService {
         this.pcMemberRepository = pcmmemberRepository;
         this.bidRepository = bidRepository;
         this.appUserRepository = appUserRepo;
+        this.conferenceRepository = cr;
     }
 
 
@@ -52,9 +56,15 @@ public class ProgramCommitteeService {
     }
 
     @Transactional
-    public boolean bidProposal(int paperId, String email, Status status) {  // -> only if user is not already an author or reviewer of this paper
+    public JsonResponse bidProposal(int paperId, String email, Status status) {  // -> only if user is not already an author or reviewer of this paper
         PaperEntity paperEntity = paperRepository.findById(paperId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Paper with id " + paperId + " not found!"));
         CommitteeMemberEntity pcMemberEntity = pcMemberRepository.findById(email).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "PC member " + email + " not found"));
+
+        EventEntity event = conferenceRepository.findById(1).get();
+
+        if(event.getProgram().getBiddingDeadline().compareTo(LocalDateTime.now())<0)
+            return new JsonResponse().with("status","Cannot bit paper after the date" + event.getProgram().getBiddingDeadline().toString());
+
 
         List<CommitteeMemberEntity> pcMemberList = new ArrayList<>(paperEntity.getBids().values());
         if (pcMemberList.size() == 0){
@@ -65,7 +75,7 @@ public class ProgramCommitteeService {
             paperEntity.getBids().put(bidEntity, pcMemberEntity);
             pcMemberEntity.getPapers().values().forEach(paper -> System.out.println(paper.getTitle()));
             paperRepository.save(paperEntity);
-            return true;
+            return new JsonResponse().with("response", "OK!");
         }
         for (CommitteeMemberEntity pcMember : pcMemberList)
             if (!(pcMember.getEmail().equals(pcMemberEntity.getEmail()))) {
@@ -76,9 +86,9 @@ public class ProgramCommitteeService {
                 paperEntity.getBids().put(bidEntity, pcMemberEntity);
                 pcMemberEntity.getPapers().values().forEach(paper -> System.out.println(paper.getTitle()));
                 paperRepository.save(paperEntity);
-                return true;
+                return new JsonResponse().with("response", "OK!");
             }
-        return false;
+        return new JsonResponse().with("response", "Not OK!");
     }
 
 
