@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Builder
 @Data
 @NoArgsConstructor
@@ -15,4 +17,5 @@ public class SectionJson {
     private String name;
     private int eventId;
     private String supervisorEmail;
+    private List<String> papers;
 }

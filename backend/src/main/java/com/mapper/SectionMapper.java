@@ -4,6 +4,8 @@ import com.entities.SectionEntity;
 import com.input.SectionInput;
 import com.model.SectionJson;
 
+import java.util.stream.Collectors;
+
 public class SectionMapper {
 
     public static SectionEntity sectionToEntity(SectionInput section) {
@@ -18,6 +20,10 @@ public class SectionMapper {
                 .name(entity.getName())
                 .eventId(entity.getEvent().getId())
                 .supervisorEmail(entity.getSupervisor() != null ? entity.getSupervisor().getEmail() : null)
+                .papers(entity.getPapers()
+                        .stream()
+                        .map(p -> p.getTitle())
+                        .collect(Collectors.toList()))
                 .build();
     }
 }
