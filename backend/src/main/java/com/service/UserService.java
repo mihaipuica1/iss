@@ -2,7 +2,6 @@ package com.service;
 
 
 import com.entities.*;
-import com.model.StatusJson;
 import com.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,17 +14,11 @@ public class UserService {
 
     private UserRepository userRepository;
     private SectionRepository sectionRepository;
-    private PaperRepository paperRepository;
-    private PCMemberRepository pcMemberRepository;
-    private BidRepository bidRepository;
 
     @Autowired
     public UserService(UserRepository userRepository, SectionRepository sectionRepository, PaperRepository paperRepository, PCMemberRepository pcMemberRepository, BidRepository bidRepository) {
         this.userRepository = userRepository;
         this.sectionRepository = sectionRepository;
-        this.paperRepository = paperRepository;
-        this.pcMemberRepository = pcMemberRepository;
-        this.bidRepository = bidRepository;
     }
 
 
