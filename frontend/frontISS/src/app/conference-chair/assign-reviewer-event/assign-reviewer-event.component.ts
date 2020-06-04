@@ -9,6 +9,12 @@ import {ConferenceChairServiceService} from '../../Shared/conference-chair-servi
   styleUrls: ['./assign-reviewer-event.component.css']
 })
 export class AssignReviewerEventComponent implements OnInit {
+
+  selectedRow : Number;
+  selectedRowPC: Number;
+  setClickedRowPaper : Function;
+  setClickedRowPC : Function;
+
   events: Conference[];
   pcMembers: PcMember[];
   selectedPcMember: PcMember;
@@ -19,6 +25,12 @@ export class AssignReviewerEventComponent implements OnInit {
   ngOnInit() {
     this.getPcMembers();
     this.getConferences();
+    this.setClickedRowPaper = function(index){
+      this.selectedRow = index;
+    }
+    this.setClickedRowPC = function(index){
+      this.selectedRowPC = index;
+    }
   }
   getPcMembers() {
     this.service.findAllPcMembers()

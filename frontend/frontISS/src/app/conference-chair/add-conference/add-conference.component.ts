@@ -19,6 +19,10 @@ import {ProgramUpdate} from '../../models/ProgramUpdate';
   styleUrls: ['./add-conference.component.css']
 })
 export class AddConferenceComponent implements OnInit {
+
+  setClickedRow : Function;
+
+
   conference: Conference;
   location: Location;
   program: Program;
