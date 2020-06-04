@@ -152,7 +152,17 @@ public class ProgramCommitteeService {
                 return p1.getStatus().compareTo(p2.getStatus());
             }
         });
-        return programCommitteeJsons;
+        List<ProgramCommitteeJson> filteredJsons = programCommitteeJsons.stream()
+                .filter(programCommitteeJson -> {
+                if(programCommitteeJson.getStatus().equals("REJECT"))
+                {
+                    return false;
+                }
+                else
+                    return true;
+                })
+                .collect(Collectors.toList());
+        return filteredJsons;
     }
 
     @Transactional
