@@ -43,6 +43,15 @@ public class ProgramCommitteeController {
         return pcService.reviewPaper(paperId, email, evaluationInput);
     }
 
+    @GET
+    @Path("/unassignedPCMembers")
+    @Consumes("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<User> getReviewers() {
+        return pcService.getReviewers();
+
+    }
+
 
     @PUT
     @Path("assign/paper/to/section/{paperId}/{sectionId}")

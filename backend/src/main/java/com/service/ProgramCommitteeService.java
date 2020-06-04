@@ -16,7 +16,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
 @Service
 public class ProgramCommitteeService {
 
@@ -27,9 +26,10 @@ public class ProgramCommitteeService {
     private EvaluationRepository evaluationRepository;
     private PCMemberRepository pcMemberRepository;
     private BidRepository bidRepository;
+    private ApplicationUserRepository appUserRepository;
 
     @Autowired
-    public ProgramCommitteeService(RecommendationRepository recommendationRepository, PaperRepository paperRepository, UserRepository userRepository, SectionRepository sectionRepository, EvaluationRepository evaluationRepository, PCMemberRepository pcmmemberRepository, BidRepository bidRepository) {
+    public ProgramCommitteeService(RecommendationRepository recommendationRepository, PaperRepository paperRepository, UserRepository userRepository, SectionRepository sectionRepository, EvaluationRepository evaluationRepository, PCMemberRepository pcmmemberRepository, BidRepository bidRepository,ApplicationUserRepository appUserRepo) {
         this.recommendationRepository = recommendationRepository;
         this.paperRepository = paperRepository;
         this.userRepository = userRepository;
@@ -37,7 +37,9 @@ public class ProgramCommitteeService {
         this.evaluationRepository = evaluationRepository;
         this.pcMemberRepository = pcmmemberRepository;
         this.bidRepository = bidRepository;
+        this.appUserRepository = appUserRepo;
     }
+
 
 
     @Transactional
@@ -174,4 +176,43 @@ public class ProgramCommitteeService {
             return memberJson;
         }).collect(Collectors.toList());
     }
+
+
+    public List<User> getReviewers() {
+
+
+
+        List<ApplicationUser> reviewers = appUserRepository.findAll().stream()
+                .filter(r->{
+                    List<RoleEntity> roles = r.getRoles();
+                    for(RoleEntity role: roles)
+                        if(role.getRole()==Role.PC_MEMBER)
+                            return true;
+
+                    return false;
+                })
+                .collect(Collectors.toList());
+
+        List<CommitteeMemberEntity> comitees = pcMemberRepository.findAll();
+
+        List<User> jsonReviewers = new ArrayList<>();
+
+        for(ApplicationUser appU : reviewers) {
+            boolean exists = false;
+            for (CommitteeMemberEntity u : comitees) {
+                if (appU.getUserName().equals(u.getEmail()))
+                    exists = true;
+            }
+            if (!exists)
+                jsonReviewers.add(UserMapper.accountToUser(appU));
+        }
+
+
+        return jsonReviewers;
+
+
+
+    }
+
+
 }
