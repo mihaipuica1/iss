@@ -3,7 +3,7 @@
     <div class="hero">
       <div class="container">
         <div class="hero__wrap">
-          <div class="row ">
+          <div class="row">
             <div class="col-sm-5 shadow-lg">
 
               <h1 class="hero__title">
@@ -41,13 +41,36 @@
                  {{this.conference.programCommittee}}
                  <br>
                  <br>
-                 And this talented writers represent the speakers:
+                 And these talented writers represent the speakers:
                  {{this.conference.speakers}}
               </p>
               <hr><br><br>
-<h1 class="hero__title">
-  Sections
-</h1>
+              <h1 class="hero__title">
+                Sections
+              </h1>
+              <p class="hero__text">
+                These are the present sections for this conference:
+                <!-- <a> maybe parse them? -->
+                
+             </p>
+              <div *ngFor="let section of sections;let i = index" >
+                <div *ngIf="section.supervisiorEmail"> 
+                  <p class="hero__text" >
+                    <strong>"{{section.name}}"</strong> and it's supervisor {{section.supervisiorEmail}}
+                 </p>
+                </div>
+                
+
+              </div>
+              <div *ngFor="let section of sections;let i = index" >
+                <div *ngIf="!section.supervisiorEmail">
+                  <p class="hero__text" >
+                    <strong>"{{section.name}}"</strong> does not have a supervisor yet.
+                 </p>
+                </div>
+                
+
+              </div>
             </div>
           </div>
         </div>
