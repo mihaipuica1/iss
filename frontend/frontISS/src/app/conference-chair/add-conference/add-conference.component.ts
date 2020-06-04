@@ -51,6 +51,6 @@ export class AddConferenceComponent implements OnInit {
     const program = new ProgramUpdate(this.conference.program.date,this.conference.program.interval,this.conference.program.abstractDeadline,this.conference.program.proposalDeadline,this.conference.program.biddingDeadline);
     const x = new ConferenceTest(this.conference.name, location, program);
 
-    this.service.updateConference(x).subscribe(res =>console.log(res));
+    this.service.updateConference(thisID,x).subscribe(res =>console.log(res));
   }
 }
