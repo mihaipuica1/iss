@@ -1,6 +1,6 @@
 package com.entities;
 
-import com.model.StatusJson;
+import com.model.Status;
 import com.vladmihalcea.hibernate.type.basic.PostgreSQLEnumType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,5 +29,5 @@ public class BidEntity {
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "status")
     @Type(type = "pgsql_enum")
-    private StatusJson status;
+    private Status status;
 }

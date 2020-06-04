@@ -1,6 +1,5 @@
 package com.api.resources;
 
-import com.entities.CommitteeMemberEntity;
 import com.input.EvaluationInput;
 import com.model.*;
 import com.service.ProgramCommitteeService;
@@ -9,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Path("/programCommittee")
@@ -29,7 +26,7 @@ public class ProgramCommitteeController {
     @Path("/bid/{paperId}/{email}/{status}")
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonResponse bidProposal(@PathParam("paperId") int paperId, @PathParam("email") String email, @PathParam("status") StatusJson status) {
+    public JsonResponse bidProposal(@PathParam("paperId") int paperId, @PathParam("email") String email, @PathParam("status") Status status) {
         if (pcService.bidProposal(paperId, email, status))
             return new JsonResponse().with("response", "OK!");
         else

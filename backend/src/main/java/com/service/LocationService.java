@@ -29,7 +29,7 @@ public class LocationService {
         this.locationRepository = locationRepository;
     }
 
-    private LocationJson weather(LocationJson location) {
+    public static String weather(LocationEntity location) {
         String REST_URI = "http://api.weatherstack.com/current?access_key=7d6080ab5727f0fe0479c1a898b780ec";
 
         Client client = ClientBuilder.newClient();
@@ -45,18 +45,18 @@ public class LocationService {
                 ", Description: " + currentValues.get("weather_descriptions") +
                 ", feels like: " + currentValues.get("feelslike");
 
-        location.setWeather(weather);
 
-        return location;
+        return weather;
     }
 
     @Transactional
     public LocationJson addLocation(int eventId, LocationInput location) {
         EventEntity event = eventRepository.findById(eventId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Event not found!"));
         LocationEntity locationEntity = LocationMapper.locationToEntity(location);
-        LocationJson result = LocationMapper.entityToLocation(locationRepository.save(locationEntity));
+
+        locationRepository.save(locationEntity);
         event.setLocation(locationEntity);
-        return weather(result);
+        return LocationMapper.entityToLocation(locationEntity);
     }
 
 

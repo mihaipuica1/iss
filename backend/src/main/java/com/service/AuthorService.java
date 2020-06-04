@@ -39,10 +39,10 @@ public class AuthorService {
 
             return (author.get().getPapers() != null ? author.get().getPapers().stream()
                  .map(PaperMapper::entityToPaper)
-                 .collect(Collectors.toList()) : new ArrayList<PaperJson>());
+                 .collect(Collectors.toList()) : new ArrayList<>());
         }
         else{
-            return new ArrayList<PaperJson>();
+            return new ArrayList<>();
         }
 
     }
@@ -70,10 +70,10 @@ public class AuthorService {
                         return true;
                     })
                     .map(PaperMapper::entityToPaper)
-                    .collect(Collectors.toList()) : new ArrayList<PaperJson>());
+                    .collect(Collectors.toList()) : new ArrayList<>());
         }
         else{
-            return new ArrayList<PaperJson>();
+            return new ArrayList<>();
         }
 
     }

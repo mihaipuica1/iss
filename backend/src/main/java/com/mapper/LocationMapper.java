@@ -1,10 +1,9 @@
 package com.mapper;
 
 import com.entities.LocationEntity;
-import com.entities.ProgramEntity;
 import com.input.LocationInput;
-import com.input.ProgramInput;
 import com.model.LocationJson;
+import com.service.LocationService;
 
 public class LocationMapper {
 
@@ -20,6 +19,7 @@ public class LocationMapper {
                 .id(entity.getId())
                 .country(entity.getCountry())
                 .city(entity.getCity())
+                .weather(LocationService.weather(entity))
                 .build();
     }
 

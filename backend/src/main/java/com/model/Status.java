@@ -4,23 +4,22 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import lombok.Setter;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @Getter
-public enum StatusJson {
+public enum Status {
     ACCEPT("ACCEPT"),
     REJECT("REJECT");
 
     @JsonProperty("value")
     private String value;
 
-    StatusJson(String value) {
+    Status(String value) {
         this.value = value;
     }
 
     @JsonCreator
-    public static StatusJson fromJson(@JsonProperty("status") String status) {
+    public static Status fromJson(@JsonProperty("status") String status) {
         return valueOf(status);
     }
 }
