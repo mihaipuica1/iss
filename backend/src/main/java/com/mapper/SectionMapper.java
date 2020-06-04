@@ -4,6 +4,7 @@ import com.entities.SectionEntity;
 import com.input.SectionInput;
 import com.model.SectionJson;
 
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class SectionMapper {
@@ -20,10 +21,10 @@ public class SectionMapper {
                 .name(entity.getName())
                 .eventId(entity.getEvent().getId())
                 .supervisorEmail(entity.getSupervisor() != null ? entity.getSupervisor().getEmail() : null)
-                .papers(entity.getPapers()
+                .papers(entity.getPapers() != null ? entity.getPapers()
                         .stream()
                         .map(p -> p.getTitle())
-                        .collect(Collectors.toList()))
+                        .collect(Collectors.toList()) : new ArrayList<>())
                 .build();
     }
 }
