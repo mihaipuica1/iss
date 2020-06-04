@@ -21,6 +21,7 @@ export class ConferenceChairServiceService {
   private assignPaperURL = 'http://localhost:8080/api/programCommittee/assign/paper/to/review';
   private assignPaperToSectionURL = 'http://localhost:8080/api/programCommittee/assign/paper/to/section';
   private assignReviewerToEventURL = 'http://localhost:8080/api/event/committee';
+  private unnassignedPcMembersURL='http://localhost:8080/api/programCommittee/unassignedPCMembers';
   private conference: Conference;
   constructor(private http: HttpClient) {
     this.conferenceURL = 'http://localhost:8080/api/events';
@@ -39,6 +40,12 @@ export class ConferenceChairServiceService {
     return this.http
       .get<Array<PcMember>>(this.pcmembersUReL);
   }
+
+  unassignedPcMembers():Observable<PcMember[]>{
+    const url=`${this.unnassignedPcMembersURL}`;
+    return this.http.get<Array<PcMember>>(url);
+  }
+  
   findPcMembersForPaper(id): Observable<PcMember[]> {
     const url = `${this.pcmembersUReL}/${id}`;
     return this.http

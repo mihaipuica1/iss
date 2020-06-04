@@ -33,7 +33,7 @@ export class AssignReviewerEventComponent implements OnInit {
     }
   }
   getPcMembers() {
-    this.service.findAllPcMembers()
+    this.service.unassignedPcMembers()
       .subscribe(
         members => this.pcMembers = members,
         error => this.errorMessage = <any>error

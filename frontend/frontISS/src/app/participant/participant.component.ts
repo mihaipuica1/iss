@@ -6,6 +6,7 @@ import { Location } from '../models/Location';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConferenceChairServiceService } from '../Shared/conference-chair-service.service';
 import { Section } from '../models/section';
+import { PcMember } from '../models/pcmember';
 
 @Component({
   selector: 'app-participant',
@@ -19,6 +20,7 @@ export class ParticipantComponent implements OnInit {
   program: Program;
   errorMessage: string;
   name:string;
+  pcMembers: PcMember[];
   sections: Section[];
   mySections: Section;
   sectiones:string[];
@@ -37,6 +39,7 @@ export class ParticipantComponent implements OnInit {
     //this.paper= new Paper(1, 'a', 'b','c','b','d','v');
     this.getConference();
     this.getConferencesSections();
+    this.getPcMembers();
 
   }
 
@@ -58,5 +61,9 @@ export class ParticipantComponent implements OnInit {
   getSections(events) {
     console.log(events);
     this.sections = events.sections;
+  }
+
+  getPcMembers(){
+    this.service.findAllPcMembers().subscribe(res=> this.pcMembers = res);
   }
 }
