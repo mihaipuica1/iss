@@ -101,7 +101,7 @@ public class ProgramCommitteeService {
 
             committeeMemberEntity.addReview(paperEntity);
             return "You are allowed to review this paper.";
-        } else return "You are not allowed to review this paper.";
+        } else throw new RuntimeException("You are not allowed to review this paper.");
 
     }
 

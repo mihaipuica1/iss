@@ -1,10 +1,12 @@
 package com.mapper;
 
+import com.entities.AuthorEntity;
 import com.entities.SectionEntity;
 import com.input.SectionInput;
 import com.model.SectionJson;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class SectionMapper {
@@ -25,6 +27,7 @@ public class SectionMapper {
                         .stream()
                         .map(p -> p.getTitle())
                         .collect(Collectors.toList()) : new ArrayList<>())
+                .speakers(Utils.getSpeakers(entity))
                 .build();
     }
 }
