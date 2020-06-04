@@ -1,5 +1,6 @@
 package com.web.json;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -13,7 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * .with("shouldRefresh", true)
  * .done();
  */
-public class JsonResponse {
+public class JsonResponse implements Serializable {
 
     protected Map<String, Object> map = new LinkedHashMap<String, Object>();
 

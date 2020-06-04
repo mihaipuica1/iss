@@ -7,15 +7,16 @@ import com.mapper.PaperMapper;
 import com.mapper.UserMapper;
 import com.model.*;
 import com.repository.*;
+import com.web.json.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
-
 
 @Service
 public class ProgramCommitteeService {
@@ -27,9 +28,11 @@ public class ProgramCommitteeService {
     private EvaluationRepository evaluationRepository;
     private PCMemberRepository pcMemberRepository;
     private BidRepository bidRepository;
+    private ApplicationUserRepository appUserRepository;
+    private ConferenceRepository conferenceRepository;
 
     @Autowired
-    public ProgramCommitteeService(RecommendationRepository recommendationRepository, PaperRepository paperRepository, UserRepository userRepository, SectionRepository sectionRepository, EvaluationRepository evaluationRepository, PCMemberRepository pcmmemberRepository, BidRepository bidRepository) {
+    public ProgramCommitteeService(RecommendationRepository recommendationRepository, PaperRepository paperRepository, UserRepository userRepository, SectionRepository sectionRepository, EvaluationRepository evaluationRepository, PCMemberRepository pcmmemberRepository, BidRepository bidRepository,ApplicationUserRepository appUserRepo,ConferenceRepository cr) {
         this.recommendationRepository = recommendationRepository;
         this.paperRepository = paperRepository;
         this.userRepository = userRepository;
@@ -37,7 +40,10 @@ public class ProgramCommitteeService {
         this.evaluationRepository = evaluationRepository;
         this.pcMemberRepository = pcmmemberRepository;
         this.bidRepository = bidRepository;
+        this.appUserRepository = appUserRepo;
+        this.conferenceRepository = cr;
     }
+
 
 
     @Transactional
@@ -50,9 +56,15 @@ public class ProgramCommitteeService {
     }
 
     @Transactional
-    public boolean bidProposal(int paperId, String email, Status status) {  // -> only if user is not already an author or reviewer of this paper
+    public JsonResponse bidProposal(int paperId, String email, Status status) {  // -> only if user is not already an author or reviewer of this paper
         PaperEntity paperEntity = paperRepository.findById(paperId).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "Paper with id " + paperId + " not found!"));
         CommitteeMemberEntity pcMemberEntity = pcMemberRepository.findById(email).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, "PC member " + email + " not found"));
+
+        EventEntity event = conferenceRepository.findById(1).get();
+
+        if(event.getProgram().getBiddingDeadline().compareTo(LocalDateTime.now())<0)
+            return new JsonResponse().with("status","Cannot bit paper after the date" + event.getProgram().getBiddingDeadline().toString());
+
 
         List<CommitteeMemberEntity> pcMemberList = new ArrayList<>(paperEntity.getBids().values());
         if (pcMemberList.size() == 0){
@@ -63,7 +75,7 @@ public class ProgramCommitteeService {
             paperEntity.getBids().put(bidEntity, pcMemberEntity);
             pcMemberEntity.getPapers().values().forEach(paper -> System.out.println(paper.getTitle()));
             paperRepository.save(paperEntity);
-            return true;
+            return new JsonResponse().with("response", "OK!");
         }
         for (CommitteeMemberEntity pcMember : pcMemberList)
             if (!(pcMember.getEmail().equals(pcMemberEntity.getEmail()))) {
@@ -74,9 +86,9 @@ public class ProgramCommitteeService {
                 paperEntity.getBids().put(bidEntity, pcMemberEntity);
                 pcMemberEntity.getPapers().values().forEach(paper -> System.out.println(paper.getTitle()));
                 paperRepository.save(paperEntity);
-                return true;
+                return new JsonResponse().with("response", "OK!");
             }
-        return false;
+        return new JsonResponse().with("response", "Not OK!");
     }
 
 
@@ -174,4 +186,43 @@ public class ProgramCommitteeService {
             return memberJson;
         }).collect(Collectors.toList());
     }
+
+
+    public List<User> getReviewers() {
+
+
+
+        List<ApplicationUser> reviewers = appUserRepository.findAll().stream()
+                .filter(r->{
+                    List<RoleEntity> roles = r.getRoles();
+                    for(RoleEntity role: roles)
+                        if(role.getRole()==Role.PC_MEMBER)
+                            return true;
+
+                    return false;
+                })
+                .collect(Collectors.toList());
+
+        List<CommitteeMemberEntity> comitees = pcMemberRepository.findAll();
+
+        List<User> jsonReviewers = new ArrayList<>();
+
+        for(ApplicationUser appU : reviewers) {
+            boolean exists = false;
+            for (CommitteeMemberEntity u : comitees) {
+                if (appU.getUserName().equals(u.getEmail()))
+                    exists = true;
+            }
+            if (!exists)
+                jsonReviewers.add(UserMapper.accountToUser(appU));
+        }
+
+
+        return jsonReviewers;
+
+
+
+    }
+
+
 }

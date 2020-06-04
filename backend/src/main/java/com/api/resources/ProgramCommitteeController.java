@@ -27,10 +27,8 @@ public class ProgramCommitteeController {
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonResponse bidProposal(@PathParam("paperId") int paperId, @PathParam("email") String email, @PathParam("status") Status status) {
-        if (pcService.bidProposal(paperId, email, status))
-            return new JsonResponse().with("response", "OK!");
-        else
-            return new JsonResponse().with("response", "Not OK!");
+        return pcService.bidProposal(paperId, email, status);
+
     }
 
 
@@ -41,6 +39,15 @@ public class ProgramCommitteeController {
     public EvaluationJson reviewPaper(@PathParam("paperId") int paperId, @PathParam("email") String email, EvaluationInput evaluationInput) {
 
         return pcService.reviewPaper(paperId, email, evaluationInput);
+    }
+
+    @GET
+    @Path("/unassignedPCMembers")
+    @Consumes("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<User> getReviewers() {
+        return pcService.getReviewers();
+
     }
 
 
